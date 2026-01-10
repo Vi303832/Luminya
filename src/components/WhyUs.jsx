@@ -1,79 +1,113 @@
 function WhyUs() {
   const features = [
     {
-      icon: (
-        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-        </svg>
-      ),
-      title: 'Uzman Kadro',
-      description: 'Sertifikalı ve deneyimli terapistlerimizle hizmetinizdeyiz',
+      title: 'Size Özel Sabunlar',
+      description: 'Cildinizi ölü hücrelerden arındırarak okşijen alımını sağlar, canlılık verir.',
+      image: 'https://images.unsplash.com/photo-1600857544200-b9dc8df2956f?w=800&q=80',
     },
     {
-      icon: (
-        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-        </svg>
-      ),
-      title: 'Doğal Ürünler',
-      description: 'Organik ve doğal ürünlerle yapılan terapiler',
+      title: 'Özel Kokular',
+      description: 'Bitkilerden elde edilen kokular, vücutta rahatlatıcı etki gösterir.',
+      image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=80',
     },
     {
-      icon: (
-        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-        </svg>
-      ),
-      title: 'Modern Tesis',
-      description: 'Son teknoloji ekipmanlarla donatılmış tesisimiz',
-    },
-    {
-      icon: (
-        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
-      title: 'Esnek Saatler',
-      description: 'Hafta içi ve hafta sonu uygun randevu saatleri',
-    },
-    {
-      icon: (
-        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
-      title: 'Müşteri Memnuniyeti',
-      description: 'Binlerce mutlu müşterimizle gurur duyuyoruz',
-    },
-    {
-      icon: (
-        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
-      title: 'Uygun Fiyatlar',
-      description: 'Kaliteli hizmeti uygun fiyatlarla sunuyoruz',
+      title: 'Rahatlatıcı Yağlar',
+      description: 'Cildinizi nemlendirerek canlı ve parlak bir görüntü sağlar.',
+      image: 'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=800&q=80',
     },
   ]
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-br from-[#8b6f47] to-[#6d5635] text-white">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">Neden Bizi Seçmelisiniz?</h2>
-          <p className="text-gray-100 text-lg max-w-2xl mx-auto">
-            Sağlığınız ve mutluluğunuz için en iyi hizmeti sunmak için çalışıyoruz
-          </p>
+    <section className="relative py-24 px-4 bg-gradient-to-b from-white via-[#faf8f5] to-white overflow-hidden">
+      {/* Subtle Background Particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-[#d4a574]/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#8b6f47]/5 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header with balanced animations */}
+        <div className="text-center mb-20">
+          <div className="inline-block mb-6">
+            <p className="text-[#d4a574] text-sm tracking-[0.3em] uppercase mb-2 font-semibold">
+              Luna Den Spa
+            </p>
+            <div className="h-0.5 bg-gradient-to-r from-transparent via-[#d4a574] to-transparent"></div>
+          </div>
+          
+          <h2 className="text-4xl md:text-6xl font-light text-gray-800 mb-6">
+            Sizler için <span className="bg-gradient-to-r from-[#8b6f47] via-[#d4a574] to-[#8b6f47] bg-clip-text text-transparent">Hazırlanmış</span> Ürünlerimiz
+          </h2>
+
+          {/* Simple decorative dots */}
+          <div className="flex justify-center gap-2 mt-8">
+            <div className="w-2 h-2 bg-[#d4a574] rounded-full"></div>
+            <div className="w-2 h-2 bg-[#8b6f47] rounded-full"></div>
+            <div className="w-2 h-2 bg-[#d4a574] rounded-full"></div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Features Grid with balanced animations */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
           {features.map((feature, index) => (
-            <div key={index} className="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover:bg-white/20 transition-all duration-300">
-              <div className="text-white mb-4">
-                {feature.icon}
+            <div 
+              key={index} 
+              className="group relative"
+              style={{ animationDelay: `${index * 0.2}s` }}
+            >
+              {/* Card container */}
+              <div className="relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+                
+                {/* Image with fancy border */}
+                <div className="relative mb-8 flex justify-center">
+                  {/* Animated outer circle - only on hover */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="w-56 h-56 rounded-full border-[2px] border-dashed border-[#d4a574]/40 animate-spin-slow"></div>
+                  </div>
+
+                  {/* Image container with gradient border */}
+                  <div className="relative z-10 w-48 h-48 rounded-full p-1 bg-gradient-to-br from-[#d4a574] via-[#8b6f47] to-[#d4a574] group-hover:scale-105 transition-transform duration-500 shadow-xl">
+                    <div className="w-full h-full rounded-full overflow-hidden bg-white p-1">
+                      <img
+                        src={feature.image}
+                        alt={feature.title}
+                        className="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-700"
+                      />
+                      
+                      {/* Subtle overlay gradient on hover */}
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-t from-[#8b6f47]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="text-center space-y-4 relative z-10">
+                  <h3 className="text-2xl font-semibold text-gray-800 group-hover:text-[#8b6f47] transition-colors duration-300">
+                    {feature.title}
+                  </h3>
+                  
+                  <p className="text-gray-600 leading-relaxed transition-colors duration-300">
+                    {feature.description}
+                  </p>
+
+                  {/* Animated Details Button */}
+                  <button className="relative inline-block mt-6 text-[#d4a574] font-semibold uppercase tracking-widest text-sm overflow-hidden group/btn">
+                    <span className="relative z-10 flex items-center gap-2 group-hover/btn:gap-3 transition-all duration-300">
+                      DETAYLAR
+                      <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
+                    </span>
+                    
+                    {/* Animated underline */}
+                    <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#d4a574] to-[#8b6f47] group-hover/btn:w-full transition-all duration-300"></div>
+                  </button>
+                </div>
+
+                {/* Subtle corner decoration */}
+                <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-[#d4a574]/20 rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-[#d4a574]/20 rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
-              <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-              <p className="text-gray-100">{feature.description}</p>
             </div>
           ))}
         </div>
