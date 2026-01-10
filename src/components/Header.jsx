@@ -4,26 +4,26 @@ function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+    <header className="absolute top-0 left-0 right-0 z-50 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex items-center">
-            <h1 className="text-2xl font-bold text-[#8b6f47]">Ruhunuzu</h1>
+            <h1 className="text-2xl font-bold text-white tracking-wide">Luminya</h1>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
-            <a href="#" className="text-gray-700 hover:text-[#8b6f47] transition">Anasayfa</a>
-            <a href="#therapies" className="text-gray-700 hover:text-[#8b6f47] transition">Terapiler</a>
-            <a href="#packages" className="text-gray-700 hover:text-[#8b6f47] transition">Paketler</a>
-            <a href="#about" className="text-gray-700 hover:text-[#8b6f47] transition">Hakkımızda</a>
-            <a href="#contact" className="text-gray-700 hover:text-[#8b6f47] transition">İletişim</a>
+            <a href="#" className="text-white hover:text-[#d4a574] transition font-medium">ANASAYFA</a>
+            <a href="#about" className="text-white hover:text-[#d4a574] transition font-medium">HAKKIMIZDA</a>
+            <a href="#services" className="text-white hover:text-[#d4a574] transition font-medium">HİZMETLERİMİZ</a>
+            <a href="#branches" className="text-white hover:text-[#d4a574] transition font-medium">ŞUBELERİMİZ</a>
+            <a href="#contact" className="text-white hover:text-[#d4a574] transition font-medium">İLETİŞİM</a>
           </nav>
 
           {/* CTA Button */}
-          <div className="hidden md:block">
-            <button className="bg-[#8b6f47] text-white px-6 py-2.5 rounded-lg hover:bg-[#6d5635] transition">
+          <div className="hidden md:flex items-center gap-4">
+            <button className="bg-[#8b6f47] text-white px-6 py-2.5 rounded hover:bg-[#6d5635] transition font-medium">
               Randevu Al
             </button>
           </div>
@@ -31,7 +31,7 @@ function Header() {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2"
+            className="md:hidden p-2 text-white"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isMenuOpen ? (
@@ -45,14 +45,14 @@ function Header() {
 
         {/* Mobile menu */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t">
+          <div className="md:hidden py-4 border-t border-white/20 bg-gray-900/95 backdrop-blur-sm -mx-4 px-4">
             <nav className="flex flex-col space-y-4">
-              <a href="#" className="text-gray-700 hover:text-[#8b6f47] transition">Anasayfa</a>
-              <a href="#therapies" className="text-gray-700 hover:text-[#8b6f47] transition">Terapiler</a>
-              <a href="#packages" className="text-gray-700 hover:text-[#8b6f47] transition">Paketler</a>
-              <a href="#about" className="text-gray-700 hover:text-[#8b6f47] transition">Hakkımızda</a>
-              <a href="#contact" className="text-gray-700 hover:text-[#8b6f47] transition">İletişim</a>
-              <button className="bg-[#8b6f47] text-white px-6 py-2.5 rounded-lg hover:bg-[#6d5635] transition text-left">
+              <a href="#" className="text-white hover:text-[#d4a574] transition">ANASAYFA</a>
+              <a href="#about" className="text-white hover:text-[#d4a574] transition">HAKKIMIZDA</a>
+              <a href="#services" className="text-white hover:text-[#d4a574] transition">HİZMETLERİMİZ</a>
+              <a href="#branches" className="text-white hover:text-[#d4a574] transition">ŞUBELERİMİZ</a>
+              <a href="#contact" className="text-white hover:text-[#d4a574] transition">İLETİŞİM</a>
+              <button className="bg-[#8b6f47] text-white px-6 py-2.5 rounded hover:bg-[#6d5635] transition mt-2">
                 Randevu Al
               </button>
             </nav>

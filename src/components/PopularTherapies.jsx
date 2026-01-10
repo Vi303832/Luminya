@@ -1,137 +1,184 @@
 function PopularTherapies() {
-  const therapies = [
+  const services = [
     {
-      title: 'İsveç Masajı',
-      description: 'Geleneksel İsveç masaj teknikleri ile derin rahatlama',
-      duration: '60 dakika',
-      price: '₺850',
-      rating: 4.8,
-      reviews: 245,
-      image: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=800&q=80',
-    },
-    {
-      title: 'Aromaterapi Masajı',
-      description: 'Doğal yağlarla zihin ve beden dengesini bulun',
-      duration: '75 dakika',
-      price: '₺950',
-      rating: 4.9,
-      reviews: 312,
+      title: 'SAUNA',
+      subtitle: 'Luna Den Spa & Wellness',
+      description: 'Geleneksel sauna deneyimi ile vücudunuzdaki toksinlerden arının ve stresden uzaklaşın',
       image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80',
-    },
-    {
-      title: 'Sıcak Taş Masajı',
-      description: 'Isıtılmış bazalt taşlarıyla kas gevşemesi',
-      duration: '90 dakika',
-      price: '₺1,100',
-      rating: 4.7,
-      reviews: 189,
-      image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80',
-    },
-    {
-      title: 'Derin Doku Masajı',
-      description: 'Kronik kas gerginliği için yoğun terapi',
+      price: '₺450',
       duration: '60 dakika',
-      price: '₺900',
-      rating: 4.8,
-      reviews: 276,
-      image: 'https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=800&q=80',
+      badge: 'Popüler',
+      items: [
+        { name: 'Sıcak Duş', description: 'Rahatlatıcı sıcak duş' },
+        { name: 'Sauna', description: 'Geleneksel Fin saunası' },
+        { name: 'Hamam', description: 'Türk hamamı deneyimi' },
+        { name: 'İkramlar', description: 'Özel çay ve atıştırmalıklar' },
+        { name: 'Bakım Yağları', description: 'Premium cilt bakım ürünleri' }
+      ]
     },
     {
-      title: 'Thai Masajı',
-      description: 'Geleneksel Tayland teknikleri ve esneme',
-      duration: '90 dakika',
-      price: '₺1,050',
-      rating: 4.9,
-      reviews: 198,
-      image: 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=800&q=80',
-    },
-    {
-      title: 'Refleksoloji',
-      description: 'Ayak masajı ile tüm vücut dengelemesi',
-      duration: '45 dakika',
+      title: 'KESE KÖPÜK',
+      subtitle: 'Luna Den Spa & Wellness',
+      description: 'Derin temizlik ve yenilenme için geleneksel Türk hamamı ritüeli',
+      image: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&q=80',
       price: '₺650',
-      rating: 4.6,
-      reviews: 234,
-      image: 'https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=800&q=80',
-    },
-    {
-      title: 'Hamam ve Kese',
-      description: 'Geleneksel Türk hamamı deneyimi',
-      duration: '60 dakika',
-      price: '₺750',
-      rating: 4.8,
-      reviews: 445,
-      image: 'https://images.unsplash.com/photo-1571772996211-2f02c9727629?w=800&q=80',
-    },
-    {
-      title: 'Prenatal Masaj',
-      description: 'Hamilelik dönemine özel yumuşak masaj',
-      duration: '60 dakika',
-      price: '₺950',
-      rating: 4.9,
-      reviews: 167,
-      image: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=800&q=80',
-    },
-    {
-      title: 'Çift Masajı',
-      description: 'Sevdiğinizle birlikte özel deneyim',
       duration: '90 dakika',
-      price: '₺2,000',
-      rating: 4.9,
-      reviews: 312,
-      image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80',
+      badge: 'En Çok Tercih Edilen',
+      items: [
+        { name: 'Kese', description: 'Profesyonel kese ile derin temizlik' },
+        { name: 'Köpük', description: 'Doğal sabun köpük masajı' },
+        { name: 'Havuz', description: 'Isıtılmalı havuz kullanımı' },
+        { name: 'Soğuk Şok Duş', description: 'Terapi amaçlı soğuk duş' },
+        { name: 'Kar Banyosu', description: 'Ferahlatıcı kar banyosu' }
+      ]
     },
+    {
+      title: 'MASAJLAR',
+      subtitle: 'Luna Den Spa & Wellness',
+      description: 'Uzman terapistlerimiz ile profesyonel masaj terapileri',
+      image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80',
+      price: '₺850',
+      duration: '75 dakika',
+      badge: 'Premium',
+      items: [
+        { name: 'Aromaterapi Masajı', description: 'Doğal yağlarla terapi' },
+        { name: 'Klasik Masaj', description: 'Geleneksel masaj teknikleri' },
+        { name: 'İsveç Masajı', description: 'Derin rahatlama masajı' },
+        { name: 'Refleksoloji', description: 'Ayak taban masajı' },
+        { name: 'Sıcak Taş Masajı', description: 'Isıtılmış volkanik taşlarla' }
+      ]
+    }
   ]
 
   return (
-    <section id="therapies" className="py-16 px-4">
+    <section id="services" className="py-20 px-4 bg-[#f5f1ed]">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">Popüler Terapilerimiz</h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Uzman terapistlerimiz eşliğinde size özel hazırlanmış terapi seçeneklerimizi keşfedin
+        <div className="text-center mb-16 animate-fadeIn">
+          <div className="inline-block mb-4 transform hover:scale-110 transition-transform duration-300">
+            <div className="w-20 h-1 bg-gradient-to-r from-transparent via-[#8b6f47] to-transparent mx-auto mb-6 animate-pulse"></div>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-light text-gray-800 mb-4 animate-gradient bg-gradient-to-r from-gray-800 via-[#8b6f47] to-gray-800 bg-clip-text text-transparent">
+            Hizmetlerimiz
+          </h2>
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto animate-slideUp">
+            Profesyonel ekibimiz ve lüks tesislerimizle size özel hizmetler sunuyoruz
           </p>
+          <div className="flex items-center justify-center gap-2 mt-6 animate-bounce-slow">
+            <div className="w-2 h-2 bg-[#8b6f47] rounded-full animate-ping"></div>
+            <div className="w-2 h-2 bg-[#8b6f47] rounded-full animate-ping" style={{ animationDelay: '0.2s' }}></div>
+            <div className="w-2 h-2 bg-[#8b6f47] rounded-full animate-ping" style={{ animationDelay: '0.4s' }}></div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {therapies.map((therapy, index) => (
-            <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-              <div className="relative h-48 overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          {services.map((service, index) => (
+            <div 
+              key={index} 
+              className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl hover:-translate-y-3 transition-all duration-500 group relative"
+              style={{ animationDelay: `${index * 150}ms` }}
+            >
+              {/* Badge */}
+              <div className="absolute top-4 right-4 z-20 bg-gradient-to-r from-[#8b6f47] to-[#6d5635] text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg animate-pulse">
+                {service.badge}
+              </div>
+
+              {/* Image */}
+              <div className="relative h-72 overflow-hidden">
                 <img
-                  src={therapy.image}
-                  alt={therapy.title}
-                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-full object-cover group-hover:scale-125 group-hover:rotate-2 transition-all duration-700 ease-out"
                 />
-                <div className="absolute top-4 right-4 bg-white px-3 py-1 rounded-full shadow-md">
-                  <span className="text-[#8b6f47] font-bold">{therapy.price}</span>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/70 transition-all duration-500"></div>
+                
+                {/* Floating particles effect */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-white/60 rounded-full animate-ping"></div>
+                  <div className="absolute top-1/2 right-1/3 w-1.5 h-1.5 bg-white/40 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
+                  <div className="absolute bottom-1/3 left-1/2 w-1 h-1 bg-white/50 rounded-full animate-ping" style={{ animationDelay: '1s' }}></div>
+                </div>
+
+                <div className="absolute bottom-6 left-6 right-6 text-white transform group-hover:translate-y-0 transition-transform duration-500">
+                  <p className="text-xs opacity-90 mb-2 tracking-wider uppercase group-hover:opacity-100 transition-opacity">{service.subtitle}</p>
+                  <h3 className="text-3xl font-bold tracking-wide mb-2 transform group-hover:scale-105 transition-transform duration-500">{service.title}</h3>
+                  <p className="text-sm opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100">{service.description}</p>
                 </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 mb-2">{therapy.title}</h3>
-                <p className="text-gray-600 mb-4 text-sm">{therapy.description}</p>
-                
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-1">
-                    <svg className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    <span className="font-semibold text-gray-800">{therapy.rating}</span>
-                    <span className="text-gray-500 text-sm">({therapy.reviews})</span>
+
+              {/* Content */}
+              <div className="p-7">
+                {/* Price & Duration */}
+                <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
+                  <div className="flex items-center gap-2">
+                    <div className="bg-gradient-to-br from-[#8b6f47] to-[#6d5635] text-white px-4 py-2 rounded-full shadow-md group-hover:shadow-lg transition-all duration-300">
+                      <span className="font-bold text-base">{service.price}</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1 text-gray-600 text-sm">
+                  <div className="flex items-center gap-2 text-gray-500">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    {therapy.duration}
+                    <span className="text-sm font-medium">{service.duration}</span>
                   </div>
                 </div>
 
-                <button className="w-full bg-[#8b6f47] text-white py-2.5 rounded-lg hover:bg-[#6d5635] transition font-medium">
-                  Rezervasyon Yap
+                {/* Services List */}
+                <ul className="space-y-2.5 mb-7">
+                  {service.items.map((item, idx) => (
+                    <li 
+                      key={idx} 
+                      className="group/item hover:bg-gradient-to-r hover:from-[#f5f1ed] hover:to-transparent px-3 py-2.5 rounded-xl transition-all duration-300 transform hover:translate-x-1"
+                      style={{ animationDelay: `${idx * 100}ms` }}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#8b6f47] group-hover/item:scale-150 group-hover/item:bg-gradient-to-r group-hover/item:from-[#8b6f47] group-hover/item:to-[#d4a574] transition-all duration-300"></div>
+                        <div className="flex-1">
+                          <p className="text-sm font-medium text-gray-700 group-hover/item:text-[#8b6f47] transition-colors duration-300">{item.name}</p>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Button */}
+                <button className="w-full relative overflow-hidden border-2 border-[#8b6f47] text-[#8b6f47] py-4 rounded-xl hover:bg-[#8b6f47] hover:text-white transition-all duration-500 font-semibold text-sm tracking-wider uppercase group/btn shadow-md hover:shadow-xl">
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    Detaylar
+                    <svg className="w-5 h-5 group-hover/btn:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#8b6f47] to-[#6d5635] transform scale-x-0 group-hover/btn:scale-x-100 transition-transform duration-500 origin-left"></div>
                 </button>
               </div>
+
+              {/* Decorative corner */}
+              <div className="absolute top-0 left-0 w-20 h-20 bg-gradient-to-br from-white/20 to-transparent rounded-br-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>
           ))}
+        </div>
+
+        {/* View All Services Button */}
+        <div className="text-center animate-bounce-slow">
+          <button className="relative group/main bg-gradient-to-r from-[#8b6f47] to-[#6d5635] text-white px-12 py-5 rounded-2xl hover:from-[#6d5635] hover:to-[#8b6f47] transition-all duration-500 font-semibold text-lg shadow-2xl hover:shadow-3xl transform hover:scale-105 hover:-translate-y-1 overflow-hidden">
+            <span className="relative z-10 flex items-center justify-center gap-3">
+              <svg className="w-6 h-6 animate-spin-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+              </svg>
+              Tüm Hizmetlerimizi Görüntüle
+              <svg className="w-6 h-6 group-hover/main:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </span>
+            
+            {/* Animated background */}
+            <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 transform -skew-x-12 -translate-x-full group-hover/main:translate-x-full transition-transform duration-1000"></div>
+            
+            {/* Pulse effect */}
+            <div className="absolute inset-0 rounded-2xl opacity-0 group-hover/main:opacity-100 transition-opacity duration-300">
+              <div className="absolute inset-0 rounded-2xl bg-[#8b6f47] animate-ping opacity-20"></div>
+            </div>
+          </button>
         </div>
       </div>
     </section>
