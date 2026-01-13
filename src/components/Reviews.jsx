@@ -46,14 +46,14 @@ function Reviews() {
     <section className="py-16 px-4 bg-white">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">Müşteri Yorumları</h2>
-          <p className="text-gray-600 text-lg">
+          <h2 className="text-4xl font-bold text-text-primary mb-4">Müşteri Yorumları</h2>
+          <p className="text-text-secondary text-lg">
             Misafirlerimizin deneyimleri bizim için çok değerli
           </p>
         </div>
 
         {/* Review Card */}
-        <div className="relative bg-gradient-to-br from-[#8b6f47] to-[#6d5635] rounded-2xl shadow-2xl p-8 md:p-12 text-white">
+        <div className="relative bg-gradient-gold rounded-2xl shadow-2xl p-8 md:p-12 text-white">
           {/* Quote Icon */}
           <div className="absolute top-8 left-8 text-white/20">
             <svg className="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
@@ -116,7 +116,7 @@ function Reviews() {
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={`w-3 h-3 rounded-full transition ${
-                currentIndex === index ? 'bg-[#8b6f47] w-8' : 'bg-gray-300'
+                currentIndex === index ? 'bg-gold w-8' : 'bg-border'
               }`}
             />
           ))}

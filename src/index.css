@@ -1,1 +1,137 @@
 @import "tailwindcss";
+
+@theme {
+  /* ===== PRIMARY COLORS - Ana Renkler ===== */
+  --color-espresso: #2c1810;         /* Koyu kahverengi - header, koyu metin */
+  --color-cream: #f5f1e8;            /* Açık krem - ana arka plan */
+  --color-cream-dark: #ebe5d8;       /* Koyu krem - hover states */
+  
+  /* ===== GOLD ACCENT - Altın Tonları ===== */
+  --color-gold: #d4a574;             /* Ana altın rengi */
+  --color-gold-dark: #b8925f;        /* Koyu altın - hover, shadow */
+  --color-gold-light: #e8c9a8;       /* Açık altın - highlights */
+  --color-gold-pale: #f5ead8;        /* Soluk altın - subtle backgrounds */
+  
+  /* ===== SUPPORTING COLORS - Destekleyici Renkler ===== */
+  --color-forest: #4a5d4f;           /* Orman yeşili - spa teması */
+  --color-sage: #8a9a8d;             /* Açık yeşil - subtle accents */
+  
+  /* ===== NEUTRAL COLORS - Nötr Renkler ===== */
+  --color-text-primary: #3a2a1f;     /* Ana metin rengi */
+  --color-text-secondary: #5a4a3f;   /* İkincil metin */
+  --color-text-muted: #8a7a6f;       /* Soluk metin */
+  --color-border: #e0d7cc;           /* Border rengi */
+  --color-bg-light: #faf8f5;         /* Alternatif açık arka plan */
+  
+  /* ===== GRADIENTS - Geçişler ===== */
+  --color-gradient-gold-primary: linear-gradient(135deg, #d4a574 0%, #b8925f 100%);
+  --color-gradient-gold-warm: linear-gradient(135deg, #e8c9a8 0%, #d4a574 100%);
+  --color-gradient-espresso: linear-gradient(135deg, #2c1810 0%, #3a2a1f 100%);
+  
+  /* ===== SHADOWS - Gölgeler ===== */
+  --shadow-soft: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-medium: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+  --shadow-elevated: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.08);
+  --shadow-gold: 0 10px 20px -5px rgba(212, 165, 116, 0.3);
+}
+
+/* ===== CUSTOM UTILITY CLASSES ===== */
+
+/* Gradient backgrounds */
+.bg-gradient-gold {
+  background: linear-gradient(135deg, #d4a574 0%, #b8925f 100%);
+}
+
+.bg-gradient-gold-warm {
+  background: linear-gradient(135deg, #e8c9a8 0%, #d4a574 100%);
+}
+
+.bg-gradient-espresso {
+  background: linear-gradient(135deg, #2c1810 0%, #3a2a1f 100%);
+}
+
+/* Font families */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: #3a2a1f;
+}
+
+.font-serif {
+  font-family: 'Georgia', 'Times New Roman', 'Palatino', serif;
+}
+
+/* Scroll reveal animations */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s ease-out;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.8s ease-out;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+.animate-bounce-slow {
+  animation: bounce 2s infinite;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+  background-color: #d4a574;
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background-color: #d4a574;
+  color: #ffffff;
+}

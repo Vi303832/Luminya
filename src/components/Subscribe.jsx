@@ -11,7 +11,7 @@ function Subscribe() {
   }
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-r from-[#8b6f47] to-[#6d5635]">
+    <section className="py-16 px-4 bg-gradient-gold">
       <div className="max-w-4xl mx-auto text-center text-white">
         <div className="mb-8">
           <svg className="w-16 h-16 mx-auto mb-4 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -36,7 +36,7 @@ function Subscribe() {
             />
             <button
               type="submit"
-              className="bg-white text-[#8b6f47] px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition whitespace-nowrap"
+              className="bg-white text-gold px-8 py-3 rounded-lg font-medium hover:bg-cream transition whitespace-nowrap"
             >
               Abone Ol
             </button>

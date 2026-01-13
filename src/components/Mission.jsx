@@ -1,6 +1,6 @@
 function Mission() {
   return (
-    <section id="about" className="py-16 px-4 bg-[#f5f1ed]">
+    <section id="about" className="py-16 px-4 bg-cream">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Image */}
@@ -14,14 +14,14 @@ function Mission() {
             </div>
             <div className="absolute -bottom-6 -right-6 bg-white p-8 rounded-2xl shadow-xl max-w-xs">
               <div className="flex items-center gap-4">
-                <div className="bg-[#8b6f47] text-white p-4 rounded-full">
+                <div className="bg-gold text-white p-4 rounded-full">
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-[#8b6f47]">15K+</div>
-                  <div className="text-sm text-gray-600">Mutlu Müşteri</div>
+                  <div className="text-3xl font-bold text-gold">15K+</div>
+                  <div className="text-sm text-text-secondary">Mutlu Müşteri</div>
                 </div>
               </div>
             </div>
@@ -29,14 +29,14 @@ function Mission() {
 
           {/* Content */}
           <div>
-            <h2 className="text-4xl font-bold text-gray-800 mb-6">
+            <h2 className="text-4xl font-bold text-text-primary mb-6">
               Misyonumuz ve Vizyonumuz
             </h2>
-            <p className="text-gray-600 text-lg mb-6 leading-relaxed">
+            <p className="text-text-secondary text-lg mb-6 leading-relaxed">
               2010 yılından beri wellness ve spa sektöründe hizmet vermekteyiz. Amacımız, 
               misafirlerimize sadece bir hizmet değil, tam bir deneyim sunmaktır.
             </p>
-            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+            <p className="text-text-secondary text-lg mb-8 leading-relaxed">
               Doğal ve organik ürünler kullanarak, geleneksel ve modern teknikleri birleştirerek, 
               sizlere en iyi hizmeti sunmak için çalışıyoruz. Her misafirimiz bizim için özeldir 
               ve onların mutluluğu bizim en büyük ödülümüzdür.
@@ -44,24 +44,24 @@ function Mission() {
 
             <div className="grid grid-cols-2 gap-6 mb-8">
               <div className="bg-white p-6 rounded-xl shadow-md">
-                <div className="text-3xl font-bold text-[#8b6f47] mb-2">15+</div>
-                <div className="text-gray-600">Yıllık Deneyim</div>
+                <div className="text-3xl font-bold text-gold mb-2">15+</div>
+                <div className="text-text-secondary">Yıllık Deneyim</div>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-md">
-                <div className="text-3xl font-bold text-[#8b6f47] mb-2">50+</div>
-                <div className="text-gray-600">Uzman Personel</div>
+                <div className="text-3xl font-bold text-gold mb-2">50+</div>
+                <div className="text-text-secondary">Uzman Personel</div>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-md">
-                <div className="text-3xl font-bold text-[#8b6f47] mb-2">100%</div>
-                <div className="text-gray-600">Doğal Ürünler</div>
+                <div className="text-3xl font-bold text-gold mb-2">100%</div>
+                <div className="text-text-secondary">Doğal Ürünler</div>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-md">
-                <div className="text-3xl font-bold text-[#8b6f47] mb-2">4.9</div>
-                <div className="text-gray-600">Müşteri Puanı</div>
+                <div className="text-3xl font-bold text-gold mb-2">4.9</div>
+                <div className="text-text-secondary">Müşteri Puanı</div>
               </div>
             </div>
 
-            <button className="bg-[#8b6f47] text-white px-8 py-3 rounded-lg hover:bg-[#6d5635] transition font-medium">
+            <button className="bg-gold text-white px-8 py-3 rounded-lg hover:bg-gold-dark transition font-medium">
               Daha Fazla Bilgi
             </button>
           </div>

@@ -27,8 +27,8 @@ function Gallery() {
     <section className="py-16 px-4 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">İnteraktif Galeri</h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto mb-8">
+          <h2 className="text-4xl font-bold text-text-primary mb-4">İnteraktif Galeri</h2>
+          <p className="text-text-secondary text-lg max-w-2xl mx-auto mb-8">
             Tesislerimizi ve hizmetlerimizi daha yakından tanıyın
           </p>
 
@@ -40,8 +40,8 @@ function Gallery() {
                 onClick={() => setSelectedCategory(category.id)}
                 className={`px-6 py-2 rounded-full font-medium transition ${
                   selectedCategory === category.id
-                    ? 'bg-[#8b6f47] text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    ? 'bg-gold text-white'
+                    : 'bg-border text-text-secondary hover:bg-cream-dark'
                 }`}
               >
                 {category.name}

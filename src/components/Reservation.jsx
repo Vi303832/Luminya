@@ -33,11 +33,11 @@ function Reservation() {
   }
 
   return (
-    <section id="contact" className="py-16 px-4 bg-[#f5f1ed]">
+    <section id="contact" className="py-16 px-4 bg-cream">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">Rezervasyon Yapın</h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          <h2 className="text-4xl font-bold text-text-primary mb-4">Rezervasyon Yapın</h2>
+          <p className="text-text-secondary text-lg max-w-2xl mx-auto">
             Huzur dolu bir deneyim için hemen randevu alın
           </p>
         </div>
@@ -46,55 +46,55 @@ function Reservation() {
           {/* Contact Info */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-6">İletişim Bilgileri</h3>
+              <h3 className="text-2xl font-bold text-text-primary mb-6">İletişim Bilgileri</h3>
               
               <div className="space-y-4">
                 <div className="flex items-start gap-4 bg-white p-4 rounded-lg shadow">
-                  <div className="bg-[#8b6f47] text-white p-3 rounded-lg">
+                  <div className="bg-gold text-white p-3 rounded-lg">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-800 mb-1">Adres</h4>
-                    <p className="text-gray-600">Nişantaşı, Teşvikiye Cad. No:123<br />Şişli, İstanbul</p>
+                    <h4 className="font-semibold text-text-primary mb-1">Adres</h4>
+                    <p className="text-text-secondary">Nişantaşı, Teşvikiye Cad. No:123<br />Şişli, İstanbul</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4 bg-white p-4 rounded-lg shadow">
-                  <div className="bg-[#8b6f47] text-white p-3 rounded-lg">
+                  <div className="bg-gold text-white p-3 rounded-lg">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-800 mb-1">Telefon</h4>
-                    <p className="text-gray-600">+90 212 123 45 67<br />+90 532 123 45 67</p>
+                    <h4 className="font-semibold text-text-primary mb-1">Telefon</h4>
+                    <p className="text-text-secondary">+90 212 123 45 67<br />+90 532 123 45 67</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4 bg-white p-4 rounded-lg shadow">
-                  <div className="bg-[#8b6f47] text-white p-3 rounded-lg">
+                  <div className="bg-gold text-white p-3 rounded-lg">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-800 mb-1">E-posta</h4>
-                    <p className="text-gray-600">info@ruhunuzu.com<br />rezervasyon@ruhunuzu.com</p>
+                    <h4 className="font-semibold text-text-primary mb-1">E-posta</h4>
+                    <p className="text-text-secondary">info@ruhunuzu.com<br />rezervasyon@ruhunuzu.com</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4 bg-white p-4 rounded-lg shadow">
-                  <div className="bg-[#8b6f47] text-white p-3 rounded-lg">
+                  <div className="bg-gold text-white p-3 rounded-lg">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-800 mb-1">Çalışma Saatleri</h4>
-                    <p className="text-gray-600">Pazartesi - Cumartesi: 09:00 - 21:00<br />Pazar: 10:00 - 19:00</p>
+                    <h4 className="font-semibold text-text-primary mb-1">Çalışma Saatleri</h4>
+                    <p className="text-text-secondary">Pazartesi - Cumartesi: 09:00 - 21:00<br />Pazar: 10:00 - 19:00</p>
                   </div>
                 </div>
               </div>
@@ -105,7 +105,7 @@ function Reservation() {
           <div className="bg-white p-8 rounded-2xl shadow-xl">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-text-primary mb-2">
                   Ad Soyad *
                 </label>
                 <input
@@ -114,7 +114,7 @@ function Reservation() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8b6f47] focus:border-transparent"
+                  className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent"
                   placeholder="Adınız ve soyadınız"
                 />
               </div>
@@ -130,7 +130,7 @@ function Reservation() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8b6f47] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent"
                     placeholder="ornek@email.com"
                   />
                 </div>
@@ -144,7 +144,7 @@ function Reservation() {
                     value={formData.phone}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8b6f47] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent"
                     placeholder="0532 123 45 67"
                   />
                 </div>
@@ -161,7 +161,7 @@ function Reservation() {
                     value={formData.date}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8b6f47] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent"
                   />
                 </div>
                 <div>
@@ -174,7 +174,7 @@ function Reservation() {
                     value={formData.time}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8b6f47] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent"
                   />
                 </div>
               </div>
@@ -188,7 +188,7 @@ function Reservation() {
                   value={formData.service}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8b6f47] focus:border-transparent"
+                  className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent"
                 >
                   <option value="">Hizmet seçin</option>
                   <option value="swedish">İsveç Masajı</option>
@@ -211,14 +211,14 @@ function Reservation() {
                   value={formData.message}
                   onChange={handleChange}
                   rows={4}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8b6f47] focus:border-transparent resize-none"
+                  className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent resize-none"
                   placeholder="Özel isteklerinizi buraya yazabilirsiniz..."
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-[#8b6f47] text-white py-3 rounded-lg hover:bg-[#6d5635] transition font-medium text-lg"
+                className="w-full bg-gold text-white py-3 rounded-lg hover:bg-gold-dark transition font-medium text-lg"
               >
                 Rezervasyon Talebi Gönder
               </button>

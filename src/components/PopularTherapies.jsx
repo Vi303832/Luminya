@@ -51,22 +51,22 @@ function PopularTherapies() {
   ]
 
   return (
-    <section id="services" className="py-20 px-4 bg-[#f5f1ed]">
+    <section id="services" className="py-20 px-4 bg-cream">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 animate-fadeIn">
           <div className="inline-block mb-4 transform hover:scale-110 transition-transform duration-300">
-            <div className="w-20 h-1 bg-gradient-to-r from-transparent via-[#8b6f47] to-transparent mx-auto mb-6 animate-pulse"></div>
+            <div className="w-20 h-1 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 animate-pulse"></div>
           </div>
-          <h2 className="text-4xl md:text-5xl font-light text-gray-800 mb-4 animate-gradient bg-gradient-to-r from-gray-800 via-[#8b6f47] to-gray-800 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-light text-text-primary mb-4 animate-gradient bg-gradient-to-r from-text-primary via-gold to-text-primary bg-clip-text text-transparent">
             Hizmetlerimiz
           </h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto animate-slideUp">
+          <p className="text-text-secondary text-lg max-w-2xl mx-auto animate-slideUp">
             Profesyonel ekibimiz ve lüks tesislerimizle size özel hizmetler sunuyoruz
           </p>
           <div className="flex items-center justify-center gap-2 mt-6 animate-bounce-slow">
-            <div className="w-2 h-2 bg-[#8b6f47] rounded-full animate-ping"></div>
-            <div className="w-2 h-2 bg-[#8b6f47] rounded-full animate-ping" style={{ animationDelay: '0.2s' }}></div>
-            <div className="w-2 h-2 bg-[#8b6f47] rounded-full animate-ping" style={{ animationDelay: '0.4s' }}></div>
+            <div className="w-2 h-2 bg-gold rounded-full animate-ping"></div>
+            <div className="w-2 h-2 bg-gold rounded-full animate-ping" style={{ animationDelay: '0.2s' }}></div>
+            <div className="w-2 h-2 bg-gold rounded-full animate-ping" style={{ animationDelay: '0.4s' }}></div>
           </div>
         </div>
 
@@ -78,7 +78,7 @@ function PopularTherapies() {
               style={{ animationDelay: `${index * 150}ms` }}
             >
               {/* Badge */}
-              <div className="absolute top-4 right-4 z-20 bg-gradient-to-r from-[#8b6f47] to-[#6d5635] text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg animate-pulse">
+              <div className="absolute top-4 right-4 z-20 bg-gradient-gold text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg animate-pulse">
                 {service.badge}
               </div>
 
@@ -108,13 +108,13 @@ function PopularTherapies() {
               {/* Content */}
               <div className="p-7">
                 {/* Price & Duration */}
-                <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
+                <div className="flex items-center justify-between mb-6 pb-4 border-b border-border">
                   <div className="flex items-center gap-2">
-                    <div className="bg-gradient-to-br from-[#8b6f47] to-[#6d5635] text-white px-4 py-2 rounded-full shadow-md group-hover:shadow-lg transition-all duration-300">
+                    <div className="bg-gradient-gold text-white px-4 py-2 rounded-full shadow-md group-hover:shadow-lg transition-all duration-300">
                       <span className="font-bold text-base">{service.price}</span>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 text-gray-500">
+                  <div className="flex items-center gap-2 text-text-muted">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -127,13 +127,13 @@ function PopularTherapies() {
                   {service.items.map((item, idx) => (
                     <li 
                       key={idx} 
-                      className="group/item hover:bg-gradient-to-r hover:from-[#f5f1ed] hover:to-transparent px-3 py-2.5 rounded-xl transition-all duration-300 transform hover:translate-x-1"
+                      className="group/item hover:bg-gradient-to-r hover:from-cream hover:to-transparent px-3 py-2.5 rounded-xl transition-all duration-300 transform hover:translate-x-1"
                       style={{ animationDelay: `${idx * 100}ms` }}
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-1.5 h-1.5 rounded-full bg-[#8b6f47] group-hover/item:scale-150 group-hover/item:bg-gradient-to-r group-hover/item:from-[#8b6f47] group-hover/item:to-[#d4a574] transition-all duration-300"></div>
+                        <div className="w-1.5 h-1.5 rounded-full bg-gold group-hover/item:scale-150 group-hover/item:bg-gradient-to-r group-hover/item:from-gold group-hover/item:to-gold-light transition-all duration-300"></div>
                         <div className="flex-1">
-                          <p className="text-sm font-medium text-gray-700 group-hover/item:text-[#8b6f47] transition-colors duration-300">{item.name}</p>
+                          <p className="text-sm font-medium text-text-secondary group-hover/item:text-gold transition-colors duration-300">{item.name}</p>
                         </div>
                       </div>
                     </li>
@@ -141,14 +141,14 @@ function PopularTherapies() {
                 </ul>
 
                 {/* Button */}
-                <button className="w-full relative overflow-hidden border-2 border-[#8b6f47] text-[#8b6f47] py-4 rounded-xl hover:bg-[#8b6f47] hover:text-white transition-all duration-500 font-semibold text-sm tracking-wider uppercase group/btn shadow-md hover:shadow-xl">
+                <button className="w-full relative overflow-hidden border-2 border-gold text-gold py-4 rounded-xl hover:bg-gold hover:text-white transition-all duration-500 font-semibold text-sm tracking-wider uppercase group/btn shadow-md hover:shadow-xl">
                   <span className="relative z-10 flex items-center justify-center gap-2">
                     Detaylar
                     <svg className="w-5 h-5 group-hover/btn:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#8b6f47] to-[#6d5635] transform scale-x-0 group-hover/btn:scale-x-100 transition-transform duration-500 origin-left"></div>
+                  <div className="absolute inset-0 bg-gradient-gold transform scale-x-0 group-hover/btn:scale-x-100 transition-transform duration-500 origin-left"></div>
                 </button>
               </div>
 
@@ -160,7 +160,7 @@ function PopularTherapies() {
 
         {/* View All Services Button */}
         <div className="text-center animate-bounce-slow">
-          <button className="relative group/main bg-gradient-to-r from-[#8b6f47] to-[#6d5635] text-white px-12 py-5 rounded-2xl hover:from-[#6d5635] hover:to-[#8b6f47] transition-all duration-500 font-semibold text-lg shadow-2xl hover:shadow-3xl transform hover:scale-105 hover:-translate-y-1 overflow-hidden">
+          <button className="relative group/main bg-gradient-gold text-white px-12 py-5 rounded-2xl hover:bg-gradient-gold-warm transition-all duration-500 font-semibold text-lg shadow-2xl hover:shadow-3xl transform hover:scale-105 hover:-translate-y-1 overflow-hidden">
             <span className="relative z-10 flex items-center justify-center gap-3">
               <svg className="w-6 h-6 animate-spin-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
@@ -176,7 +176,7 @@ function PopularTherapies() {
             
             {/* Pulse effect */}
             <div className="absolute inset-0 rounded-2xl opacity-0 group-hover/main:opacity-100 transition-opacity duration-300">
-              <div className="absolute inset-0 rounded-2xl bg-[#8b6f47] animate-ping opacity-20"></div>
+              <div className="absolute inset-0 rounded-2xl bg-gold animate-ping opacity-20"></div>
             </div>
           </button>
         </div>
