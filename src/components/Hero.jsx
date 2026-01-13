@@ -8,7 +8,7 @@ function Hero() {
   const slides = [
     'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1920&q=80', // Spa stones massage
     'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1920&q=80', // Spa massage therapy
-    'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=1920&q=80', // Luxury spa treatment
+    'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1920&q=80', // Spa candles and wellness
     'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1920&q=80', // Relaxing spa setting
     'https://images.unsplash.com/photo-1545290224-d2a4d8e50b1c?w=1920&q=80', // Spa wellness
   ]
@@ -144,7 +144,7 @@ function Hero() {
         >
           <path
             d="M0,64L80,58.7C160,53,320,43,480,48C640,53,800,75,960,80C1120,85,1280,75,1360,69.3L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
-            fill="#DFDCD6"
+            fill="#FFFFFF"
           />
         </svg>
       </div>

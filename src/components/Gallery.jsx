@@ -19,30 +19,31 @@ function Gallery() {
     { url: 'https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=800&q=80', category: 'facility' },
   ]
 
-  const filteredImages = selectedCategory === 'all' 
-    ? images 
+  const filteredImages = selectedCategory === 'all'
+    ? images
     : images.filter(img => img.category === selectedCategory)
 
   return (
     <section className="py-16 px-4 bg-white">
+      {/* Galeri ana kapsayıcı */}
       <div className="max-w-7xl mx-auto">
+        {/* Başlık ve açıklama */}
         <div className="text-center mb-12">
           <h2 className="font-heading text-4xl font-normal text-text-primary mb-4">İnteraktif Galeri</h2>
           <p className="text-text-secondary text-lg max-w-2xl mx-auto mb-8">
             Tesislerimizi ve hizmetlerimizi daha yakından tanıyın
           </p>
 
-          {/* Filter Buttons */}
+          {/* Filtreleme Butonları */}
           <div className="flex flex-wrap justify-center gap-4">
             {categories.map(category => (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`px-6 py-2 rounded-full font-medium transition ${
-                  selectedCategory === category.id
-                    ? 'bg-olive text-white'
-                    : 'bg-stone-dark text-text-secondary hover:bg-stone'
-                }`}
+                className={`px-6 py-2 rounded-full font-medium transition ${selectedCategory === category.id
+                  ? 'bg-olive text-white'
+                  : 'bg-stone-dark text-text-secondary hover:bg-stone'
+                  }`}
               >
                 {category.name}
               </button>
@@ -50,18 +51,21 @@ function Gallery() {
           </div>
         </div>
 
-        {/* Gallery Grid */}
+        {/* Galeri Grid'i */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredImages.map((image, index) => (
+            // Her görsel kartı
             <div
               key={index}
               className="relative h-64 rounded-xl overflow-hidden group cursor-pointer shadow-lg"
             >
+              {/* Görsel */}
               <img
                 src={image.url}
                 alt={`Gallery ${index + 1}`}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
               />
+              {/* Hover efekti ile büyüteç simgesi */}
               <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-opacity duration-300 flex items-center justify-center">
                 <svg className="w-12 h-12 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />

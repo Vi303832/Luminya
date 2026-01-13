@@ -40,20 +40,7 @@ const Navbar = () => {
           whileHover={{ scale: 1.02 }}
           transition={{ type: "spring", stiffness: 400 }}
         >
-          <motion.div
-            className="relative"
-            animate={{ rotate: [0, 5, -5, 0] }}
-            transition={{ duration: 6, repeat: Infinity }}
-          >
-            <div className="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center shadow-soft">
-              <span className="font-heading text-espresso text-xl font-bold">L</span>
-            </div>
-            <motion.div
-              className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-olive"
-              animate={{ scale: [1, 1.2, 1], opacity: [1, 0.7, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-          </motion.div>
+
           <div className="flex flex-col">
             <span className="font-heading text-2xl font-normal text-white tracking-wide">
               Luminya

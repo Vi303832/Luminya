@@ -46,7 +46,7 @@ function WellnessPackages() {
       services: ['Konaklama', 'Kahvaltı', '2 Masaj', 'Havuz', 'Akşam Yemeği'],
       duration: '2 gün',
       price: '₺5,500',
-      image: 'https://images.unsplash.com/photo-1571772996211-2f02c9727629?w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800&q=80',
     },
     {
       title: 'Prenatal Bakım',

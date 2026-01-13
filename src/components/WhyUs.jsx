@@ -3,7 +3,7 @@ function WhyUs() {
     {
       title: 'Size Özel Sabunlar',
       description: 'Cildinizi ölü hücrelerden arındırarak okşijen alımını sağlar, canlılık verir.',
-      image: 'https://images.unsplash.com/photo-1600857544200-b9dc8df2956f?w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=800&q=80',
     },
     {
       title: 'Özel Kokular',
