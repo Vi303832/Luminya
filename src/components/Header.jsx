@@ -45,20 +45,20 @@ const Navbar = () => {
             animate={{ rotate: [0, 5, -5, 0] }}
             transition={{ duration: 6, repeat: Infinity }}
           >
-            <div className="w-12 h-12 rounded-full bg-gradient-gold flex items-center justify-center shadow-soft">
-              <span className="font-serif text-espresso text-xl font-bold">L</span>
+            <div className="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center shadow-soft">
+              <span className="font-heading text-espresso text-xl font-bold">L</span>
             </div>
             <motion.div
-              className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-forest"
+              className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-olive"
               animate={{ scale: [1, 1.2, 1], opacity: [1, 0.7, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
           </motion.div>
           <div className="flex flex-col">
-            <span className="font-serif text-2xl font-bold text-cream tracking-wide">
+            <span className="font-heading text-2xl font-normal text-white tracking-wide">
               Luminya
             </span>
-            <span className="text-xs text-cream/70 tracking-[0.3em] uppercase">
+            <span className="text-xs text-white/70 tracking-[0.3em] uppercase">
               Spa & Wellness
             </span>
           </div>
@@ -74,11 +74,11 @@ const Navbar = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
               whileHover={{ y: -2 }}
-              className="relative text-sm font-medium text-cream/90 hover:text-gold transition-colors group"
+              className="relative text-sm font-medium text-white/90 hover:text-olive transition-colors group"
             >
               {link.name}
               <motion.span
-                className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-gold transition-all duration-300 group-hover:w-full"
+                className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary transition-all duration-300 group-hover:w-full"
                 whileHover={{ width: "100%" }}
               />
             </motion.a>
@@ -93,7 +93,7 @@ const Navbar = () => {
           transition={{ delay: 0.6, duration: 0.5 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="hidden lg:flex items-center gap-2 px-5 py-2.5 bg-gradient-gold text-espresso rounded-full font-medium text-sm shadow-soft hover:shadow-elevated transition-all duration-300"
+          className="hidden lg:flex items-center gap-2 px-5 py-2.5 bg-olive text-white rounded-full font-medium text-sm shadow-soft hover:shadow-elevated transition-all duration-300"
         >
           <motion.div
             animate={{ rotate: [0, 10, -10, 0] }}
@@ -113,7 +113,7 @@ const Navbar = () => {
         {/* Mobile Menu Button */}
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden p-2 text-cream"
+          className="lg:hidden p-2 text-white"
           whileTap={{ scale: 0.9 }}
         >
           <motion.div
@@ -133,7 +133,7 @@ const Navbar = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-espresso/98 backdrop-blur-lg border-t border-cream/10"
+            className="lg:hidden bg-espresso/98 backdrop-blur-lg border-t border-white/10"
           >
             <div className="container mx-auto px-6 py-6 flex flex-col gap-4">
               {navLinks.map((link, index) => (
@@ -144,7 +144,7 @@ const Navbar = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
                   onClick={() => setIsOpen(false)}
-                  className="text-lg font-medium text-cream/90 hover:text-gold py-2 transition-colors"
+                  className="text-lg font-medium text-white/90 hover:text-olive py-2 transition-colors"
                 >
                   {link.name}
                 </motion.a>
@@ -154,7 +154,7 @@ const Navbar = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="mt-4 flex items-center justify-center gap-2 px-5 py-3 bg-gradient-gold text-espresso rounded-full font-medium"
+                className="mt-4 flex items-center justify-center gap-2 px-5 py-3 bg-olive text-white rounded-full font-medium"
               >
                 <Phone className="w-4 h-4" />
                 <span>Randevu Al</span>

@@ -78,7 +78,7 @@ function WellnessPackages() {
     <section id="packages" className="py-16 px-4 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-text-primary mb-4">Wellness Paketlerimiz</h2>
+          <h2 className="font-heading text-4xl font-normal text-text-primary mb-4">Wellness Paketlerimiz</h2>
           <p className="text-text-secondary text-lg max-w-2xl mx-auto">
             İhtiyaçlarınıza özel hazırlanmış komple wellness paketlerimizi inceleyin
           </p>
@@ -86,7 +86,7 @@ function WellnessPackages() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {packages.map((pkg, index) => (
-            <div key={index} className="bg-cream rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+            <div key={index} className="bg-stone-light rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
               <div className="relative h-48 overflow-hidden">
                 <img
                   src={pkg.image}
@@ -103,7 +103,7 @@ function WellnessPackages() {
                   <ul className="space-y-1">
                     {pkg.services.map((service, idx) => (
                       <li key={idx} className="flex items-center gap-2 text-sm text-text-secondary">
-                        <svg className="w-4 h-4 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 text-olive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                         {service}
@@ -112,17 +112,17 @@ function WellnessPackages() {
                   </ul>
                 </div>
 
-                <div className="flex items-center justify-between mb-4 pt-4 border-t border-border">
+                <div className="flex items-center justify-between mb-4 pt-4 border-t border-stone-dark">
                   <div className="flex items-center gap-1 text-text-muted text-sm">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     {pkg.duration}
                   </div>
-                  <span className="text-2xl font-bold text-gold">{pkg.price}</span>
+                  <span className="text-2xl font-bold text-olive">{pkg.price}</span>
                 </div>
 
-                <button className="w-full bg-gold text-white py-2.5 rounded-lg hover:bg-gold-dark transition font-medium">
+                <button className="w-full bg-olive text-white py-2.5 rounded-lg hover:bg-olive-dark transition font-medium">
                   Paketi Seç
                 </button>
               </div>

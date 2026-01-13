@@ -18,32 +18,32 @@ function WhyUs() {
   ]
 
   return (
-    <section className="relative py-24 px-4 bg-gradient-to-b from-white via-bg-light to-white overflow-hidden">
+    <section className="relative py-24 px-4 bg-gradient-to-b from-white via-stone-light to-white overflow-hidden">
       {/* Subtle Background Particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-gold/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-gold-dark/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-20 left-10 w-72 h-72 bg-olive/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-olive-dark/5 rounded-full blur-3xl"></div>
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header with balanced animations */}
         <div className="text-center mb-20">
           <div className="inline-block mb-6">
-            <p className="text-gold text-sm tracking-[0.3em] uppercase mb-2 font-semibold">
-              Luna Den Spa
+            <p className="text-olive text-sm tracking-[0.3em] uppercase mb-2 font-semibold">
+              Luminya Spa
             </p>
-            <div className="h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+            <div className="h-0.5 bg-gradient-to-r from-transparent via-olive to-transparent"></div>
           </div>
           
-          <h2 className="text-4xl md:text-6xl font-light text-text-primary mb-6">
-            Sizler için <span className="bg-gradient-to-r from-gold-dark via-gold to-gold-dark bg-clip-text text-transparent">Hazırlanmış</span> Ürünlerimiz
+          <h2 className="font-heading text-4xl md:text-6xl font-light text-text-primary mb-6">
+            Sizler için <span className="bg-gradient-to-r from-olive-dark via-olive to-olive-dark bg-clip-text text-transparent">Hazırlanmış</span> Ürünlerimiz
           </h2>
 
           {/* Simple decorative dots */}
           <div className="flex justify-center gap-2 mt-8">
-            <div className="w-2 h-2 bg-gold rounded-full"></div>
-            <div className="w-2 h-2 bg-gold-dark rounded-full"></div>
-            <div className="w-2 h-2 bg-gold rounded-full"></div>
+            <div className="w-2 h-2 bg-olive rounded-full"></div>
+            <div className="w-2 h-2 bg-olive-dark rounded-full"></div>
+            <div className="w-2 h-2 bg-olive rounded-full"></div>
           </div>
         </div>
 
@@ -62,11 +62,11 @@ function WhyUs() {
                 <div className="relative mb-8 flex justify-center">
                   {/* Animated outer circle - only on hover */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="w-56 h-56 rounded-full border-[2px] border-dashed border-gold/40 animate-spin-slow"></div>
+                    <div className="w-56 h-56 rounded-full border-[2px] border-dashed border-olive/40 animate-spin-slow"></div>
                   </div>
 
                   {/* Image container with gradient border */}
-                  <div className="relative z-10 w-48 h-48 rounded-full p-1 bg-gradient-to-br from-gold via-gold-dark to-gold group-hover:scale-105 transition-transform duration-500 shadow-xl">
+                  <div className="relative z-10 w-48 h-48 rounded-full p-1 bg-gradient-to-br from-olive via-olive-dark to-olive group-hover:scale-105 transition-transform duration-500 shadow-xl">
                     <div className="w-full h-full rounded-full overflow-hidden bg-white p-1">
                       <img
                         src={feature.image}
@@ -75,14 +75,14 @@ function WhyUs() {
                       />
                       
                       {/* Subtle overlay gradient on hover */}
-                      <div className="absolute inset-0 rounded-full bg-gradient-to-t from-gold-dark/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-t from-olive-dark/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="text-center space-y-4 relative z-10">
-                  <h3 className="text-2xl font-semibold text-text-primary group-hover:text-gold transition-colors duration-300">
+                  <h3 className="font-heading text-2xl font-normal text-text-primary group-hover:text-olive transition-colors duration-300">
                     {feature.title}
                   </h3>
                   
@@ -91,7 +91,7 @@ function WhyUs() {
                   </p>
 
                   {/* Animated Details Button */}
-                  <button className="relative inline-block mt-6 text-gold font-semibold uppercase tracking-widest text-sm overflow-hidden group/btn">
+                  <button className="relative inline-block mt-6 text-olive font-semibold uppercase tracking-widest text-sm overflow-hidden group/btn">
                     <span className="relative z-10 flex items-center gap-2 group-hover/btn:gap-3 transition-all duration-300">
                       DETAYLAR
                       <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -100,13 +100,13 @@ function WhyUs() {
                     </span>
                     
                     {/* Animated underline */}
-                    <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-gold to-gold-dark group-hover/btn:w-full transition-all duration-300"></div>
+                    <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-olive to-olive-dark group-hover/btn:w-full transition-all duration-300"></div>
                   </button>
                 </div>
 
                 {/* Subtle corner decoration */}
-                <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-gold/20 rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-gold/20 rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-olive/20 rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-olive/20 rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
             </div>
           ))}
