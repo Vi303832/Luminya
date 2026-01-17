@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
+import BottomSheet from './BottomSheet'
+import BranchSelector from './BranchSelector'
 
 function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [location, setLocation] = useState('')
-  const [service, setService] = useState('')
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
 
   const slides = [
     'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1920&q=80', // Spa stones massage
@@ -20,118 +21,129 @@ function Hero() {
     return () => clearInterval(timer)
   }, [])
 
-  const handleSearch = (e) => {
-    e.preventDefault()
-    console.log('Arama:', { location, service })
+  const handleBranchSelect = (branch) => {
+    console.log('Seçilen şube:', branch)
+    setIsBottomSheetOpen(false)
+    // Here you can add logic to navigate or show branch details
+  }
+
+  const scrollToServices = () => {
+    // Scroll to services section - you can adjust the selector
+    const servicesSection = document.querySelector('#services, [data-section="services"]')
+    if (servicesSection) {
+      servicesSection.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 
   return (
     <section className="relative w-full h-screen overflow-hidden">
       {/* Background Slider */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 overflow-hidden">
         {slides.map((slide, index) => (
           <div
             key={index}
-            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100' : 'opacity-0'
+            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-2000 ${index === currentSlide ? 'opacity-100' : 'opacity-0'
               }`}
             style={{
               backgroundImage: `url(${slide})`,
             }}
-          />
+          >
+            {/* Ken Burns Effect Layer */}
+            <div className={`absolute inset-0 bg-cover bg-center animate-kenBurns`} style={{ backgroundImage: `url(${slide})` }} />
+          </div>
         ))}
-        {/* Overlay gradients */}
-        <div className="absolute inset-0 bg-gradient-to-b from-espresso/70 via-espresso/50 to-espresso/80 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-r from-espresso/60 via-transparent to-espresso/50 pointer-events-none" />
+
+        {/* Cinematic Overlays */}
+        <div className="absolute inset-0 bg-linear-to-b from-espresso/80 via-espresso/40 to-espresso/90 pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-r from-espresso/40 via-transparent to-espresso/40 pointer-events-none" />
+
+        {/* Decorative Texture/Grain (optional but adds "beauty") */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-white px-4">
-        <div className="text-center max-w-5xl animate-fadeIn">
-          <h1 className="font-heading text-5xl md:text-7xl font-light mb-6 leading-tight">
-            Huzurun ve Rahatlığın<br />
-            <span className="font-normal">Adresi</span>
-          </h1>
-          <p className="text-lg md:text-xl text-gray-200 mb-12 max-w-2xl mx-auto">
-            Sağlıklı beden, güzel ruh için besleyici bir alan
-          </p>
+      <div className="relative z-10 h-full flex items-center justify-center text-white px-4">
+        <div className="text-center max-w-5xl w-full flex flex-col items-center justify-center">
+          {/* Subtle Tagline */}
+          <div className="inline-block px-4 py-1.5 mb-4 md:mb-6 rounded-full bg-white/10 backdrop-blur-md border border-white/20 animate-fadeIn">
+            <span className="text-[10px] md:text-xs font-medium tracking-[0.2em] md:tracking-[0.3em] uppercase text-cream">Wellness & Spa Experience</span>
+          </div>
 
-          {/* Search Form - Modern Design */}
-          <form onSubmit={handleSearch} className="bg-white/98 backdrop-blur-md rounded-2xl shadow-2xl overflow-hidden max-w-5xl mx-auto border border-gray-100">
-            <div className="grid md:grid-cols-[1fr_1fr_auto] gap-0">
-              {/* Location */}
-              <div className="relative group">
-                <div className="absolute left-5 top-1/2 -translate-y-1/2 pointer-events-none">
-                  <svg className="w-5 h-5 text-olive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </div>
-                <input
-                  type="text"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  placeholder="Şehir seçin"
-                  className="w-full pl-14 pr-6 py-6 bg-transparent border-0 border-r border-gray-200 focus:outline-none focus:bg-gray-50/50 transition text-gray-800 placeholder:text-gray-400"
-                />
-              </div>
+          {/* Main Heading */}
+          <div className="mb-6 md:mb-10 space-y-1 md:space-y-2">
+            <h1 className="font-heading text-4xl sm:text-6xl md:text-8xl font-extralight leading-tight tracking-tighter animate-fadeIn">
+              Huzurun <span className="italic font-light">Derinliğini</span>
+            </h1>
+            <h2 className="font-heading text-3xl sm:text-5xl md:text-7xl font-normal text-cream leading-tight animate-fadeIn">
+              Keşfedin
+            </h2>
+          </div>
 
-              {/* Service */}
-              <div className="relative group">
-                <div className="absolute left-5 top-1/2 -translate-y-1/2 pointer-events-none">
-                  <svg className="w-5 h-5 text-olive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                  </svg>
-                </div>
-                <select
-                  value={service}
-                  onChange={(e) => setService(e.target.value)}
-                  className="w-full pl-14 pr-6 py-6 bg-transparent border-0 focus:outline-none focus:bg-gray-50/50 transition text-gray-800 appearance-none cursor-pointer"
-                >
-                  <option value="">Hizmet türü seçin</option>
-                  <option value="massage">Masaj Terapisi</option>
-                  <option value="spa">Spa & Kaplıca</option>
-                  <option value="yoga">Yoga & Meditasyon</option>
-                  <option value="ayurveda">Ayurveda</option>
-                  <option value="aromatherapy">Aromaterapi</option>
-                  <option value="facial">Yüz Bakımı</option>
-                  <option value="hamam">Türk Hamamı</option>
-                  <option value="sauna">Sauna & Buhar</option>
-                </select>
-                <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none">
-                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          {/* Subheading & Description */}
+          <div className="flex flex-col items-center gap-4 md:gap-6 mb-8 md:mb-12 animate-fadeIn">
+            <div className="w-12 md:w-20 h-px bg-linear-to-r from-transparent via-white/50 to-transparent" />
+            <p className="text-base sm:text-lg md:text-2xl text-white/90 font-light max-w-2xl leading-relaxed font-heading px-2">
+              Bedeniniz için bir tapınak, <br className="hidden md:block" />
+              ruhunuz için bir sığınak.
+            </p>
+          </div>
+
+          {/* Call-to-Action Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 w-full max-w-3xl mx-auto animate-fadeIn">
+            <button
+              onClick={() => setIsBottomSheetOpen(true)}
+              className="group relative w-full sm:w-auto min-w-[200px] px-8 md:px-10 py-4 md:py-5 bg-white text-espresso font-bold text-sm md:text-base rounded-full overflow-hidden transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:scale-95 z-30 cursor-pointer"
+            >
+              <div className="absolute inset-0 bg-linear-to-r from-cream to-white translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+              <div className="relative flex items-center justify-center gap-3">
+                <span className="uppercase tracking-widest">Randevu Al</span>
+                <div className="w-6 h-6 rounded-full bg-espresso text-white flex items-center justify-center group-hover:rotate-45 transition-transform duration-300">
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   </svg>
                 </div>
               </div>
+            </button>
 
-              {/* Search Button */}
-              <button
-                type="submit"
-                className="px-12 py-6 bg-olive text-white font-medium hover:bg-olive-dark transition-all duration-300 flex items-center justify-center gap-2 group"
-              >
-                <span>Ara</span>
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            <button
+              onClick={scrollToServices}
+              className="group relative w-full sm:w-auto min-w-[200px] px-8 md:px-10 py-4 md:py-5 bg-transparent text-white font-bold text-sm md:text-base rounded-full border border-white/30 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-white hover:-translate-y-1 active:scale-95 z-30 cursor-pointer"
+            >
+              <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+              <div className="relative flex items-center justify-center gap-3 group-hover:text-espresso transition-colors duration-300">
+                <span className="uppercase tracking-widest">Hizmetler</span>
+                <svg className="w-4 h-4 animate-floating" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7-7-7" />
                 </svg>
-              </button>
-            </div>
-          </form>
+              </div>
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Slide Indicators */}
-      <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      {/* Slide Indicators - Minimal Design */}
+      <div className="absolute bottom-10 md:bottom-20 left-6 md:left-10 z-20 flex flex-row md:flex-col gap-3 md:gap-4">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`h-2 rounded-full transition-all duration-300 ${index === currentSlide
-              ? 'w-8 bg-white'
-              : 'w-2 bg-white/50 hover:bg-white/75'
-              }`}
+            className="group flex items-center gap-2 md:gap-4 focus:outline-none p-2"
             aria-label={`Slide ${index + 1}`}
-          />
+          >
+            <div className={`h-[2px] transition-all duration-700 ${index === currentSlide ? 'w-8 md:w-12 bg-cream' : 'w-4 md:w-6 bg-white/30 group-hover:w-8 group-hover:bg-white/60'
+              }`} />
+            <span className={`text-[10px] tracking-tighter transition-all duration-700 hidden md:block ${index === currentSlide ? 'text-cream opacity-100 translate-x-0' : 'text-white opacity-0 -translate-x-2'
+              }`}>
+              0{index + 1}
+            </span>
+          </button>
         ))}
+      </div>
+
+      {/* Bottom Scroll Hint - Hidden on small mobile to save space */}
+      <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-20 hidden sm:flex flex-col items-center gap-2 animate-floating">
+        <div className="w-px h-8 md:h-12 bg-linear-to-b from-white to-transparent" />
+        <span className="text-[8px] md:text-[10px] uppercase tracking-[0.3em] md:tracking-[0.5em] text-white/50">Keşfet</span>
       </div>
 
       {/* Curved Bottom */}
@@ -148,6 +160,15 @@ function Hero() {
           />
         </svg>
       </div>
+
+      {/* Bottom Sheet */}
+      <BottomSheet
+        isOpen={isBottomSheetOpen}
+        onClose={() => setIsBottomSheetOpen(false)}
+        title="Şube Seçin"
+      >
+        <BranchSelector onSelectBranch={handleBranchSelect} />
+      </BottomSheet>
     </section>
   )
 }
