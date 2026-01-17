@@ -62,7 +62,7 @@ function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 h-full flex items-center justify-center text-white px-4">
+      <div className="relative z-10 h-full flex items-center justify-center text-white px-4 pt-8 ">
         <div className="text-center max-w-5xl w-full flex flex-col items-center justify-center">
           {/* Subtle Tagline */}
           <div className="inline-block px-4 py-1.5 mb-4 md:mb-6 rounded-full bg-white/10 backdrop-blur-md border border-white/20 animate-fadeIn">
@@ -70,19 +70,19 @@ function Hero() {
           </div>
 
           {/* Main Heading */}
-          <div className="mb-6 md:mb-10 space-y-1 md:space-y-2">
-            <h1 className="font-heading text-4xl sm:text-6xl md:text-8xl font-extralight leading-tight tracking-tighter animate-fadeIn">
+          <div className="mb-4 md:mb-6 space-y-1 md:space-y-2">
+            <h1 className="font-heading text-4xl sm:text-6xl md:text-7xl font-extralight leading-tight tracking-tighter animate-fadeIn">
               Huzurun <span className="italic font-light">Derinliğini</span>
             </h1>
-            <h2 className="font-heading text-3xl sm:text-5xl md:text-7xl font-normal text-cream leading-tight animate-fadeIn">
+            <h2 className="font-heading text-3xl sm:text-5xl md:text-6xl font-normal text-cream leading-tight animate-fadeIn">
               Keşfedin
             </h2>
           </div>
 
           {/* Subheading & Description */}
-          <div className="flex flex-col items-center gap-4 md:gap-6 mb-8 md:mb-12 animate-fadeIn">
+          <div className="flex flex-col items-center gap-4 md:gap-6 mb-6 md:mb-8 animate-fadeIn">
             <div className="w-12 md:w-20 h-px bg-linear-to-r from-transparent via-white/50 to-transparent" />
-            <p className="text-base sm:text-lg md:text-2xl text-white/90 font-light max-w-2xl leading-relaxed font-heading px-2">
+            <p className="text-base sm:text-lg md:text-xl text-white/90 font-light max-w-2xl leading-relaxed font-heading px-2">
               Bedeniniz için bir tapınak, <br className="hidden md:block" />
               ruhunuz için bir sığınak.
             </p>
@@ -138,12 +138,6 @@ function Hero() {
             </span>
           </button>
         ))}
-      </div>
-
-      {/* Bottom Scroll Hint - Hidden on small mobile to save space */}
-      <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-20 hidden sm:flex flex-col items-center gap-2 animate-floating">
-        <div className="w-px h-8 md:h-12 bg-linear-to-b from-white to-transparent" />
-        <span className="text-[8px] md:text-[10px] uppercase tracking-[0.3em] md:tracking-[0.5em] text-white/50">Keşfet</span>
       </div>
 
       {/* Curved Bottom */}
