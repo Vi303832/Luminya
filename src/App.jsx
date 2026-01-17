@@ -37,7 +37,7 @@ function App() {
   }, [])
 
   return (
-    <div className="bg-stone-light">
+    <div className="bg-white">
       <Header />
       <Hero />
       <div className="scroll-reveal">

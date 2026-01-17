@@ -1,4 +1,30 @@
+import { motion } from 'framer-motion'
+import { useInView } from 'framer-motion'
+import { useRef } from 'react'
+
 function PopularTherapies() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-100px' })
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6 },
+    },
+  }
+
   const services = [
     {
       title: 'SAUNA',
@@ -70,12 +96,18 @@ function PopularTherapies() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <motion.div
+          ref={ref}
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+        >
           {services.map((service, index) => (
-            <div 
-              key={index} 
+            <motion.div
+              key={index}
               className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl hover:-translate-y-3 transition-all duration-500 group relative"
-              style={{ animationDelay: `${index * 150}ms` }}
+              variants={itemVariants}
             >
               {/* Badge */}
               <div className="absolute top-4 right-4 z-20 bg-olive text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg animate-pulse">
@@ -90,7 +122,7 @@ function PopularTherapies() {
                   className="w-full h-full object-cover group-hover:scale-125 group-hover:rotate-2 transition-all duration-700 ease-out"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/70 transition-all duration-500"></div>
-                
+
                 {/* Floating particles effect */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                   <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-white/60 rounded-full animate-ping"></div>
@@ -125,10 +157,13 @@ function PopularTherapies() {
                 {/* Services List */}
                 <ul className="space-y-2.5 mb-7">
                   {service.items.map((item, idx) => (
-                    <li 
-                      key={idx} 
+                    <motion.li
+                      key={idx}
                       className="group/item hover:bg-gradient-to-r hover:from-stone-light hover:to-transparent px-3 py-2.5 rounded-xl transition-all duration-300 transform hover:translate-x-1"
-                      style={{ animationDelay: `${idx * 100}ms` }}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: idx * 0.1 + 0.3 }}
                     >
                       <div className="flex items-center gap-3">
                         <div className="w-1.5 h-1.5 rounded-full bg-olive group-hover/item:scale-150 group-hover/item:bg-gradient-to-r group-hover/item:from-olive group-hover/item:to-olive-light transition-all duration-300"></div>
@@ -136,7 +171,7 @@ function PopularTherapies() {
                           <p className="text-sm font-medium text-text-secondary group-hover/item:text-olive transition-colors duration-300">{item.name}</p>
                         </div>
                       </div>
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
 
@@ -154,9 +189,9 @@ function PopularTherapies() {
 
               {/* Decorative corner */}
               <div className="absolute top-0 left-0 w-20 h-20 bg-gradient-to-br from-white/20 to-transparent rounded-br-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* View All Services Button */}
         <div className="text-center animate-bounce-slow">
@@ -170,10 +205,10 @@ function PopularTherapies() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </span>
-            
+
             {/* Animated background */}
             <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 transform -skew-x-12 -translate-x-full group-hover/main:translate-x-full transition-transform duration-1000"></div>
-            
+
             {/* Pulse effect */}
             <div className="absolute inset-0 rounded-2xl opacity-0 group-hover/main:opacity-100 transition-opacity duration-300">
               <div className="absolute inset-0 rounded-2xl bg-olive animate-ping opacity-20"></div>
