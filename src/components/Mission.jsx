@@ -31,7 +31,7 @@ const Mission = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-20 md:py-32 bg-cream relative overflow-hidden">
+    <section className="py-20 md:py-32 bg-linear-to-b from-cream via-stone-light to-cream relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
         <motion.div

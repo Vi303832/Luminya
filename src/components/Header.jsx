@@ -1,18 +1,23 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, Sparkles } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
+// Change 'İletişim' and 'Şubelerimiz' to scroll to their sections
 const navLinks = [
-  { name: "Anasayfa", href: "#hero" },
-  { name: "Hakkımızda", href: "#about" },
-  { name: "Hizmetlerimiz", href: "#services" },
-  { name: "Şubelerimiz", href: "#locations" },
-  { name: "İletişim", href: "#contact" },
+  { name: "Anasayfa", href: "/", type: "link" },
+  { name: "Hakkımızda", href: "/about", type: "link" },
+  { name: "Hizmetlerimiz", href: "/services", type: "link" },
+  // Galeri kaldırıldı
+  { name: "Şubelerimiz", href: "/#locations", type: "hero-scroll" },
+  { name: "İletişim", href: "/#reservation", type: "hero-scroll" },
 ];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +26,54 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Scrolls to a hash target if exists on the page
+  const scrollToHash = (hash) => {
+    const element = document.querySelector(hash);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  // Revised: Navigate to home then scroll to specific section from href
+  const handleNavClick = (href, type) => {
+    setIsOpen(false);
+    if (type === "hero-scroll") {
+      // Extract the hash from href (e.g., "/#hero" -> "#hero", "/#locations" -> "#locations")
+      const hash = href.includes("#") ? href.split("#")[1] : "hero";
+      const targetHash = `#${hash}`;
+
+      if (location.pathname === "/") {
+        // Already home, scroll to target section
+        scrollToHash(targetHash);
+      } else {
+        // Go to home first, then scroll to target section after 1 second
+        navigate("/");
+        setTimeout(() => {
+          scrollToHash(targetHash);
+        }, 500);
+      }
+    } else if (type === "scroll") {
+      if (location.pathname === "/") {
+        // On home, scroll immediately
+        scrollToHash(href.replace("/", ""));
+      } else {
+        navigate(`/${href.split("#")[1] ? "" : href}`);
+      }
+    } else if (type === "contact") {
+      if (location.pathname === "/") {
+        // Already home, scroll instantly to contact
+        scrollToHash(href.replace("/", ""));
+      } else {
+        // Go to home, then scroll immediately after navigation
+        navigate("/");
+        // Use slight timeout to ensure home has loaded
+        setTimeout(() => {
+          scrollToHash("#reservation");
+        }, 10);
+      }
+    }
+  };
 
   return (
     <motion.header
@@ -34,41 +87,59 @@ const Navbar = () => {
     >
       <nav className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <motion.a
-          href="#hero"
-          className="flex items-center gap-3"
-          whileHover={{ scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 400 }}
-        >
-
-          <div className="flex flex-col">
-            <span className="font-heading text-2xl font-normal text-white tracking-wide">
-              Luminya
-            </span>
-            <span className="text-xs text-white/70 tracking-[0.3em] uppercase">
-              Spa & Wellness
-            </span>
-          </div>
-        </motion.a>
+        <Link to="/">
+          <motion.div
+            className="flex items-center gap-3"
+            whileHover={{ scale: 1.02 }}
+            transition={{ type: "spring", stiffness: 400 }}
+          >
+            <div className="flex flex-col">
+              <span className="font-heading text-2xl font-normal text-white tracking-wide">
+                Luminya
+              </span>
+              <span className="text-xs text-white/70 tracking-[0.3em] uppercase">
+                Spa & Wellness
+              </span>
+            </div>
+          </motion.div>
+        </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-8">
           {navLinks.map((link, index) => (
-            <motion.a
-              key={link.name}
-              href={link.href}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
-              whileHover={{ y: -2 }}
-              className="relative text-sm font-medium text-white/90 hover:text-olive transition-colors group"
-            >
-              {link.name}
-              <motion.span
-                className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary transition-all duration-300 group-hover:w-full"
-                whileHover={{ width: "100%" }}
-              />
-            </motion.a>
+            link.type === "link" ? (
+              <Link key={link.name} to={link.href}>
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
+                  whileHover={{ y: -2 }}
+                  className="relative text-sm font-medium text-white/90 hover:text-olive transition-colors group"
+                >
+                  {link.name}
+                  <motion.span
+                    className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary transition-all duration-300 group-hover:w-full"
+                    whileHover={{ width: "100%" }}
+                  />
+                </motion.div>
+              </Link>
+            ) : (
+              <Link key={link.name} to={link.href} onClick={() => handleNavClick(link.href, link.type)}>
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
+                  whileHover={{ y: -2 }}
+                  className="relative text-sm font-medium text-white/90 hover:text-olive transition-colors group"
+                >
+                  {link.name}
+                  <motion.span
+                    className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary transition-all duration-300 group-hover:w-full"
+                    whileHover={{ width: "100%" }}
+                  />
+                </motion.div>
+              </Link>
+            )
           ))}
         </div>
 
@@ -124,17 +195,20 @@ const Navbar = () => {
           >
             <div className="container mx-auto px-6 py-6 flex flex-col gap-4">
               {navLinks.map((link, index) => (
-                <motion.a
+                <Link
                   key={link.name}
-                  href={link.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={() => setIsOpen(false)}
-                  className="text-lg font-medium text-white/90 hover:text-olive py-2 transition-colors"
+                  to={link.href}
+                  onClick={() => handleNavClick(link.href, link.type)}
                 >
-                  {link.name}
-                </motion.a>
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="text-lg font-medium text-white/90 hover:text-olive py-2 transition-colors"
+                  >
+                    {link.name}
+                  </motion.div>
+                </Link>
               ))}
               <motion.a
                 href="tel:+905331334339"

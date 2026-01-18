@@ -48,7 +48,7 @@ function Hero() {
   }
 
   return (
-    <section className="relative w-full h-screen overflow-hidden">
+    <section id="hero" className="relative w-full h-screen overflow-hidden">
       {/* Background Slider */}
       <div className="absolute inset-0 overflow-hidden">
         {slides.map((slide, index) => (
@@ -78,7 +78,7 @@ function Hero() {
         <div className="text-center max-w-5xl w-full flex flex-col items-center justify-center">
           {/* Subtle Tagline */}
           <div className="inline-block px-4 py-1.5 mb-4 md:mb-6 rounded-full bg-white/10 backdrop-blur-md border border-white/20 animate-fadeIn">
-            <span className="text-[10px] md:text-xs font-medium tracking-[0.2em] md:tracking-[0.3em] uppercase text-cream">Wellness & Spa Experience</span>
+            <span className="text-[10px] md:text-xs font-medium tracking-[0.2em] md:tracking-[0.3em] uppercase text-cream">Spa & Masaj Hizmetleri</span>
           </div>
 
           {/* Main Heading */}
@@ -175,12 +175,12 @@ function Hero() {
         searchBar={!selectedBranch && <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />}
       >
         {selectedBranch ? (
-          <BranchDetail 
+          <BranchDetail
             branch={selectedBranch}
             onBack={handleBackToBranchList}
           />
         ) : (
-          <BranchSelector 
+          <BranchSelector
             onSelectBranch={handleBranchSelect}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}

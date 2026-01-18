@@ -14,10 +14,10 @@ const galleryImages = [
     description: 'Uzman ellerle yenilenme zamanı'
   },
   {
-    url: 'https://images.unsplash.com/photo-1571772996211-2f02c9727629?w=1920&q=80',
+    url: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=1920&q=80',
     category: 'facility',
-    title: 'Modern Tesislerimiz',
-    description: 'Konfor ve estetiğin mükemmel uyumu'
+    title: 'Şık Otel Lobisi',
+    description: 'Konforlu ve modern lobide keyifli bir deneyim'
   },
   {
     url: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1920&q=80',
@@ -67,7 +67,7 @@ function Gallery() {
   }, [isPlaying, isHovered, nextSlide])
 
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-gray-900">
+    <section id="gallery" className="relative h-screen w-full overflow-hidden bg-gray-900">
       {/* Background ambient layer */}
       <div className="absolute inset-0 bg-gradient-to-b from-olive/10 via-transparent to-stone/20" />
 

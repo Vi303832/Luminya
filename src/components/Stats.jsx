@@ -17,20 +17,20 @@ const AnimatedNumber = ({ value, suffix, inView }) => {
       const duration = 2000;
       const startTime = Date.now();
       const isFloat = !Number.isInteger(value);
-      
+
       const updateValue = () => {
         const elapsed = Date.now() - startTime;
         const progress = Math.min(elapsed / duration, 1);
         const eased = 1 - Math.pow(1 - progress, 3);
         const current = eased * value;
-        
+
         setDisplayValue(isFloat ? parseFloat(current.toFixed(1)) : Math.floor(current));
-        
+
         if (progress < 1) {
           requestAnimationFrame(updateValue);
         }
       };
-      
+
       updateValue();
     }
   }, [inView, value]);
@@ -51,7 +51,7 @@ const Stats = () => {
     <section id="stats" className="py-20 md:py-32 bg-linear-to-b from-stone-light via-cream to-stone-light relative overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute inset-0 pointer-events-none">
-        <motion.div 
+        <motion.div
           className="absolute top-0 left-0 w-96 h-96 bg-olive/10 rounded-full blur-3xl"
           animate={{
             x: [0, 50, 0],
@@ -61,7 +61,7 @@ const Stats = () => {
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
           style={{ transform: 'translate(-50%, -50%)' }}
         />
-        <motion.div 
+        <motion.div
           className="absolute bottom-0 right-0 w-96 h-96 bg-stone/30 rounded-full blur-3xl"
           animate={{
             x: [0, -30, 0],
@@ -101,7 +101,7 @@ const Stats = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <motion.span 
+          <motion.span
             className="inline-block px-4 py-1 bg-olive/10 rounded-full text-sm font-medium text-olive mb-4 tracking-[0.2em]"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -130,7 +130,7 @@ const Stats = () => {
               />
             </motion.span>
           </h2>
-          <motion.p 
+          <motion.p
             className="text-text-secondary text-lg max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -177,7 +177,7 @@ const Stats = () => {
                   animate={{ rotate: -360 }}
                   transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                 />
-                
+
                 <motion.div
                   className="absolute inset-4 bg-linear-to-br from-olive/20 to-olive/5 rounded-full 
                              flex items-center justify-center group-hover:from-olive/30 group-hover:to-olive/10 

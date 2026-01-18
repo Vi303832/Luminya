@@ -74,7 +74,7 @@ const Reviews = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <motion.span 
+          <motion.span
             className="inline-block px-4 py-1 bg-olive/10 rounded-full text-sm font-medium text-olive mb-4"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -102,7 +102,7 @@ const Reviews = () => {
             {/* Decorative corner accent */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-olive/5 to-transparent rounded-tr-3xl" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tl from-olive/5 to-transparent rounded-bl-3xl" />
-            
+
             <Quote className="absolute top-6 left-6 w-12 h-12 text-olive/20" />
 
             <motion.div
@@ -119,7 +119,7 @@ const Reviews = () => {
                     key={i}
                     initial={{ scale: 0, rotate: -180 }}
                     animate={{ scale: 1, rotate: 0 }}
-                    transition={{ 
+                    transition={{
                       delay: i * 0.1,
                       type: "spring",
                       stiffness: 200,
@@ -157,11 +157,10 @@ const Reviews = () => {
                   <motion.button
                     key={i}
                     onClick={() => setCurrent(i)}
-                    className={`h-2 rounded-full transition-all duration-500 ${
-                      i === current 
-                        ? "w-10 bg-gradient-to-r from-olive to-olive-dark shadow-olive" 
+                    className={`h-2 rounded-full transition-all duration-500 ${i === current
+                        ? "w-10 bg-gradient-to-r from-olive to-olive-dark shadow-olive"
                         : "w-2 bg-stone-dark/50 hover:bg-olive/40"
-                    }`}
+                      }`}
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.9 }}
                   />
