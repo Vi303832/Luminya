@@ -30,14 +30,13 @@ function BottomSheet({ isOpen, onClose, title, children, searchBar }) {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop - Header'ın altında */}
+          {/* Backdrop - Tam ekran */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
-            style={{ top: '80px' }}
             onClick={onClose}
           />
 

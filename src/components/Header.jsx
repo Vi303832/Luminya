@@ -97,12 +97,12 @@ const Navbar = ({ onOpenBottomSheet }) => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 overflow-x-hidden ${scrolled
         ? "bg-espresso/95 backdrop-blur-md shadow-elevated py-3"
         : "bg-espresso/40 backdrop-blur-sm py-5"
         }`}
     >
-      <nav className="container mx-auto px-6 flex items-center justify-between">
+      <nav className="container mx-auto px-4 sm:px-6 flex items-center justify-between max-w-7xl">
         {/* Logo */}
         <Link to="/" onClick={() => handleNavClick("/", "link")}>
           <motion.div
@@ -192,7 +192,7 @@ const Navbar = ({ onOpenBottomSheet }) => {
             transition={{ duration: 0.3 }}
             className="lg:hidden bg-espresso/98 backdrop-blur-lg border-t border-white/10"
           >
-            <div className="container mx-auto px-6 py-6 flex flex-col gap-4">
+            <div className="container mx-auto px-4 sm:px-6 py-6 flex flex-col gap-4 max-w-7xl">
               {navLinks.map((link, index) => (
                 <Link
                   key={link.name}

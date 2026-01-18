@@ -180,8 +180,7 @@ function BranchDetail({ branch, onBack }) {
             </div>
             <div className="flex-1">
               <h4 className="font-bold text-espresso mb-1 group-hover:text-olive transition-colors duration-300">Çalışma Saatleri</h4>
-              <p className="text-text-muted text-sm group-hover:text-espresso transition-colors duration-300">Hafta İçi: 09:00 - 20:00</p>
-              <p className="text-text-muted text-sm group-hover:text-espresso transition-colors duration-300">Hafta Sonu: 10:00 - 18:00</p>
+              <p className="text-text-muted text-sm group-hover:text-espresso transition-colors duration-300">Her Gün: {branch.hours || '09:00 - 23:00'}</p>
             </div>
           </div>
         </div>

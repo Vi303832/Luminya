@@ -2,21 +2,215 @@ import { useState, useMemo } from 'react'
 
 function BranchSelector({ onSelectBranch, searchQuery, setSearchQuery }) {
 
-  // Sample branch data - you can replace this with real data later
+  // Branch data
   const branches = [
-    { id: 1, name: 'Adana Şube', city: 'Adana', address: 'Seyhan Merkez', phone: '0322 123 45 67', image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80' },
-    { id: 2, name: 'Ankara Çankaya', city: 'Ankara', address: 'Çankaya Merkez', phone: '0312 234 56 78', image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80' },
-    { id: 3, name: 'Ankara Kızılay', city: 'Ankara', address: 'Kızılay Meydanı', phone: '0312 345 67 89', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80' },
-    { id: 4, name: 'Antalya Lara', city: 'Antalya', address: 'Lara Plajı Yanı', phone: '0242 456 78 90', image: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=800&q=80' },
-    { id: 5, name: 'Bursa Nilüfer', city: 'Bursa', address: 'Nilüfer Merkez', phone: '0224 567 89 01', image: 'https://images.unsplash.com/photo-1545290224-d2a4d8e50b1c?w=800&q=80' },
-    { id: 6, name: 'Eskişehir Şube', city: 'Eskişehir', address: 'Odunpazarı', phone: '0222 678 90 12', image: 'https://images.unsplash.com/photo-1596178060810-bb15d4e93b59?w=800&q=80' },
-    { id: 7, name: 'İstanbul Beşiktaş', city: 'İstanbul', address: 'Beşiktaş İskele', phone: '0212 789 01 23', image: 'https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=800&q=80' },
-    { id: 8, name: 'İstanbul Kadıköy', city: 'İstanbul', address: 'Moda Caddesi', phone: '0216 890 12 34', image: 'https://images.unsplash.com/photo-1610041321420-fa2e7dc1a304?w=800&q=80' },
-    { id: 9, name: 'İstanbul Nişantaşı', city: 'İstanbul', address: 'Teşvikiye', phone: '0212 901 23 45', image: 'https://images.unsplash.com/photo-1559599238-1b8f5bfeb75c?w=800&q=80' },
-    { id: 10, name: 'İzmir Alsancak', city: 'İzmir', address: 'Kordon Boyu', phone: '0232 012 34 56', image: 'https://images.unsplash.com/photo-1562077772-3bd90403f7f0?w=800&q=80' },
-    { id: 11, name: 'İzmir Bornova', city: 'İzmir', address: 'Bornova Merkez', phone: '0232 123 45 67', image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80' },
-    { id: 12, name: 'Kocaeli Şube', city: 'Kocaeli', address: 'İzmit Merkez', phone: '0262 234 56 78', image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80' },
-    { id: 13, name: 'Muğla Bodrum', city: 'Muğla', address: 'Bodrum Marina', phone: '0252 345 67 89', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80' },
+    {
+      id: 1,
+      name: 'Zeytinburnu Şube',
+      city: 'İstanbul',
+      address: 'Zeytinburnu, İstanbul, Zeytinburnu Hotel',
+      phone: '0212 123 45 67',
+      hours: '09:00 - 23:00',
+      image: 'https://lunadenspa.com.tr/wp-content/uploads/2022/03/zeytinburnu-hotel.png'
+    },
+    {
+      id: 2,
+      name: 'Nişantaşı Şube',
+      city: 'İstanbul',
+      address: 'Nişantaşı, İstanbul, Abdi İpekçi Cad. No:28',
+      phone: '0212 901 23 45',
+      hours: '09:00 - 23:00',
+      image: 'https://lunadenspa.com.tr/wp-content/uploads/2025/03/589c1c00d71d7-jpg.webp'
+    },
+    {
+      id: 3,
+      name: 'Land Park Hotel Avcılar',
+      city: 'İstanbul',
+      address: 'Avcılar, İstanbul, Land Park Hotel',
+      phone: '0212 345 67 89',
+      hours: '09:00 - 23:00',
+      image: 'https://lunadenspa.com.tr/wp-content/uploads/2022/03/avcilar-land-park.png'
+    },
+    {
+      id: 4,
+      name: 'Clarion Hotel Kahramanmaraş',
+      city: 'Kahramanmaraş',
+      address: 'Kahramanmaraş, Clarion Hotel',
+      phone: '0344 000 00 00',
+      hours: '09:00 - 23:00',
+      image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800'
+    },
+    {
+      id: 5,
+      name: 'Revizyon Yapı Kahramanmaraş',
+      city: 'Kahramanmaraş',
+      address: 'Kahramanmaraş, Revizyon Yapı',
+      phone: '0344 000 00 00',
+      hours: '09:00 - 23:00',
+      image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800'
+    },
+    {
+      id: 6,
+      name: 'Soliport Hotel Alaçatı',
+      city: 'Alaçatı',
+      address: 'Alaçatı, İzmir, Soliport Hotel',
+      phone: '0232 000 00 00',
+      hours: '09:00 - 23:00',
+      image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800'
+    },
+    {
+      id: 7,
+      name: 'Korupark AVM Bursa',
+      city: 'Bursa',
+      address: 'Bursa, Korupark AVM',
+      phone: '0224 000 00 00',
+      hours: '10:00 - 22:00',
+      image: 'https://images.unsplash.com/photo-1519167758481-83f29da8c8b0?w=800'
+    },
+    {
+      id: 8,
+      name: 'The Conforium Hotel İstanbul',
+      city: 'İstanbul',
+      address: 'İstanbul, The Conforium Hotel',
+      phone: '0212 000 00 00',
+      hours: '09:00 - 23:00',
+      image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800'
+    },
+    {
+      id: 9,
+      name: 'Dedeman Şanlıurfa',
+      city: 'Şanlıurfa',
+      address: 'Şanlıurfa, Dedeman Hotel',
+      phone: '0414 000 00 00',
+      hours: '09:00 - 23:00',
+      image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800'
+    },
+    {
+      id: 10,
+      name: 'Ramada by Wyndham Istanbul Merter',
+      city: 'İstanbul',
+      address: 'Merter, İstanbul, Ramada by Wyndham',
+      phone: '0212 000 00 00',
+      hours: '09:00 - 23:00',
+      image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800'
+    },
+    {
+      id: 11,
+      name: 'Pullman Otel İstanbul',
+      city: 'İstanbul',
+      address: 'İstanbul, Pullman Hotel',
+      phone: '0212 000 00 00',
+      hours: '09:00 - 23:00',
+      image: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800'
+    },
+    {
+      id: 12,
+      name: 'Ramada Otel Elazığ',
+      city: 'Elazığ',
+      address: 'Elazığ, Ramada Hotel',
+      phone: '0424 000 00 00',
+      hours: '09:00 - 23:00',
+      image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800'
+    },
+    {
+      id: 13,
+      name: 'Euphoria Fitness Bursa Osmangazi',
+      city: 'Bursa',
+      address: 'Osmangazi, Bursa, Euphoria Fitness',
+      phone: '0224 000 00 00',
+      hours: '09:00 - 23:00',
+      image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800'
+    },
+    {
+      id: 14,
+      name: 'Ramada By Wyndham Çeşme',
+      city: 'Çeşme',
+      address: 'Çeşme, İzmir, Ramada By Wyndham',
+      phone: '0232 000 00 00',
+      hours: '09:00 - 23:00',
+      image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800'
+    },
+    {
+      id: 15,
+      name: 'Dolce Hotels & Resorts by Wyndham Alaçatı',
+      city: 'Alaçatı',
+      address: 'Alaçatı, İzmir, Dolce Hotels & Resorts',
+      phone: '0232 000 00 00',
+      hours: '09:00 - 23:00',
+      image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800'
+    },
+    {
+      id: 16,
+      name: 'Euphoria Plus Ege Park AVM İzmir Balçova',
+      city: 'İzmir',
+      address: 'Balçova, İzmir, Ege Park AVM, Euphoria Plus',
+      phone: '0232 000 00 00',
+      hours: '10:00 - 22:00',
+      image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800'
+    },
+    {
+      id: 17,
+      name: 'Latanya Hotel Ankara',
+      city: 'Ankara',
+      address: 'Ankara, Latanya Hotel',
+      phone: '0312 000 00 00',
+      hours: '09:00 - 23:00',
+      image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800'
+    },
+    {
+      id: 18,
+      name: 'Büyük Mardin Oteli',
+      city: 'Mardin',
+      address: 'Mardin, Büyük Mardin Oteli',
+      phone: '0482 000 00 00',
+      hours: '09:00 - 23:00',
+      image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800'
+    },
+    {
+      id: 19,
+      name: 'Sera Lake Center Hotel Trabzon',
+      city: 'Trabzon',
+      address: 'Trabzon, Sera Lake Center Hotel',
+      phone: '0462 000 00 00',
+      hours: '09:00 - 23:00',
+      image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800'
+    },
+    {
+      id: 20,
+      name: 'The Green Park Hotel Diyarbakır',
+      city: 'Diyarbakır',
+      address: 'Diyarbakır, The Green Park Hotel',
+      phone: '0412 000 00 00',
+      hours: '09:00 - 23:00',
+      image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800'
+    },
+    {
+      id: 21,
+      name: 'Days Inn & Suites by Wyndham Esenyurt İstanbul',
+      city: 'İstanbul',
+      address: 'Esenyurt, İstanbul, Days Inn & Suites',
+      phone: '0212 000 00 00',
+      hours: '09:00 - 23:00',
+      image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800'
+    },
+    {
+      id: 22,
+      name: 'Casa Nova Hotel',
+      city: 'İstanbul',
+      address: 'İstanbul, Casa Nova Hotel',
+      phone: '0212 000 00 00',
+      hours: '09:00 - 23:00',
+      image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800'
+    },
+    {
+      id: 23,
+      name: 'Sürmeli Otel İstanbul',
+      city: 'İstanbul',
+      address: 'İstanbul, Sürmeli Hotel',
+      phone: '0212 000 00 00',
+      hours: '09:00 - 23:00',
+      image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800'
+    },
   ]
 
   // Filter and sort branches
