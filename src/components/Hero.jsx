@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
 import BottomSheet from './BottomSheet'
 import BranchSelector, { SearchBar } from './BranchSelector'
+import BranchDetail from './BranchDetail'
 
 function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
+  const [selectedBranch, setSelectedBranch] = useState(null)
 
   const slides = [
     'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1920&q=80', // Spa stones massage
@@ -23,9 +25,18 @@ function Hero() {
   }, [])
 
   const handleBranchSelect = (branch) => {
-    console.log('Seçilen şube:', branch)
+    setSelectedBranch(branch)
+    setSearchQuery('') // Clear search when selecting a branch
+  }
+
+  const handleBackToBranchList = () => {
+    setSelectedBranch(null)
+  }
+
+  const handleCloseBottomSheet = () => {
     setIsBottomSheetOpen(false)
-    // Here you can add logic to navigate or show branch details
+    setSelectedBranch(null)
+    setSearchQuery('')
   }
 
   const scrollToServices = () => {
@@ -159,15 +170,22 @@ function Hero() {
       {/* Bottom Sheet */}
       <BottomSheet
         isOpen={isBottomSheetOpen}
-        onClose={() => setIsBottomSheetOpen(false)}
-        title="Şube Seçin"
-        searchBar={<SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />}
+        onClose={handleCloseBottomSheet}
+        title={selectedBranch ? selectedBranch.name : "Şube Seçin"}
+        searchBar={!selectedBranch && <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />}
       >
-        <BranchSelector 
-          onSelectBranch={handleBranchSelect}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
+        {selectedBranch ? (
+          <BranchDetail 
+            branch={selectedBranch}
+            onBack={handleBackToBranchList}
+          />
+        ) : (
+          <BranchSelector 
+            onSelectBranch={handleBranchSelect}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+          />
+        )}
       </BottomSheet>
     </section>
   )

@@ -4,19 +4,19 @@ function BranchSelector({ onSelectBranch, searchQuery, setSearchQuery }) {
 
   // Sample branch data - you can replace this with real data later
   const branches = [
-    { id: 1, name: 'Adana Şube', city: 'Adana', address: 'Seyhan Merkez', phone: '0322 123 45 67' },
-    { id: 2, name: 'Ankara Çankaya', city: 'Ankara', address: 'Çankaya Merkez', phone: '0312 234 56 78' },
-    { id: 3, name: 'Ankara Kızılay', city: 'Ankara', address: 'Kızılay Meydanı', phone: '0312 345 67 89' },
-    { id: 4, name: 'Antalya Lara', city: 'Antalya', address: 'Lara Plajı Yanı', phone: '0242 456 78 90' },
-    { id: 5, name: 'Bursa Nilüfer', city: 'Bursa', address: 'Nilüfer Merkez', phone: '0224 567 89 01' },
-    { id: 6, name: 'Eskişehir Şube', city: 'Eskişehir', address: 'Odunpazarı', phone: '0222 678 90 12' },
-    { id: 7, name: 'İstanbul Beşiktaş', city: 'İstanbul', address: 'Beşiktaş İskele', phone: '0212 789 01 23' },
-    { id: 8, name: 'İstanbul Kadıköy', city: 'İstanbul', address: 'Moda Caddesi', phone: '0216 890 12 34' },
-    { id: 9, name: 'İstanbul Nişantaşı', city: 'İstanbul', address: 'Teşvikiye', phone: '0212 901 23 45' },
-    { id: 10, name: 'İzmir Alsancak', city: 'İzmir', address: 'Kordon Boyu', phone: '0232 012 34 56' },
-    { id: 11, name: 'İzmir Bornova', city: 'İzmir', address: 'Bornova Merkez', phone: '0232 123 45 67' },
-    { id: 12, name: 'Kocaeli Şube', city: 'Kocaeli', address: 'İzmit Merkez', phone: '0262 234 56 78' },
-    { id: 13, name: 'Muğla Bodrum', city: 'Muğla', address: 'Bodrum Marina', phone: '0252 345 67 89' },
+    { id: 1, name: 'Adana Şube', city: 'Adana', address: 'Seyhan Merkez', phone: '0322 123 45 67', image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80' },
+    { id: 2, name: 'Ankara Çankaya', city: 'Ankara', address: 'Çankaya Merkez', phone: '0312 234 56 78', image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80' },
+    { id: 3, name: 'Ankara Kızılay', city: 'Ankara', address: 'Kızılay Meydanı', phone: '0312 345 67 89', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80' },
+    { id: 4, name: 'Antalya Lara', city: 'Antalya', address: 'Lara Plajı Yanı', phone: '0242 456 78 90', image: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=800&q=80' },
+    { id: 5, name: 'Bursa Nilüfer', city: 'Bursa', address: 'Nilüfer Merkez', phone: '0224 567 89 01', image: 'https://images.unsplash.com/photo-1545290224-d2a4d8e50b1c?w=800&q=80' },
+    { id: 6, name: 'Eskişehir Şube', city: 'Eskişehir', address: 'Odunpazarı', phone: '0222 678 90 12', image: 'https://images.unsplash.com/photo-1596178060810-bb15d4e93b59?w=800&q=80' },
+    { id: 7, name: 'İstanbul Beşiktaş', city: 'İstanbul', address: 'Beşiktaş İskele', phone: '0212 789 01 23', image: 'https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=800&q=80' },
+    { id: 8, name: 'İstanbul Kadıköy', city: 'İstanbul', address: 'Moda Caddesi', phone: '0216 890 12 34', image: 'https://images.unsplash.com/photo-1610041321420-fa2e7dc1a304?w=800&q=80' },
+    { id: 9, name: 'İstanbul Nişantaşı', city: 'İstanbul', address: 'Teşvikiye', phone: '0212 901 23 45', image: 'https://images.unsplash.com/photo-1559599238-1b8f5bfeb75c?w=800&q=80' },
+    { id: 10, name: 'İzmir Alsancak', city: 'İzmir', address: 'Kordon Boyu', phone: '0232 012 34 56', image: 'https://images.unsplash.com/photo-1562077772-3bd90403f7f0?w=800&q=80' },
+    { id: 11, name: 'İzmir Bornova', city: 'İzmir', address: 'Bornova Merkez', phone: '0232 123 45 67', image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80' },
+    { id: 12, name: 'Kocaeli Şube', city: 'Kocaeli', address: 'İzmit Merkez', phone: '0262 234 56 78', image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80' },
+    { id: 13, name: 'Muğla Bodrum', city: 'Muğla', address: 'Bodrum Marina', phone: '0252 345 67 89', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80' },
   ]
 
   // Filter and sort branches
