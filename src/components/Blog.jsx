@@ -129,6 +129,7 @@ const Blog = () => {
           {blogPosts.map((post, index) => (
             <motion.article
               key={post.id}
+              onClick={() => alert('Blog yazısı yakında eklenecek!')}
               className="group bg-white rounded-2xl overflow-hidden shadow-elevated cursor-pointer hover:shadow-2xl border border-white/10"
               variants={{
                 hidden: { opacity: 0, y: 50, rotateX: -10 },
@@ -211,6 +212,7 @@ const Blog = () => {
           transition={{ delay: 0.6 }}
         >
           <motion.button
+            onClick={() => alert('Blog sayfası yakında eklenecek!')}
             className="inline-flex items-center gap-2 px-8 py-3 bg-olive text-white rounded-full hover:bg-olive-dark transition-all duration-500 font-medium shadow-soft hover:shadow-elevated"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

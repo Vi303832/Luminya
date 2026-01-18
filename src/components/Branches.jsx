@@ -4,132 +4,42 @@ import { useInView } from "framer-motion";
 import { MapPin, Phone, Clock, Star, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import BottomSheet from "./BottomSheet";
-import BranchSelector from "./BranchSelector";
+import BranchSelector, { SearchBar } from "./BranchSelector";
 import BranchDetail from "./BranchDetail";
 
 // Branch data
 const branches = [
-  { 
-    id: 1, 
-    name: 'Adana Şube', 
-    city: 'Adana', 
-    address: 'Seyhan Merkez, Ziya Algan İş Merkezi No:45/3', 
-    phone: '0322 123 45 67', 
-    hours: '09:00 - 22:00',
-    image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80' 
-  },
-  { 
-    id: 2, 
-    name: 'Ankara Çankaya', 
-    city: 'Ankara', 
-    address: 'Çankaya Merkez, Tunalı Hilmi Cad. No:88', 
-    phone: '0312 234 56 78', 
-    hours: '09:00 - 22:00',
-    image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80' 
-  },
-  { 
-    id: 3, 
-    name: 'Ankara Kızılay', 
-    city: 'Ankara', 
-    address: 'Kızılay Meydanı, Atatürk Bulvarı No:125', 
-    phone: '0312 345 67 89', 
-    hours: '09:00 - 22:00',
-    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80' 
-  },
-  { 
-    id: 4, 
-    name: 'Antalya Lara', 
-    city: 'Antalya', 
-    address: 'Lara Plajı Yanı, Güzeloba Mah.', 
-    phone: '0242 456 78 90', 
+  {
+    id: 1,
+    name: 'Zeytinburnu Şube',
+    city: 'İstanbul',
+    address: 'Zeytinburnu, İstanbul, Zeytinburnu Hotel',
+    phone: '0212 123 45 67',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=800&q=80' 
+    image: 'https://lunadenspa.com.tr/wp-content/uploads/2022/03/zeytinburnu-hotel.png'
   },
-  { 
-    id: 5, 
-    name: 'Bursa Nilüfer', 
-    city: 'Bursa', 
-    address: 'Nilüfer Merkez, Özlüce Mah. Fethiye Cad.', 
-    phone: '0224 567 89 01', 
-    hours: '09:00 - 22:00',
-    image: 'https://images.unsplash.com/photo-1545290224-d2a4d8e50b1c?w=800&q=80' 
-  },
-  { 
-    id: 6, 
-    name: 'Eskişehir Şube', 
-    city: 'Eskişehir', 
-    address: 'Odunpazarı, Vişnelik Mah.', 
-    phone: '0222 678 90 12', 
-    hours: '09:00 - 22:00',
-    image: 'https://images.unsplash.com/photo-1596178060810-bb15d4e93b59?w=800&q=80' 
-  },
-  { 
-    id: 7, 
-    name: 'İstanbul Beşiktaş', 
-    city: 'İstanbul', 
-    address: 'Beşiktaş İskele, Barbaros Bulvarı No:64', 
-    phone: '0212 789 01 23', 
+  {
+    id: 2,
+    name: 'Nişantaşı Şube',
+    city: 'İstanbul',
+    address: 'Nişantaşı, İstanbul, Abdi İpekçi Cad. No:28',
+    phone: '0212 901 23 45',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=800&q=80' 
+    image: 'https://lunadenspa.com.tr/wp-content/uploads/2025/03/589c1c00d71d7-jpg.webp'
   },
-  { 
-    id: 8, 
-    name: 'İstanbul Kadıköy', 
-    city: 'İstanbul', 
-    address: 'Moda Caddesi No:142/A', 
-    phone: '0216 890 12 34', 
+  {
+    id: 3,
+    name: 'Avcılar Şube',
+    city: 'İstanbul',
+    address: 'Avcılar, İstanbul, Land Park Hotel',
+    phone: '0212 345 67 89',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1610041321420-fa2e7dc1a304?w=800&q=80' 
-  },
-  { 
-    id: 9, 
-    name: 'İstanbul Nişantaşı', 
-    city: 'İstanbul', 
-    address: 'Teşvikiye, Abdi İpekçi Cad. No:28', 
-    phone: '0212 901 23 45', 
-    hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1559599238-1b8f5bfeb75c?w=800&q=80' 
-  },
-  { 
-    id: 10, 
-    name: 'İzmir Alsancak', 
-    city: 'İzmir', 
-    address: 'Kordon Boyu, Cumhuriyet Bulvarı No:142', 
-    phone: '0232 012 34 56', 
-    hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1562077772-3bd90403f7f0?w=800&q=80' 
-  },
-  { 
-    id: 11, 
-    name: 'İzmir Bornova', 
-    city: 'İzmir', 
-    address: 'Bornova Merkez, Kazım Dirik Cad.', 
-    phone: '0232 123 45 67', 
-    hours: '09:00 - 22:00',
-    image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80' 
-  },
-  { 
-    id: 12, 
-    name: 'Kocaeli Şube', 
-    city: 'Kocaeli', 
-    address: 'İzmit Merkez, Körfez Mah.', 
-    phone: '0262 234 56 78', 
-    hours: '09:00 - 22:00',
-    image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80' 
-  },
-  { 
-    id: 13, 
-    name: 'Muğla Bodrum', 
-    city: 'Muğla', 
-    address: 'Bodrum Marina, Neyzen Tevfik Cad.', 
-    phone: '0252 345 67 89', 
-    hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80' 
+    image: 'https://lunadenspa.com.tr/wp-content/uploads/2022/03/avcilar-land-park.png'
   },
 ];
 
 // Featured branches for the main display (first 3)
-const featuredBranches = branches.slice(0, 3);
+const featuredBranches = branches.slice(0, 3);  
 
 function Branches() {
   const ref = useRef(null);
@@ -245,7 +155,7 @@ function Branches() {
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-espresso/70 to-transparent" />
-                  
+
                   {/* Rating badge */}
                   <motion.div
                     className="absolute top-4 right-4 flex items-center gap-1 bg-cream/90 backdrop-blur-sm px-2 py-1 rounded-full"
@@ -276,7 +186,7 @@ function Branches() {
                   <h3 className="font-heading text-xl font-semibold text-text-primary mb-3 group-hover:text-olive transition-colors">
                     {branch.name}
                   </h3>
-                  
+
                   <div className="space-y-2 mb-4">
                     <div className="flex items-center gap-2 text-sm text-text-secondary">
                       <Phone className="w-4 h-4 text-olive" />
@@ -326,14 +236,10 @@ function Branches() {
         isOpen={isBottomSheetOpen}
         onClose={handleCloseBottomSheet}
         title={selectedBranch ? selectedBranch.name : "Şubelerimiz"}
-        showBackButton={!!selectedBranch}
-        onBack={handleBackToList}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        showSearch={!selectedBranch}
+        searchBar={!selectedBranch && <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />}
       >
         {selectedBranch ? (
-          <BranchDetail branch={selectedBranch} />
+          <BranchDetail branch={selectedBranch} onBack={handleBackToList} />
         ) : (
           <BranchSelector
             onSelectBranch={handleSelectBranch}

@@ -13,7 +13,7 @@ const navLinks = [
   { name: "İletişim", href: "/#reservation", type: "hero-scroll" },
 ];
 
-const Navbar = () => {
+const Navbar = ({ onOpenBottomSheet }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -35,10 +35,27 @@ const Navbar = () => {
     }
   };
 
+  const handleOpenBottomSheetClick = () => {
+    if (onOpenBottomSheet) {
+      onOpenBottomSheet();
+    }
+    setIsOpen(false); // Close mobile menu if open
+  };
+
   // Revised: Navigate to home then scroll to specific section from href
   const handleNavClick = (href, type) => {
     setIsOpen(false);
-    if (type === "hero-scroll") {
+    if (type === "link") {
+      // Regular link navigation (like "Anasayfa")
+      if (href === "/") {
+        // Going to home, scroll to top
+        if (location.pathname === "/") {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          navigate("/");
+        }
+      }
+    } else if (type === "hero-scroll") {
       // Extract the hash from href (e.g., "/#hero" -> "#hero", "/#locations" -> "#locations")
       const hash = href.includes("#") ? href.split("#")[1] : "hero";
       const targetHash = `#${hash}`;
@@ -87,7 +104,7 @@ const Navbar = () => {
     >
       <nav className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/">
+        <Link to="/" onClick={() => handleNavClick("/", "link")}>
           <motion.div
             className="flex items-center gap-3"
             whileHover={{ scale: 1.02 }}
@@ -107,45 +124,27 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-8">
           {navLinks.map((link, index) => (
-            link.type === "link" ? (
-              <Link key={link.name} to={link.href}>
-                <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
-                  whileHover={{ y: -2 }}
-                  className="relative text-sm font-medium text-white/90 hover:text-olive transition-colors group"
-                >
-                  {link.name}
-                  <motion.span
-                    className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary transition-all duration-300 group-hover:w-full"
-                    whileHover={{ width: "100%" }}
-                  />
-                </motion.div>
-              </Link>
-            ) : (
-              <Link key={link.name} to={link.href} onClick={() => handleNavClick(link.href, link.type)}>
-                <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
-                  whileHover={{ y: -2 }}
-                  className="relative text-sm font-medium text-white/90 hover:text-olive transition-colors group"
-                >
-                  {link.name}
-                  <motion.span
-                    className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary transition-all duration-300 group-hover:w-full"
-                    whileHover={{ width: "100%" }}
-                  />
-                </motion.div>
-              </Link>
-            )
+            <Link key={link.name} to={link.href} onClick={() => handleNavClick(link.href, link.type)}>
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
+                whileHover={{ y: -2 }}
+                className="relative text-sm font-medium text-white/90 hover:text-olive transition-colors group"
+              >
+                {link.name}
+                <motion.span
+                  className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary transition-all duration-300 group-hover:w-full"
+                  whileHover={{ width: "100%" }}
+                />
+              </motion.div>
+            </Link>
           ))}
         </div>
 
         {/* CTA Button */}
-        <motion.a
-          href="tel:+905331334339"
+        <motion.button
+          onClick={handleOpenBottomSheetClick}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.6, duration: 0.5 }}
@@ -166,7 +165,7 @@ const Navbar = () => {
           >
 
           </motion.div>
-        </motion.a>
+        </motion.button>
 
         {/* Mobile Menu Button */}
         <motion.button
@@ -210,8 +209,8 @@ const Navbar = () => {
                   </motion.div>
                 </Link>
               ))}
-              <motion.a
-                href="tel:+905331334339"
+              <motion.button
+                onClick={handleOpenBottomSheetClick}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
@@ -219,7 +218,7 @@ const Navbar = () => {
               >
                 <Phone className="w-4 h-4" />
                 <span>Randevu Al</span>
-              </motion.a>
+              </motion.button>
             </div>
           </motion.div>
         )}

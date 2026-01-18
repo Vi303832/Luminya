@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Award, Heart, Users, Target, Clock, Shield } from "lucide-react";
 import Mission from "../components/Mission";
@@ -35,6 +36,11 @@ const stats = [
 ];
 
 const About = () => {
+  // Scroll to top on page load
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="bg-linear-to-b from-stone-light via-cream to-stone-light min-h-screen relative overflow-hidden">
       {/* Decorative Background Elements */}

@@ -1,4 +1,7 @@
+import { useNavigate } from 'react-router-dom'
+
 function WhyUs() {
+  const navigate = useNavigate()
   const features = [
     {
       title: 'Size Özel Sabunlar',
@@ -91,7 +94,10 @@ function WhyUs() {
                   </p>
 
                   {/* Animated Details Button */}
-                  <button className="relative inline-block mt-6 text-olive font-semibold uppercase tracking-widest text-sm overflow-hidden group/btn">
+                  <button 
+                    onClick={() => navigate('/services')}
+                    className="relative inline-block mt-6 text-olive font-semibold uppercase tracking-widest text-sm overflow-hidden group/btn"
+                  >
                     <span className="relative z-10 flex items-center gap-2 group-hover/btn:gap-3 transition-all duration-300">
                       DETAYLAR
                       <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">

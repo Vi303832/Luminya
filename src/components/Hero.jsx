@@ -1,13 +1,7 @@
 import { useState, useEffect } from 'react'
-import BottomSheet from './BottomSheet'
-import BranchSelector, { SearchBar } from './BranchSelector'
-import BranchDetail from './BranchDetail'
 
-function Hero() {
+function Hero({ onOpenBottomSheet }) {
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [selectedBranch, setSelectedBranch] = useState(null)
 
   const slides = [
     'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1920&q=80', // Spa stones massage
@@ -24,26 +18,16 @@ function Hero() {
     return () => clearInterval(timer)
   }, [])
 
-  const handleBranchSelect = (branch) => {
-    setSelectedBranch(branch)
-    setSearchQuery('') // Clear search when selecting a branch
-  }
-
-  const handleBackToBranchList = () => {
-    setSelectedBranch(null)
-  }
-
-  const handleCloseBottomSheet = () => {
-    setIsBottomSheetOpen(false)
-    setSelectedBranch(null)
-    setSearchQuery('')
-  }
-
   const scrollToServices = () => {
-    // Scroll to services section - you can adjust the selector
-    const servicesSection = document.querySelector('#services, [data-section="services"]')
+    const servicesSection = document.getElementById('services')
     if (servicesSection) {
       servicesSection.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      // If not on home page or section doesn't exist, scroll to packages
+      const packagesSection = document.getElementById('packages')
+      if (packagesSection) {
+        packagesSection.scrollIntoView({ behavior: 'smooth' })
+      }
     }
   }
 
@@ -103,7 +87,7 @@ function Hero() {
           {/* Call-to-Action Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 w-full max-w-3xl mx-auto animate-fadeIn">
             <button
-              onClick={() => setIsBottomSheetOpen(true)}
+              onClick={onOpenBottomSheet}
               className="group relative w-full sm:w-auto min-w-[200px] px-8 md:px-10 py-4 md:py-5 bg-white text-espresso font-bold text-sm md:text-base rounded-full overflow-hidden transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:scale-95 z-30 cursor-pointer"
             >
               <div className="absolute inset-0 bg-linear-to-r from-cream to-white translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
@@ -166,27 +150,6 @@ function Hero() {
           />
         </svg>
       </div>
-
-      {/* Bottom Sheet */}
-      <BottomSheet
-        isOpen={isBottomSheetOpen}
-        onClose={handleCloseBottomSheet}
-        title={selectedBranch ? selectedBranch.name : "Şube Seçin"}
-        searchBar={!selectedBranch && <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />}
-      >
-        {selectedBranch ? (
-          <BranchDetail
-            branch={selectedBranch}
-            onBack={handleBackToBranchList}
-          />
-        ) : (
-          <BranchSelector
-            onSelectBranch={handleBranchSelect}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-          />
-        )}
-      </BottomSheet>
     </section>
   )
 }

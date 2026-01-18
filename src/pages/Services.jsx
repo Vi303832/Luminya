@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Sparkles, Heart, Droplets, Wind, Flower, Flame, Leaf, Star } from "lucide-react";
 
@@ -92,7 +93,12 @@ const packages = [
   }
 ];
 
-const Services = () => {
+const Services = ({ onOpenBottomSheet }) => {
+  // Scroll to top on page load
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="bg-cream min-h-screen">
       {/* Packages Section */}
@@ -199,7 +205,8 @@ const Services = () => {
                 </div>
 
                 <motion.button
-                  className={`relative w-full py-3 rounded-full font-bold text-sm tracking-wider overflow-hidden ${pkg.popular
+                  onClick={onOpenBottomSheet}
+                  className={`relative w-full py-3 rounded-full font-bold text-sm tracking-wider overflow-hidden block ${pkg.popular
                     ? 'bg-olive text-white'
                     : 'bg-olive/10 text-olive'
                     }`}
@@ -307,7 +314,8 @@ const Services = () => {
                 <div className="relative text-center pt-4 border-t border-stone-dark/10">
                   <div className="text-xs text-espresso/60 mb-3 font-light">{service.duration}</div>
                   <motion.button
-                    className="relative w-full py-3 rounded-full font-bold text-sm tracking-wider overflow-hidden bg-olive/15 text-olive-dark"
+                    onClick={onOpenBottomSheet}
+                    className="relative w-full py-3 rounded-full font-bold text-sm tracking-wider overflow-hidden bg-olive/15 text-olive-dark block"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -345,14 +353,14 @@ const Services = () => {
               Profesyonel ekibimiz ve lüks olanaklarımızla size özel bir deneyim sunuyoruz.
               Hemen randevu alın, kendinizi şımartın.
             </p>
-            <motion.a
-              href="tel:+905331334339"
+            <motion.button
+              onClick={onOpenBottomSheet}
               className="inline-block px-8 py-4 bg-olive text-white rounded-full font-medium text-lg shadow-lg hover:shadow-xl transition-all"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               Hemen Randevu Al
-            </motion.a>
+            </motion.button>
           </motion.div>
         </div>
       </section>

@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function WellnessPackages() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const navigate = useNavigate()
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -171,7 +173,10 @@ function WellnessPackages() {
                   </ul>
                 </div>
 
-                <button className="w-full relative overflow-hidden bg-olive text-white py-2.5 rounded-lg hover:bg-olive-dark transition-all duration-500 font-medium shadow-md hover:shadow-xl group/btn">
+                <button
+                  onClick={() => navigate('/services')}
+                  className="w-full relative overflow-hidden bg-olive text-white py-2.5 rounded-lg hover:bg-olive-dark transition-all duration-500 font-medium shadow-md hover:shadow-xl group/btn"
+                >
                   <span className="relative z-10 flex items-center justify-center gap-2">
                     Paketi Seç
                     <svg className="w-5 h-5 group-hover/btn:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">

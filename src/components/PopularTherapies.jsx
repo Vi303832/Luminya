@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function PopularTherapies() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const navigate = useNavigate()
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -166,7 +168,10 @@ function PopularTherapies() {
                 </ul>
 
                 {/* Button */}
-                <button className="w-full relative overflow-hidden border-2 border-olive text-olive py-4 rounded-xl hover:bg-olive hover:text-white transition-all duration-500 font-semibold text-sm tracking-wider uppercase group/btn shadow-md hover:shadow-xl">
+                <button
+                  onClick={() => navigate('/services')}
+                  className="w-full relative overflow-hidden border-2 border-olive text-olive py-4 rounded-xl hover:bg-olive hover:text-white transition-all duration-500 font-semibold text-sm tracking-wider uppercase group/btn shadow-md hover:shadow-xl"
+                >
                   <span className="relative z-10 flex items-center justify-center gap-2">
                     Detaylar
                     <svg className="w-5 h-5 group-hover/btn:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -185,7 +190,10 @@ function PopularTherapies() {
 
         {/* View All Services Button */}
         <div className="text-center animate-bounce-slow">
-          <button className="relative group/main bg-olive text-white px-12 py-5 rounded-2xl hover:bg-olive-dark transition-all duration-500 font-semibold text-lg shadow-2xl hover:shadow-3xl transform hover:scale-105 hover:-translate-y-1 overflow-hidden">
+          <button
+            onClick={() => navigate('/services')}
+            className="relative group/main bg-olive text-white px-12 py-5 rounded-2xl hover:bg-olive-dark transition-all duration-500 font-semibold text-lg shadow-2xl hover:shadow-3xl transform hover:scale-105 hover:-translate-y-1 overflow-hidden"
+          >
             <span className="relative z-10 flex items-center justify-center gap-3">
               <svg className="w-6 h-6 animate-spin-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />

@@ -1,24 +1,49 @@
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const navigate = useNavigate();
 
   const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Youtube, href: "#", label: "Youtube" },
+    { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
+    { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
+    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
+    { icon: Youtube, href: "https://youtube.com", label: "Youtube" },
   ];
 
   const quickLinks = [
-    { name: "Ana Sayfa", href: "#hero" },
-    { name: "Hizmetler", href: "#services" },
-    { name: "Tedaviler", href: "#treatments" },
-    { name: "Ürünler", href: "#products" },
-    { name: "Hakkımızda", href: "#about" },
-    { name: "İletişim", href: "#contact" },
+    { name: "Ana Sayfa", href: "/", type: "link" },
+    { name: "Hizmetler", href: "/services", type: "link" },
+    { name: "Hakkımızda", href: "/about", type: "link" },
+    { name: "Şubelerimiz", href: "/#locations", type: "scroll" },
+    { name: "İletişim", href: "/#reservation", type: "scroll" },
   ];
+
+  const handleQuickLinkClick = (e, link) => {
+    e.preventDefault();
+    if (link.type === "link") {
+      navigate(link.href);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (link.type === "scroll") {
+      const hash = link.href.split('#')[1];
+      if (window.location.pathname === "/") {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        navigate("/");
+        setTimeout(() => {
+          const element = document.getElementById(hash);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 500);
+      }
+    }
+  };
 
   return (
     <footer id="contact" className="bg-gradient-to-b from-espresso via-espresso/95 to-espresso pt-20 pb-8 relative overflow-hidden">
@@ -65,6 +90,8 @@ const Footer = () => {
                 <motion.a
                   key={social.label}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={social.label}
                   className="p-3 bg-white/10 rounded-full hover:bg-olive hover:text-white transition-colors duration-300 text-white"
                   whileHover={{ scale: 1.1, rotate: 5 }}
@@ -99,7 +126,8 @@ const Footer = () => {
                 >
                   <a
                     href={link.href}
-                    className="text-gray-300 hover:text-olive transition-colors duration-300 inline-block"
+                    onClick={(e) => handleQuickLinkClick(e, link)}
+                    className="text-gray-300 hover:text-olive transition-colors duration-300 inline-block cursor-pointer"
                   >
                     {link.name}
                   </a>

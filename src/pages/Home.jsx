@@ -11,7 +11,12 @@ import Reviews from '../components/Reviews'
 import Blog from '../components/Blog'
 import Reservation from '../components/Reservation'
 
-function Home() {
+function Home({ onOpenBottomSheet }) {
+  // Scroll to top on page load
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       // Reveal elements on scroll
@@ -33,7 +38,7 @@ function Home() {
 
   return (
     <>
-      <Hero />
+      <Hero onOpenBottomSheet={onOpenBottomSheet} />
       <div className="scroll-reveal">
         <PopularTherapies />
       </div>
