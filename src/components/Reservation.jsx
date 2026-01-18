@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { Calendar, Clock, User, Phone, Mail, MessageSquare, Send } from 'lucide-react'
+import { Calendar, Clock, User, Phone, Mail, MessageSquare, Send, MapPin } from 'lucide-react'
 
 const services = [
   'Thai Masajı',
@@ -15,11 +15,28 @@ const services = [
   'Derin Doku Masajı',
 ]
 
+const branches = [
+  { id: 1, name: 'Adana Şube', city: 'Adana' },
+  { id: 2, name: 'Ankara Çankaya', city: 'Ankara' },
+  { id: 3, name: 'Ankara Kızılay', city: 'Ankara' },
+  { id: 4, name: 'Antalya Lara', city: 'Antalya' },
+  { id: 5, name: 'Bursa Nilüfer', city: 'Bursa' },
+  { id: 6, name: 'Eskişehir Şube', city: 'Eskişehir' },
+  { id: 7, name: 'İstanbul Beşiktaş', city: 'İstanbul' },
+  { id: 8, name: 'İstanbul Kadıköy', city: 'İstanbul' },
+  { id: 9, name: 'İstanbul Nişantaşı', city: 'İstanbul' },
+  { id: 10, name: 'İzmir Alsancak', city: 'İzmir' },
+  { id: 11, name: 'İzmir Bornova', city: 'İzmir' },
+  { id: 12, name: 'Kocaeli Şube', city: 'Kocaeli' },
+  { id: 13, name: 'Muğla Bodrum', city: 'Muğla' },
+]
+
 function Reservation() {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     email: '',
+    branch: '',
     service: '',
     date: '',
     time: '',
@@ -34,6 +51,7 @@ function Reservation() {
       name: '',
       phone: '',
       email: '',
+      branch: '',
       service: '',
       date: '',
       time: '',
@@ -128,13 +146,37 @@ function Reservation() {
               />
             </motion.div>
 
-            {/* Service */}
+            {/* Branch */}
             <motion.div
               className="relative"
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.25 }}
+            >
+              <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
+              <select
+                value={formData.branch}
+                onChange={(e) => setFormData({ ...formData, branch: e.target.value })}
+                className={`${inputClasses} appearance-none cursor-pointer`}
+                required
+              >
+                <option value="">Şube Seçin</option>
+                {branches.map((branch) => (
+                  <option key={branch.id} value={branch.name}>
+                    {branch.name}
+                  </option>
+                ))}
+              </select>
+            </motion.div>
+
+            {/* Service */}
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
             >
               <select
                 value={formData.service}
@@ -154,10 +196,10 @@ function Reservation() {
             {/* Date */}
             <motion.div
               className="relative"
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.35 }}
             >
               <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
               <input
@@ -172,10 +214,10 @@ function Reservation() {
             {/* Time */}
             <motion.div
               className="relative"
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.35 }}
+              transition={{ delay: 0.4 }}
             >
               <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
               <select
@@ -204,7 +246,7 @@ function Reservation() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
+              transition={{ delay: 0.45 }}
             >
               <MessageSquare className="absolute left-4 top-4 w-5 h-5 text-text-muted" />
               <textarea
@@ -222,7 +264,7 @@ function Reservation() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.45 }}
+              transition={{ delay: 0.5 }}
             >
               <motion.button
                 type="submit"

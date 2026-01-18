@@ -3,6 +3,7 @@ import Header from './components/Header'
 import Hero from './components/Hero'
 import PopularTherapies from './components/PopularTherapies'
 import WellnessPackages from './components/WellnessPackages'
+import Stats from './components/Stats'
 import WhyUs from './components/WhyUs'
 import Gallery from './components/Gallery'
 import Branches from './components/Branches'
@@ -47,6 +48,7 @@ function App() {
       <div className="scroll-reveal">
         <WellnessPackages />
       </div>
+
       <div className="scroll-reveal">
         <WhyUs />
       </div>
@@ -64,6 +66,9 @@ function App() {
       </div>
       <div className="scroll-reveal">
         <Subscribe />
+      </div>
+      <div className="scroll-reveal">
+        <Stats />
       </div>
       <div className="scroll-reveal">
         <Reservation />

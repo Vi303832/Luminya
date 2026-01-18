@@ -43,8 +43,30 @@ const Reviews = () => {
   const prev = () => setCurrent((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 
   return (
-    <section className="py-20 md:py-32 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="py-20 md:py-32 bg-cream relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div
+          className="absolute top-20 right-10 w-72 h-72 bg-olive/10 rounded-full blur-3xl"
+          animate={{
+            x: [0, -30, 0],
+            y: [0, 40, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-20 left-10 w-96 h-96 bg-stone/20 rounded-full blur-3xl"
+          animate={{
+            x: [0, 40, 0],
+            y: [0, -30, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
@@ -52,9 +74,15 @@ const Reviews = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-block mb-4">
-            <div className="w-20 h-1 bg-gradient-to-r from-transparent via-olive to-transparent mx-auto mb-6"></div>
-          </div>
+          <motion.span 
+            className="inline-block px-4 py-1 bg-olive/10 rounded-full text-sm font-medium text-olive mb-4"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            YORUMLAR
+          </motion.span>
           <h2 className="font-heading text-4xl md:text-5xl font-light text-text-primary mb-4">
             Müşteri Yorumları
           </h2>
@@ -66,11 +94,15 @@ const Reviews = () => {
         <motion.div
           ref={ref}
           className="max-w-4xl mx-auto"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.8 }}
         >
-          <div className="relative bg-white rounded-3xl p-8 md:p-12 shadow-2xl border border-stone-dark/20">
+          <div className="relative bg-gradient-to-br from-white to-stone-light/30 rounded-3xl p-8 md:p-12 shadow-elevated border border-stone-dark/10">
+            {/* Decorative corner accent */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-olive/5 to-transparent rounded-tr-3xl" />
+            <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tl from-olive/5 to-transparent rounded-bl-3xl" />
+            
             <Quote className="absolute top-6 left-6 w-12 h-12 text-olive/20" />
 
             <motion.div
@@ -79,17 +111,22 @@ const Reviews = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -50 }}
               transition={{ duration: 0.5 }}
-              className="text-center"
+              className="text-center relative z-10"
             >
               <div className="flex justify-center gap-1 mb-6">
                 {[...Array(testimonials[current].rating)].map((_, i) => (
                   <motion.div
                     key={i}
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: i * 0.1 }}
+                    initial={{ scale: 0, rotate: -180 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ 
+                      delay: i * 0.1,
+                      type: "spring",
+                      stiffness: 200,
+                      damping: 10
+                    }}
                   >
-                    <Star className="w-5 h-5 fill-olive text-olive" />
+                    <Star className="w-6 h-6 fill-olive text-olive drop-shadow-sm" />
                   </motion.div>
                 ))}
               </div>
@@ -99,41 +136,44 @@ const Reviews = () => {
               </p>
 
               <div>
-                <h4 className="font-heading text-xl font-normal text-text-primary">
+                <h4 className="font-heading text-xl font-normal text-text-primary mb-1">
                   {testimonials[current].name}
                 </h4>
-                <p className="text-text-muted text-sm mt-1">{testimonials[current].role}</p>
+                <p className="text-olive text-sm font-medium">{testimonials[current].role}</p>
               </div>
             </motion.div>
 
-            <div className="flex justify-center gap-4 mt-8">
+            <div className="flex justify-center gap-4 mt-8 relative z-10">
               <motion.button
                 onClick={prev}
-                className="p-3 rounded-full border border-stone-dark hover:border-olive hover:bg-olive/5 transition-all"
+                className="p-3 rounded-full border-2 border-stone-dark/30 hover:border-olive hover:bg-olive/10 transition-all duration-300 shadow-soft hover:shadow-medium"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <ChevronLeft className="w-5 h-5 text-text-primary" />
+                <ChevronLeft className="w-5 h-5 text-olive" />
               </motion.button>
               <div className="flex items-center gap-2">
                 {testimonials.map((_, i) => (
                   <motion.button
                     key={i}
                     onClick={() => setCurrent(i)}
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      i === current ? "w-8 bg-olive" : "w-2 bg-stone-dark"
+                    className={`h-2 rounded-full transition-all duration-500 ${
+                      i === current 
+                        ? "w-10 bg-gradient-to-r from-olive to-olive-dark shadow-olive" 
+                        : "w-2 bg-stone-dark/50 hover:bg-olive/40"
                     }`}
                     whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
                   />
                 ))}
               </div>
               <motion.button
                 onClick={next}
-                className="p-3 rounded-full border border-stone-dark hover:border-olive hover:bg-olive/5 transition-all"
+                className="p-3 rounded-full border-2 border-stone-dark/30 hover:border-olive hover:bg-olive/10 transition-all duration-300 shadow-soft hover:shadow-medium"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <ChevronRight className="w-5 h-5 text-text-primary" />
+                <ChevronRight className="w-5 h-5 text-olive" />
               </motion.button>
             </div>
           </div>
