@@ -5,6 +5,7 @@ import PopularTherapies from './components/PopularTherapies'
 import WellnessPackages from './components/WellnessPackages'
 import WhyUs from './components/WhyUs'
 import Gallery from './components/Gallery'
+import Branches from './components/Branches'
 import Mission from './components/Mission'
 import Reviews from './components/Reviews'
 import Subscribe from './components/Subscribe'
@@ -51,6 +52,9 @@ function App() {
       </div>
       <div className="scroll-reveal">
         <Gallery />
+      </div>
+      <div className="scroll-reveal">
+        <Branches />
       </div>
       <div className="scroll-reveal">
         <Mission />

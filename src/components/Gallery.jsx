@@ -1,80 +1,249 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
+
+const galleryImages = [
+  {
+    url: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1920&q=80',
+    category: 'spa',
+    title: 'Lüks Spa Deneyimi',
+    description: 'Huzurun ve rahatlığın buluşma noktası'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1920&q=80',
+    category: 'massage',
+    title: 'Profesyonel Masaj Terapisi',
+    description: 'Uzman ellerle yenilenme zamanı'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1571772996211-2f02c9727629?w=1920&q=80',
+    category: 'facility',
+    title: 'Modern Tesislerimiz',
+    description: 'Konfor ve estetiğin mükemmel uyumu'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1920&q=80',
+    category: 'massage',
+    title: 'Sıcak Taş Masajı',
+    description: 'Derin gevşeme ve arınma'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=1920&q=80',
+    category: 'spa',
+    title: 'Termal Spa Havuzu',
+    description: 'Doğanın şifa gücüyle tanışın'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=1920&q=80',
+    category: 'facility',
+    title: 'Premium Dinlenme Alanları',
+    description: 'Size özel huzur köşeleri'
+  },
+]
 
 function Gallery() {
-  const [selectedCategory, setSelectedCategory] = useState('all')
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(true)
+  const [direction, setDirection] = useState('right')
+  const [isHovered, setIsHovered] = useState(false)
 
-  const categories = [
-    { id: 'all', name: 'Tümü' },
-    { id: 'massage', name: 'Masaj' },
-    { id: 'spa', name: 'Spa' },
-    { id: 'facility', name: 'Tesis' },
-  ]
+  const nextSlide = useCallback(() => {
+    setDirection('right')
+    setActiveIndex((prev) => (prev + 1) % galleryImages.length)
+  }, [])
 
-  const images = [
-    { url: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80', category: 'spa' },
-    { url: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80', category: 'massage' },
-    { url: 'https://images.unsplash.com/photo-1571772996211-2f02c9727629?w=800&q=80', category: 'facility' },
-    { url: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=800&q=80', category: 'massage' },
-    { url: 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=800&q=80', category: 'spa' },
-    { url: 'https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=800&q=80', category: 'facility' },
-  ]
+  const prevSlide = useCallback(() => {
+    setDirection('left')
+    setActiveIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length)
+  }, [])
 
-  const filteredImages = selectedCategory === 'all'
-    ? images
-    : images.filter(img => img.category === selectedCategory)
+  const goToSlide = (index) => {
+    setDirection(index > activeIndex ? 'right' : 'left')
+    setActiveIndex(index)
+  }
+
+  useEffect(() => {
+    if (!isPlaying || isHovered) return
+    const interval = setInterval(nextSlide, 5000)
+    return () => clearInterval(interval)
+  }, [isPlaying, isHovered, nextSlide])
 
   return (
-    <section className="py-16 px-4 bg-white">
-      {/* Galeri ana kapsayıcı */}
-      <div className="max-w-7xl mx-auto">
-        {/* Başlık ve açıklama */}
-        <div className="text-center mb-12">
-          <h2 className="font-heading text-4xl font-normal text-text-primary mb-4">İnteraktif Galeri</h2>
-          <p className="text-text-secondary text-lg max-w-2xl mx-auto mb-8">
-            Tesislerimizi ve hizmetlerimizi daha yakından tanıyın
-          </p>
+    <section className="relative h-screen w-full overflow-hidden bg-gray-900">
+      {/* Background ambient layer */}
+      <div className="absolute inset-0 bg-gradient-to-b from-olive/10 via-transparent to-stone/20" />
 
-          {/* Filtreleme Butonları */}
-          <div className="flex flex-wrap justify-center gap-4">
-            {categories.map(category => (
-              <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`px-6 py-2 rounded-full font-medium transition ${selectedCategory === category.id
-                  ? 'bg-olive text-white'
-                  : 'bg-stone-dark text-text-secondary hover:bg-stone'
-                  }`}
-              >
-                {category.name}
-              </button>
-            ))}
-          </div>
-        </div>
+      {/* Main Gallery Container */}
+      <div
+        className="relative h-full w-full"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {/* Images with animated transitions */}
+        {galleryImages.map((image, index) => {
+          const isActive = index === activeIndex
+          const isPrev = index === (activeIndex - 1 + galleryImages.length) % galleryImages.length
+          const isNext = index === (activeIndex + 1) % galleryImages.length
 
-        {/* Galeri Grid'i */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredImages.map((image, index) => (
-            // Her görsel kartı
+          return (
             <div
-              key={index}
-              className="relative h-64 rounded-xl overflow-hidden group cursor-pointer shadow-lg"
+              key={image.url}
+              className={`absolute inset-0 transition-all duration-1000 ease-out ${isActive ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-105 z-0'
+                } ${isPrev && direction === 'right' ? '-translate-x-full' : ''} ${isNext && direction === 'left' ? 'translate-x-full' : ''
+                }`}
             >
-              {/* Görsel */}
               <img
                 src={image.url}
-                alt={`Gallery ${index + 1}`}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                alt={image.title}
+                className="w-full h-full object-cover"
               />
-              {/* Hover efekti ile büyüteç simgesi */}
-              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-opacity duration-300 flex items-center justify-center">
-                <svg className="w-12 h-12 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                </svg>
+
+              {/* Overlay gradients */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
+            </div>
+          )
+        })}
+
+        {/* Content Overlay */}
+        <div className="absolute inset-0 z-20 flex flex-col justify-between p-6 md:p-12 lg:p-16">
+          {/* Center Content */}
+          <div className="flex-1 flex items-center justify-center">
+            <div className="text-center max-w-3xl mx-auto">
+              <div
+                key={activeIndex}
+                className="animate-fade-in"
+              >
+                <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl text-white mb-4">
+                  {galleryImages[activeIndex].title}
+                </h2>
+                <p className="text-white/80 text-lg md:text-xl lg:text-2xl tracking-wide">
+                  {galleryImages[activeIndex].description}
+                </p>
               </div>
             </div>
-          ))}
+          </div>
+
+          {/* Bottom Controls */}
+          <footer className="flex items-end justify-between gap-4">
+            {/* Thumbnail Gallery */}
+            <div className="hidden lg:flex items-center gap-3">
+              {galleryImages.map((image, index) => (
+                <button
+                  key={image.url}
+                  onClick={() => goToSlide(index)}
+                  className={`relative w-20 h-14 overflow-hidden rounded transition-all duration-500 group ${index === activeIndex
+                    ? 'ring-2 ring-white scale-110'
+                    : 'opacity-60 hover:opacity-100 hover:scale-105'
+                    }`}
+                >
+                  <img
+                    src={image.url}
+                    alt={image.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div
+                    className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${index === activeIndex ? 'opacity-0' : 'group-hover:opacity-0'
+                      }`}
+                  />
+                </button>
+              ))}
+            </div>
+
+            {/* Progress Dots (Mobile) */}
+            <div className="flex lg:hidden items-center gap-2">
+              {galleryImages.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`transition-all duration-500 ${index === activeIndex
+                    ? 'w-8 h-2 bg-white rounded-full'
+                    : 'w-2 h-2 bg-white/50 rounded-full hover:bg-white/80'
+                    }`}
+                  aria-label={`Slayt ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            {/* Navigation Controls */}
+            <div className="flex items-center gap-4">
+              {/* Play/Pause */}
+              <button
+                onClick={() => setIsPlaying(!isPlaying)}
+                className="w-10 h-10 flex items-center justify-center border border-white/30 text-white/80 hover:bg-white/10 hover:text-white transition-all duration-300 rounded-full"
+                aria-label={isPlaying ? 'Duraklat' : 'Oynat'}
+              >
+                {isPlaying ? (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                ) : (
+                  <svg className="w-4 h-4 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                )}
+              </button>
+
+              {/* Prev/Next */}
+              <div className="flex items-center">
+                <button
+                  onClick={prevSlide}
+                  className="w-12 h-12 flex items-center justify-center border border-white/30 text-white/80 hover:bg-white/10 hover:text-white transition-all duration-300 group"
+                  aria-label="Önceki"
+                >
+                  <svg className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <button
+                  onClick={nextSlide}
+                  className="w-12 h-12 flex items-center justify-center border border-white/30 border-l-0 text-white/80 hover:bg-white/10 hover:text-white transition-all duration-300 group"
+                  aria-label="Sonraki"
+                >
+                  <svg className="w-5 h-5 group-hover:translate-x-0.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </footer>
         </div>
+
+        {/* Animated Progress Bar */}
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20 z-30">
+          <div
+            className="h-full bg-olive transition-all"
+            style={{
+              width: isPlaying && !isHovered ? '100%' : `${((activeIndex + 1) / galleryImages.length) * 100}%`,
+              transition: isPlaying && !isHovered ? 'width 5s linear' : 'width 0.3s ease-out',
+            }}
+          />
+        </div>
+
+        {/* Floating Decorative Elements */}
+        <div className="absolute top-1/4 left-8 w-px h-32 bg-gradient-to-b from-transparent via-white/30 to-transparent hidden lg:block animate-pulse" />
+        <div className="absolute bottom-1/4 right-8 w-px h-32 bg-gradient-to-b from-transparent via-white/30 to-transparent hidden lg:block animate-pulse" style={{ animationDelay: '1s' }} />
+
+        {/* Corner Decorations */}
+        <div className="absolute top-6 right-6 md:top-12 md:right-12 lg:top-16 lg:right-16 w-16 h-16 border-t border-r border-white/20 z-20 hidden md:block" />
+        <div className="absolute bottom-6 left-6 md:bottom-12 md:left-12 lg:bottom-16 lg:left-16 w-16 h-16 border-b border-l border-white/20 z-20 hidden md:block" />
       </div>
+
+      <style jsx>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .animate-fade-in {
+          animation: fade-in 0.7s ease-out;
+        }
+      `}</style>
     </section>
   )
 }
