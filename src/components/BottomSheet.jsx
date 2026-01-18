@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-function BottomSheet({ isOpen, onClose, title, children }) {
+function BottomSheet({ isOpen, onClose, title, children, searchBar }) {
   // Close on Escape key
   useEffect(() => {
     const handleEscape = (e) => {
@@ -34,6 +34,7 @@ function BottomSheet({ isOpen, onClose, title, children }) {
         onClick={onClose}
       />
 
+
       {/* Bottom Sheet */}
       <div className="fixed inset-x-0 bottom-0 z-50 animate-slideUp">
         <div className="bg-white rounded-t-3xl shadow-2xl max-h-[85vh] flex flex-col">
@@ -43,29 +44,33 @@ function BottomSheet({ isOpen, onClose, title, children }) {
           </div>
 
           {/* Header */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-            <h2 className="text-2xl font-heading font-semibold text-espresso">
-              {title}
-            </h2>
-            <button
-              onClick={onClose}
-              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-              aria-label="Kapat"
-            >
-              <svg
-                className="w-6 h-6 text-gray-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+          <div className="sticky top-0 z-20 px-6 py-4 bg-white border-b border-gray-200">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-xl font-heading font-semibold text-espresso">
+                {title}
+              </h2>
+              <button
+                onClick={onClose}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                aria-label="Kapat"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
+                <svg
+                  className="w-5 h-5 text-gray-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+            {/* Search Bar */}
+            {searchBar && <div className="mt-3">{searchBar}</div>}
           </div>
 
           {/* Content */}

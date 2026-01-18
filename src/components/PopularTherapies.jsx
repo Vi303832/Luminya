@@ -31,7 +31,6 @@ function PopularTherapies() {
       subtitle: 'Luna Den Spa & Wellness',
       description: 'Geleneksel sauna deneyimi ile vücudunuzdaki toksinlerden arının ve stresden uzaklaşın',
       image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80',
-      price: '₺450',
       duration: '60 dakika',
       badge: 'Popüler',
       items: [
@@ -47,7 +46,6 @@ function PopularTherapies() {
       subtitle: 'Luna Den Spa & Wellness',
       description: 'Derin temizlik ve yenilenme için geleneksel Türk hamamı ritüeli',
       image: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&q=80',
-      price: '₺650',
       duration: '90 dakika',
       badge: 'En Çok Tercih Edilen',
       items: [
@@ -63,7 +61,6 @@ function PopularTherapies() {
       subtitle: 'Luna Den Spa & Wellness',
       description: 'Uzman terapistlerimiz ile profesyonel masaj terapileri',
       image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80',
-      price: '₺850',
       duration: '75 dakika',
       badge: 'Premium',
       items: [
@@ -139,19 +136,12 @@ function PopularTherapies() {
 
               {/* Content */}
               <div className="p-7">
-                {/* Price & Duration */}
-                <div className="flex items-center justify-between mb-6 pb-4 border-b border-stone-dark">
-                  <div className="flex items-center gap-2">
-                    <div className="bg-olive text-white px-4 py-2 rounded-full shadow-md group-hover:shadow-lg transition-all duration-300">
-                      <span className="font-bold text-base">{service.price}</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 text-text-muted">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span className="text-sm font-medium">{service.duration}</span>
-                  </div>
+                {/* Duration */}
+                <div className="flex items-center justify-center gap-2 text-text-muted mb-6 pb-4 border-b border-stone-dark">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="text-base font-medium">{service.duration}</span>
                 </div>
 
                 {/* Services List */}

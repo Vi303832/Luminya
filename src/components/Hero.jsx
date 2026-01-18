@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import BottomSheet from './BottomSheet'
-import BranchSelector from './BranchSelector'
+import BranchSelector, { SearchBar } from './BranchSelector'
 
 function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
 
   const slides = [
     'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1920&q=80', // Spa stones massage
@@ -160,8 +161,13 @@ function Hero() {
         isOpen={isBottomSheetOpen}
         onClose={() => setIsBottomSheetOpen(false)}
         title="Şube Seçin"
+        searchBar={<SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />}
       >
-        <BranchSelector onSelectBranch={handleBranchSelect} />
+        <BranchSelector 
+          onSelectBranch={handleBranchSelect}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
       </BottomSheet>
     </section>
   )
