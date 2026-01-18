@@ -38,7 +38,7 @@ function App() {
 
   return (
     <Router>
-      <div className="bg-white">
+      <div className="bg-white overflow-x-hidden">
         <Header onOpenBottomSheet={handleOpenBottomSheet} />
         <Routes>
           <Route path="/" element={<Home onOpenBottomSheet={handleOpenBottomSheet} />} />
