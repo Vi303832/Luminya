@@ -81,203 +81,318 @@ function Reservation() {
           </p>
         </motion.div>
 
-        <motion.div
-          className="max-w-4xl mx-auto bg-white rounded-2xl p-8 md:p-12 shadow-xl"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-6">
-            {/* Name */}
-            <motion.div
-              className="relative"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
-              <input
-                type="text"
-                placeholder="Adınız Soyadınız"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className={inputClasses}
-                required
-              />
-            </motion.div>
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
+          {/* Contact Information - Left Side */}
+          <motion.div
+            className="bg-white rounded-2xl p-8 md:p-10 shadow-xl"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <h3 className="font-heading text-3xl text-text-primary mb-10">İletişim Bilgileri</h3>
 
-            {/* Phone */}
-            <motion.div
-              className="relative"
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.15 }}
-            >
-              <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
-              <input
-                type="tel"
-                placeholder="Telefon Numaranız"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className={inputClasses}
-                required
-              />
-            </motion.div>
+            {/* Address */}
+            <div className="mb-7">
+              <div className="flex items-start gap-4">
+                <div className="bg-olive/10 p-3 rounded-lg">
+                  <MapPin className="w-5 h-5 text-olive" />
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-semibold text-base text-text-primary mb-2">Adres</h4>
+                  <p className="text-text-secondary text-sm leading-relaxed">
+                    Merkez Şube: Nişantaşı, Teşvikiye Cad. No:123<br />
+                    Şişli / İstanbul
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Phone Numbers */}
+            <div className="mb-7">
+              <div className="flex items-start gap-4">
+                <div className="bg-olive/10 p-3 rounded-lg">
+                  <Phone className="w-5 h-5 text-olive" />
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-semibold text-base text-text-primary mb-3">Telefon</h4>
+                  <div className="space-y-2">
+                    <a
+                      href="tel:+902123456789"
+                      className="block text-lg font-semibold text-olive hover:text-olive-dark transition-colors duration-300"
+                    >
+                      0212 345 67 89
+                    </a>
+                    <a
+                      href="tel:+905551234567"
+                      className="block text-base font-medium text-text-primary hover:text-olive transition-colors duration-300"
+                    >
+                      0555 123 45 67
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             {/* Email */}
-            <motion.div
-              className="relative"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
-              <input
-                type="email"
-                placeholder="E-posta Adresiniz"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className={inputClasses}
-                required
-              />
-            </motion.div>
+            <div className="mb-7">
+              <div className="flex items-start gap-4">
+                <div className="bg-olive/10 p-3 rounded-lg">
+                  <Mail className="w-5 h-5 text-olive" />
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-semibold text-base text-text-primary mb-2">E-posta</h4>
+                  <a
+                    href="mailto:info@lunaspa.com"
+                    className="text-base text-olive hover:text-olive-dark transition-colors duration-300 font-medium"
+                  >
+                    info@lunaspa.com
+                  </a>
+                </div>
+              </div>
+            </div>
 
-            {/* Branch */}
-            <motion.div
-              className="relative"
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.25 }}
-            >
-              <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
-              <select
-                value={formData.branch}
-                onChange={(e) => setFormData({ ...formData, branch: e.target.value })}
-                className={`${inputClasses} appearance-none cursor-pointer`}
-                required
+            {/* Working Hours */}
+            <div className="mb-7">
+              <div className="flex items-start gap-4">
+                <div className="bg-olive/10 p-3 rounded-lg">
+                  <Clock className="w-5 h-5 text-olive" />
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-semibold text-base text-text-primary mb-3">Çalışma Saatleri</h4>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between items-center">
+                      <span className="text-text-secondary">Pazartesi - Cuma</span>
+                      <span className="font-medium text-text-primary">10:00 - 22:00</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-text-secondary">Cumartesi</span>
+                      <span className="font-medium text-text-primary">10:00 - 23:00</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-text-secondary">Pazar</span>
+                      <span className="font-medium text-text-primary">11:00 - 21:00</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Map */}
+            <div className="rounded-xl overflow-hidden border border-olive/20 shadow-md">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3009.2907673788865!2d28.99380431541914!3d41.04621897929827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab7650656bd63%3A0x8e0d7d1d4b7c3c8a!2zTmnFn2FudGHFncSxLCDEsHN0YW5idWw!5e0!3m2!1str!2str!4v1642345678901!5m2!1str!2str"
+                width="100%"
+                height="250"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Luna Spa Konum"
+                className="w-full"
+              ></iframe>
+            </div>
+          </motion.div>
+
+          {/* Reservation Form - Right Side */}
+          <motion.div
+            className="bg-white rounded-2xl p-8 md:p-10 shadow-xl"
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <h3 className="font-heading text-2xl md:text-3xl text-text-primary mb-8">Randevu Formu</h3>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Name */}
+              <motion.div
+                className="relative"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
               >
-                <option value="">Şube Seçin</option>
-                {branches.map((branch) => (
-                  <option key={branch.id} value={branch.name}>
-                    {branch.name}
-                  </option>
-                ))}
-              </select>
-            </motion.div>
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
+                <input
+                  type="text"
+                  placeholder="Adınız Soyadınız"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className={inputClasses}
+                  required
+                />
+              </motion.div>
 
-            {/* Service */}
-            <motion.div
-              className="relative"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-            >
-              <select
-                value={formData.service}
-                onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                className={`${inputClasses} pl-4 appearance-none cursor-pointer`}
-                required
+              {/* Phone */}
+              <motion.div
+                className="relative"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.15 }}
               >
-                <option value="">Hizmet Seçin</option>
-                {services.map((service) => (
-                  <option key={service} value={service}>
-                    {service}
-                  </option>
-                ))}
-              </select>
-            </motion.div>
+                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
+                <input
+                  type="tel"
+                  placeholder="Telefon Numaranız"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className={inputClasses}
+                  required
+                />
+              </motion.div>
 
-            {/* Date */}
-            <motion.div
-              className="relative"
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.35 }}
-            >
-              <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
-              <input
-                type="date"
-                value={formData.date}
-                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                className={inputClasses}
-                required
-              />
-            </motion.div>
-
-            {/* Time */}
-            <motion.div
-              className="relative"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-            >
-              <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
-              <select
-                value={formData.time}
-                onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                className={`${inputClasses} appearance-none cursor-pointer`}
-                required
+              {/* Email */}
+              <motion.div
+                className="relative"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
               >
-                <option value="">Saat Seçin</option>
-                <option value="10:00">10:00</option>
-                <option value="11:00">11:00</option>
-                <option value="12:00">12:00</option>
-                <option value="14:00">14:00</option>
-                <option value="15:00">15:00</option>
-                <option value="16:00">16:00</option>
-                <option value="17:00">17:00</option>
-                <option value="18:00">18:00</option>
-                <option value="19:00">19:00</option>
-                <option value="20:00">20:00</option>
-              </select>
-            </motion.div>
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
+                <input
+                  type="email"
+                  placeholder="E-posta Adresiniz"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className={inputClasses}
+                  required
+                />
+              </motion.div>
 
-            {/* Message */}
-            <motion.div
-              className="relative md:col-span-2"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.45 }}
-            >
-              <MessageSquare className="absolute left-4 top-4 w-5 h-5 text-text-muted" />
-              <textarea
-                placeholder="Mesajınız (Opsiyonel)"
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className={`${inputClasses} min-h-[120px] resize-none`}
-                rows={4}
-              />
-            </motion.div>
-
-            {/* Submit */}
-            <motion.div
-              className="md:col-span-2"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
-            >
-              <motion.button
-                type="submit"
-                className="w-full bg-olive text-white py-4 rounded-lg hover:bg-olive-dark transition-all duration-300 font-medium text-lg shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+              {/* Branch */}
+              <motion.div
+                className="relative"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.25 }}
               >
-                <Send className="w-5 h-5" />
-                Rezervasyon Yap
-              </motion.button>
-            </motion.div>
-          </form>
-        </motion.div>
+                <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
+                <select
+                  value={formData.branch}
+                  onChange={(e) => setFormData({ ...formData, branch: e.target.value })}
+                  className={`${inputClasses} appearance-none cursor-pointer`}
+                  required
+                >
+                  <option value="">Şube Seçin</option>
+                  {branches.map((branch) => (
+                    <option key={branch.id} value={branch.name}>
+                      {branch.name}
+                    </option>
+                  ))}
+                </select>
+              </motion.div>
+
+              {/* Service */}
+              <motion.div
+                className="relative"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+              >
+                <select
+                  value={formData.service}
+                  onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                  className={`${inputClasses} pl-4 appearance-none cursor-pointer`}
+                  required
+                >
+                  <option value="">Hizmet Seçin</option>
+                  {services.map((service) => (
+                    <option key={service} value={service}>
+                      {service}
+                    </option>
+                  ))}
+                </select>
+              </motion.div>
+
+              {/* Date */}
+              <motion.div
+                className="relative"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.35 }}
+              >
+                <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
+                <input
+                  type="date"
+                  value={formData.date}
+                  onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                  className={inputClasses}
+                  required
+                />
+              </motion.div>
+
+              {/* Time */}
+              <motion.div
+                className="relative"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+              >
+                <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
+                <select
+                  value={formData.time}
+                  onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+                  className={`${inputClasses} appearance-none cursor-pointer`}
+                  required
+                >
+                  <option value="">Saat Seçin</option>
+                  <option value="10:00">10:00</option>
+                  <option value="11:00">11:00</option>
+                  <option value="12:00">12:00</option>
+                  <option value="14:00">14:00</option>
+                  <option value="15:00">15:00</option>
+                  <option value="16:00">16:00</option>
+                  <option value="17:00">17:00</option>
+                  <option value="18:00">18:00</option>
+                  <option value="19:00">19:00</option>
+                  <option value="20:00">20:00</option>
+                </select>
+              </motion.div>
+
+              {/* Message */}
+              <motion.div
+                className="relative"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.45 }}
+              >
+                <MessageSquare className="absolute left-4 top-4 w-5 h-5 text-text-muted" />
+                <textarea
+                  placeholder="Mesajınız (Opsiyonel)"
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className={`${inputClasses} min-h-[120px] resize-none`}
+                  rows={4}
+                />
+              </motion.div>
+
+              {/* Submit */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 }}
+              >
+                <motion.button
+                  type="submit"
+                  className="w-full bg-olive text-white py-4 rounded-lg hover:bg-olive-dark transition-all duration-300 font-medium text-lg shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Send className="w-5 h-5" />
+                  Rezervasyon Yap
+                </motion.button>
+              </motion.div>
+            </form>
+          </motion.div>
+        </div>
       </div>
     </section>
   )
