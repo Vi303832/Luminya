@@ -1,230 +1,241 @@
+import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { Calendar, Clock, User, Phone, Mail, MessageSquare, Send } from 'lucide-react'
+
+const services = [
+  'Thai Masajı',
+  'Aromaterapi Masajı',
+  'Hot Stone Masaj',
+  'Cilt Bakımı Deluxe',
+  'Türk Hamamı',
+  'Yoga & Meditasyon',
+  'Spa Paketi VIP',
+  'İsveç Masajı',
+  'Refleksoloji',
+  'Derin Doku Masajı',
+]
 
 function Reservation() {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     phone: '',
+    email: '',
+    service: '',
     date: '',
     time: '',
-    service: '',
     message: '',
   })
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault()
+    console.log('Form submitted:', formData)
     alert('Rezervasyon talebiniz alınmıştır. En kısa sürede size dönüş yapacağız.')
     setFormData({
       name: '',
-      email: '',
       phone: '',
+      email: '',
+      service: '',
       date: '',
       time: '',
-      service: '',
       message: '',
     })
   }
 
+  const inputClasses =
+    'w-full pl-12 pr-4 py-4 bg-white border border-stone-dark rounded-lg font-body text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-olive/50 focus:border-olive transition-all duration-300'
+
   return (
-    <section id="contact" className="py-16 px-4 bg-stone-light">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
+    <section id="reservation" className="py-16 md:py-24 bg-stone-light">
+      <div className="max-w-7xl mx-auto px-4">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <span className="inline-block px-4 py-1 bg-olive/10 rounded-full text-sm font-medium text-olive mb-4">
+            REZERVASYON
+          </span>
           <h2 className="font-heading text-4xl font-normal text-text-primary mb-4">Rezervasyon Yapın</h2>
           <p className="text-text-secondary text-lg max-w-2xl mx-auto">
-            Huzur dolu bir deneyim için hemen randevu alın
+            Hemen randevu alın ve kendinizi şımartmaya başlayın
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact Info */}
-          <div className="space-y-8">
-            <div>
-              <h3 className="font-heading text-2xl font-normal text-text-primary mb-6">İletişim Bilgileri</h3>
-              
-              <div className="space-y-4">
-                <div className="flex items-start gap-4 bg-white p-4 rounded-lg shadow">
-                  <div className="bg-olive text-white p-3 rounded-lg">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-text-primary mb-1">Adres</h4>
-                    <p className="text-text-secondary">Nişantaşı, Teşvikiye Cad. No:123<br />Şişli, İstanbul</p>
-                  </div>
-                </div>
+        <motion.div
+          className="max-w-4xl mx-auto bg-white rounded-2xl p-8 md:p-12 shadow-xl"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-6">
+            {/* Name */}
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
+              <input
+                type="text"
+                placeholder="Adınız Soyadınız"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className={inputClasses}
+                required
+              />
+            </motion.div>
 
-                <div className="flex items-start gap-4 bg-white p-4 rounded-lg shadow">
-                  <div className="bg-olive text-white p-3 rounded-lg">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-text-primary mb-1">Telefon</h4>
-                    <p className="text-text-secondary">+90 212 123 45 67<br />+90 532 123 45 67</p>
-                  </div>
-                </div>
+            {/* Phone */}
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.15 }}
+            >
+              <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
+              <input
+                type="tel"
+                placeholder="Telefon Numaranız"
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                className={inputClasses}
+                required
+              />
+            </motion.div>
 
-                <div className="flex items-start gap-4 bg-white p-4 rounded-lg shadow">
-                  <div className="bg-olive text-white p-3 rounded-lg">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-text-primary mb-1">E-posta</h4>
-                    <p className="text-text-secondary">info@ruhunuzu.com<br />rezervasyon@ruhunuzu.com</p>
-                  </div>
-                </div>
+            {/* Email */}
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
+              <input
+                type="email"
+                placeholder="E-posta Adresiniz"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className={inputClasses}
+                required
+              />
+            </motion.div>
 
-                <div className="flex items-start gap-4 bg-white p-4 rounded-lg shadow">
-                  <div className="bg-olive text-white p-3 rounded-lg">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-text-primary mb-1">Çalışma Saatleri</h4>
-                    <p className="text-text-secondary">Pazartesi - Cumartesi: 09:00 - 21:00<br />Pazar: 10:00 - 19:00</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Reservation Form */}
-          <div className="bg-white p-8 rounded-2xl shadow-xl">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-text-primary mb-2">
-                  Ad Soyad *
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-stone-dark rounded-lg focus:ring-2 focus:ring-olive focus:border-transparent"
-                  placeholder="Adınız ve soyadınız"
-                />
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    E-posta *
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-stone-dark rounded-lg focus:ring-2 focus:ring-olive focus:border-transparent"
-                    placeholder="ornek@email.com"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Telefon *
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-stone-dark rounded-lg focus:ring-2 focus:ring-olive focus:border-transparent"
-                    placeholder="0532 123 45 67"
-                  />
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Tarih *
-                  </label>
-                  <input
-                    type="date"
-                    name="date"
-                    value={formData.date}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-stone-dark rounded-lg focus:ring-2 focus:ring-olive focus:border-transparent"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Saat *
-                  </label>
-                  <input
-                    type="time"
-                    name="time"
-                    value={formData.time}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-stone-dark rounded-lg focus:ring-2 focus:ring-olive focus:border-transparent"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Hizmet *
-                </label>
-                <select
-                  name="service"
-                  value={formData.service}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-stone-dark rounded-lg focus:ring-2 focus:ring-olive focus:border-transparent"
-                >
-                  <option value="">Hizmet seçin</option>
-                  <option value="swedish">İsveç Masajı</option>
-                  <option value="aromatherapy">Aromaterapi Masajı</option>
-                  <option value="hotstone">Sıcak Taş Masajı</option>
-                  <option value="deepissue">Derin Doku Masajı</option>
-                  <option value="thai">Thai Masajı</option>
-                  <option value="reflexology">Refleksoloji</option>
-                  <option value="hamam">Hamam ve Kese</option>
-                  <option value="package">Paket Hizmetler</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Mesajınız
-                </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={4}
-                  className="w-full px-4 py-3 border border-stone-dark rounded-lg focus:ring-2 focus:ring-olive focus:border-transparent resize-none"
-                  placeholder="Özel isteklerinizi buraya yazabilirsiniz..."
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-olive text-white py-3 rounded-lg hover:bg-olive-dark transition font-medium text-lg"
+            {/* Service */}
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.25 }}
+            >
+              <select
+                value={formData.service}
+                onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                className={`${inputClasses} pl-4 appearance-none cursor-pointer`}
+                required
               >
-                Rezervasyon Talebi Gönder
-              </button>
-            </form>
-          </div>
-        </div>
+                <option value="">Hizmet Seçin</option>
+                {services.map((service) => (
+                  <option key={service} value={service}>
+                    {service}
+                  </option>
+                ))}
+              </select>
+            </motion.div>
+
+            {/* Date */}
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
+              <input
+                type="date"
+                value={formData.date}
+                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                className={inputClasses}
+                required
+              />
+            </motion.div>
+
+            {/* Time */}
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.35 }}
+            >
+              <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
+              <select
+                value={formData.time}
+                onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+                className={`${inputClasses} appearance-none cursor-pointer`}
+                required
+              >
+                <option value="">Saat Seçin</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+                <option value="18:00">18:00</option>
+                <option value="19:00">19:00</option>
+                <option value="20:00">20:00</option>
+              </select>
+            </motion.div>
+
+            {/* Message */}
+            <motion.div
+              className="relative md:col-span-2"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+            >
+              <MessageSquare className="absolute left-4 top-4 w-5 h-5 text-text-muted" />
+              <textarea
+                placeholder="Mesajınız (Opsiyonel)"
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                className={`${inputClasses} min-h-[120px] resize-none`}
+                rows={4}
+              />
+            </motion.div>
+
+            {/* Submit */}
+            <motion.div
+              className="md:col-span-2"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.45 }}
+            >
+              <motion.button
+                type="submit"
+                className="w-full bg-olive text-white py-4 rounded-lg hover:bg-olive-dark transition-all duration-300 font-medium text-lg shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Send className="w-5 h-5" />
+                Rezervasyon Yap
+              </motion.button>
+            </motion.div>
+          </form>
+        </motion.div>
       </div>
     </section>
   )

@@ -137,27 +137,6 @@ const Reviews = () => {
               </motion.button>
             </div>
           </div>
-
-          {/* Slider Progress Bar */}
-          <div className="flex justify-center gap-3 mt-8">
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrent(i)}
-                className="group flex flex-col items-center gap-2 focus:outline-none"
-                aria-label={`Yorum ${i + 1}`}
-              >
-                <div className={`h-1 rounded-full transition-all duration-500 ${
-                  i === current ? 'w-12 bg-olive' : 'w-8 bg-stone-dark group-hover:w-10 group-hover:bg-olive/60'
-                }`} />
-                <span className={`text-xs font-medium transition-all duration-300 ${
-                  i === current ? 'text-olive opacity-100' : 'text-text-muted opacity-0 group-hover:opacity-60'
-                }`}>
-                  {i + 1}
-                </span>
-              </button>
-            ))}
-          </div>
         </motion.div>
       </div>
     </section>
