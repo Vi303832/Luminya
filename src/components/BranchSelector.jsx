@@ -44,14 +44,15 @@ function BranchSelector({ onSelectBranch, searchQuery, setSearchQuery }) {
   return (
     <div className="flex flex-col h-full">
       {/* Branch List */}
-      <div className="flex-1 overflow-y-auto px-6 py-5">
+      <div className="flex-1 overflow-y-auto">
         {filteredBranches.length === 0 ? (
-          <div className="text-center py-16 animate-fadeIn">
+          <div className="text-center py-16 px-6 animate-fadeIn">
             <svg
-              className="w-20 h-20 text-gray-300 mx-auto mb-4"
+              className="w-20 h-20 text-gray-300 mx-auto mb-4 animate-bounce"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
+              style={{ animationDuration: '2s' }}
             >
               <path
                 strokeLinecap="round"
@@ -66,38 +67,48 @@ function BranchSelector({ onSelectBranch, searchQuery, setSearchQuery }) {
                 d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
               />
             </svg>
-            <p className="text-gray-500 text-xl font-medium">Şube bulunamadı</p>
-            <p className="text-gray-400 text-base mt-2">Farklı bir arama deneyin</p>
+            <p
+              className="text-gray-500 text-xl font-medium animate-fadeIn"
+              style={{ animationDelay: '200ms' }}
+            >
+              Şube bulunamadı
+            </p>
+            <p
+              className="text-gray-400 text-base mt-2 animate-fadeIn"
+              style={{ animationDelay: '400ms' }}
+            >
+              Farklı bir arama deneyin
+            </p>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-0">
             {filteredBranches.map((branch, index) => (
               <button
                 key={branch.id}
                 onClick={() => handleBranchClick(branch)}
-                className="w-full text-left p-4 rounded-xl border-2 border-gray-200 hover:border-olive hover:bg-olive/5 hover:shadow-lg transition-all duration-300 group bg-white active:scale-[0.98]"
+                className="w-full text-left px-6 py-4 bg-white hover:bg-linear-to-r hover:from-stone-light hover:to-transparent shadow-sm hover:shadow-md transition-all duration-300 group border-b border-stone-dark/10 last:border-b-0 active:bg-olive/5 active:scale-[0.99] transform"
                 style={{
                   animationDelay: `${index * 50}ms`,
                   animation: 'fadeIn 0.4s ease-out forwards',
                   opacity: 0
                 }}
               >
-                <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     {/* Branch Name with City Badge */}
-                    <div className="flex items-center gap-2 mb-2">
-                      <h4 className="text-base font-bold text-espresso group-hover:text-olive transition-colors duration-200 truncate">
+                    <div className="flex items-center gap-2.5 mb-1.5">
+                      <h4 className="text-base font-bold text-espresso group-hover:text-olive transition-all duration-300 truncate group-hover:translate-x-1">
                         {branch.name}
                       </h4>
-                      <span className="px-2 py-0.5 bg-olive/10 text-olive text-xs font-semibold rounded-full shrink-0">
+                      <span className="px-2.5 py-0.5 bg-olive/10 text-olive text-xs font-bold rounded-full shrink-0 group-hover:bg-olive group-hover:text-white group-hover:scale-110 transition-all duration-300 group-hover:shadow-md">
                         {branch.city}
                       </span>
                     </div>
 
                     {/* Phone */}
-                    <p className="text-sm text-gray-600 flex items-center gap-2">
+                    <p className="text-sm text-text-muted group-hover:text-olive flex items-center gap-2 transition-all duration-300 group-hover:translate-x-1">
                       <svg
-                        className="w-4 h-4 text-olive shrink-0"
+                        className="w-4 h-4 shrink-0 group-hover:scale-110 transition-transform duration-300"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -116,7 +127,7 @@ function BranchSelector({ onSelectBranch, searchQuery, setSearchQuery }) {
                   {/* Arrow Icon */}
                   <div className="shrink-0">
                     <svg
-                      className="w-6 h-6 text-gray-300 group-hover:text-olive group-hover:translate-x-1 transition-all duration-200"
+                      className="w-5 h-5 text-text-muted group-hover:text-olive group-hover:translate-x-2 group-hover:scale-110 transition-all duration-300"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -124,7 +135,7 @@ function BranchSelector({ onSelectBranch, searchQuery, setSearchQuery }) {
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        strokeWidth={2.5}
+                        strokeWidth={2}
                         d="M9 5l7 7-7 7"
                       />
                     </svg>
@@ -142,10 +153,10 @@ function BranchSelector({ onSelectBranch, searchQuery, setSearchQuery }) {
 // Search Bar Component - can be used separately
 export function SearchBar({ searchQuery, setSearchQuery }) {
   return (
-    <div className="relative">
-      <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+    <div className="relative group">
+      <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none transition-all duration-300 group-focus-within:text-olive">
         <svg
-          className="w-5 h-5 text-gray-400"
+          className="w-5 h-5 text-gray-400 group-focus-within:text-olive group-focus-within:scale-110 transition-all duration-300"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -163,15 +174,15 @@ export function SearchBar({ searchQuery, setSearchQuery }) {
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         placeholder="Şehir veya şube ara..."
-        className="w-full pl-11 pr-10 py-2.5 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-olive/50 focus:border-olive transition-all duration-200 text-sm"
+        className="w-full pl-11 pr-10 py-2.5 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-olive/50 focus:border-olive hover:border-gray-300 hover:shadow-sm transition-all duration-300 text-sm transform focus:scale-[1.01]"
       />
       {searchQuery && (
         <button
           onClick={() => setSearchQuery('')}
-          className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full transition-all duration-200"
+          className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-olive/10 rounded-full transition-all duration-300 hover:scale-110 active:scale-95 group/clear animate-fadeIn"
         >
           <svg
-            className="w-4 h-4 text-gray-500"
+            className="w-4 h-4 text-gray-500 group-hover/clear:text-olive group-hover/clear:rotate-90 transition-all duration-300"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
