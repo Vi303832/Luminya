@@ -102,19 +102,19 @@ const Navbar = ({ onOpenBottomSheet }) => {
         : "bg-espresso/40 backdrop-blur-sm py-5"
         }`}
     >
-      <nav className="container mx-auto px-4 sm:px-6 flex items-center justify-between max-w-7xl">
+      <nav className="container mx-auto px-3 sm:px-6 flex items-center justify-between max-w-7xl">
         {/* Logo */}
-        <Link to="/" onClick={() => handleNavClick("/", "link")}>
+        <Link to="/" onClick={() => handleNavClick("/", "link")} className="flex-shrink-0">
           <motion.div
-            className="flex items-center gap-3"
+            className="flex items-center gap-2 sm:gap-3"
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 400 }}
           >
             <div className="flex flex-col">
-              <span className="font-heading text-2xl font-normal text-white tracking-wide">
+              <span className="font-heading text-lg sm:text-xl md:text-2xl font-normal text-white tracking-wide whitespace-nowrap">
                 Luminya
               </span>
-              <span className="text-xs text-white/70 tracking-[0.3em] uppercase">
+              <span className="text-[0.65rem] sm:text-xs text-white/70 tracking-[0.2em] sm:tracking-[0.3em] uppercase whitespace-nowrap">
                 Spa & Wellness
               </span>
             </div>
@@ -122,7 +122,7 @@ const Navbar = ({ onOpenBottomSheet }) => {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-4 xl:gap-8">
           {navLinks.map((link, index) => (
             <Link key={link.name} to={link.href} onClick={() => handleNavClick(link.href, link.type)}>
               <motion.div
@@ -130,7 +130,7 @@ const Navbar = ({ onOpenBottomSheet }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
                 whileHover={{ y: -2 }}
-                className="relative text-sm font-medium text-white/90 hover:text-olive transition-colors group"
+                className="relative text-sm font-medium text-white/90 hover:text-olive transition-colors group whitespace-nowrap"
               >
                 {link.name}
                 <motion.span
@@ -150,7 +150,7 @@ const Navbar = ({ onOpenBottomSheet }) => {
           transition={{ delay: 0.6, duration: 0.5 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="hidden lg:flex items-center gap-2 px-5 py-2.5 bg-olive text-white rounded-full font-medium text-sm shadow-soft hover:shadow-elevated transition-all duration-300"
+          className="hidden lg:flex items-center gap-2 px-4 xl:px-5 py-2.5 bg-olive text-white rounded-full font-medium text-sm shadow-soft hover:shadow-elevated transition-all duration-300 whitespace-nowrap flex-shrink-0"
         >
           <motion.div
             animate={{ rotate: [0, 10, -10, 0] }}
@@ -170,14 +170,14 @@ const Navbar = ({ onOpenBottomSheet }) => {
         {/* Mobile Menu Button */}
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden p-2 text-white"
+          className="lg:hidden p-1.5 sm:p-2 text-white flex-shrink-0"
           whileTap={{ scale: 0.9 }}
         >
           <motion.div
             animate={{ rotate: isOpen ? 180 : 0 }}
             transition={{ duration: 0.3 }}
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
           </motion.div>
         </motion.button>
       </nav>
@@ -190,9 +190,9 @@ const Navbar = ({ onOpenBottomSheet }) => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-espresso/98 backdrop-blur-lg border-t border-white/10"
+            className="lg:hidden bg-espresso/98 backdrop-blur-lg border-t border-white/10 overflow-x-hidden"
           >
-            <div className="container mx-auto px-4 sm:px-6 py-6 flex flex-col gap-4 max-w-7xl">
+            <div className="container mx-auto px-3 sm:px-6 py-4 sm:py-6 flex flex-col gap-3 sm:gap-4 max-w-7xl">
               {navLinks.map((link, index) => (
                 <Link
                   key={link.name}
@@ -203,7 +203,7 @@ const Navbar = ({ onOpenBottomSheet }) => {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="text-lg font-medium text-white/90 hover:text-olive py-2 transition-colors"
+                    className="text-base sm:text-lg font-medium text-white/90 hover:text-olive py-2 transition-colors"
                   >
                     {link.name}
                   </motion.div>
@@ -214,7 +214,7 @@ const Navbar = ({ onOpenBottomSheet }) => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="mt-4 flex items-center justify-center gap-2 px-5 py-3 bg-olive text-white rounded-full font-medium"
+                className="mt-2 sm:mt-4 flex items-center justify-center gap-2 px-5 py-2.5 sm:py-3 bg-olive text-white rounded-full font-medium text-sm sm:text-base"
               >
                 <Phone className="w-4 h-4" />
                 <span>Randevu Al</span>
