@@ -39,7 +39,7 @@ const branches = [
 ];
 
 // Featured branches for the main display (first 3)
-const featuredBranches = branches.slice(0, 3);  
+const featuredBranches = branches.slice(0, 3);
 
 function Branches() {
   const ref = useRef(null);
@@ -50,6 +50,7 @@ function Branches() {
 
   const handleSelectBranch = (branch) => {
     setSelectedBranch(branch);
+    setIsBottomSheetOpen(true);
   };
 
   const handleOpenBottomSheet = () => {

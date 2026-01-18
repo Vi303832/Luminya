@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 
 function BottomSheet({ isOpen, onClose, title, children, searchBar }) {
@@ -25,7 +26,7 @@ function BottomSheet({ isOpen, onClose, title, children, searchBar }) {
     }
   }, [isOpen])
 
-  return (
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <>
@@ -115,7 +116,8 @@ function BottomSheet({ isOpen, onClose, title, children, searchBar }) {
           </motion.div>
         </>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   )
 }
 
