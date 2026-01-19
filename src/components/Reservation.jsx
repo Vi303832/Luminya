@@ -124,8 +124,9 @@ function Reservation() {
                 <div className="flex-1">
                   <h4 className="font-semibold text-base text-text-primary mb-2">Adres</h4>
                   <p className="text-text-secondary text-sm leading-relaxed">
-                    Merkez Şube: Nişantaşı, Teşvikiye Cad. No:123<br />
-                    Şişli / İstanbul
+                    Yenibosna Merkez Mh. 1. Asena Sk.<br />
+                    İstanbul Kongre Merkezi Otel A No:15A<br />
+                    Bahçelievler / İSTANBUL
                   </p>
                 </div>
               </div>
@@ -141,16 +142,10 @@ function Reservation() {
                   <h4 className="font-semibold text-base text-text-primary mb-3">Telefon</h4>
                   <div className="space-y-2">
                     <a
-                      href="tel:+902123456789"
+                      href="tel:+905331334339"
                       className="block text-lg font-semibold text-olive hover:text-olive-dark transition-colors duration-300"
                     >
-                      0212 345 67 89
-                    </a>
-                    <a
-                      href="tel:+905551234567"
-                      className="block text-base font-medium text-text-primary hover:text-olive transition-colors duration-300"
-                    >
-                      0555 123 45 67
+                      +90 533 133 43 39
                     </a>
                   </div>
                 </div>
@@ -166,10 +161,10 @@ function Reservation() {
                 <div className="flex-1">
                   <h4 className="font-semibold text-base text-text-primary mb-2">E-posta</h4>
                   <a
-                    href="mailto:info@lunaspa.com"
+                    href="mailto:rezervasyon@lunadenspa.com.tr"
                     className="text-base text-olive hover:text-olive-dark transition-colors duration-300 font-medium"
                   >
-                    info@lunaspa.com
+                    rezervasyon@lunadenspa.com.tr
                   </a>
                 </div>
               </div>
@@ -204,14 +199,14 @@ function Reservation() {
             {/* Map */}
             <div className="rounded-xl overflow-hidden border border-olive/20 shadow-md">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3009.2907673788865!2d28.99380431541914!3d41.04621897929827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab7650656bd63%3A0x8e0d7d1d4b7c3c8a!2zTmnFn2FudGHFncSxLCDEsHN0YW5idWw!5e0!3m2!1str!2str!4v1642345678901!5m2!1str!2str"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3010.792532365258!2d28.822752215414707!3d40.997883029505955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa3ebb3e01c9d%3A0xce9745ee6c1a7b7b!2sYenibosna%20Merkez%2C%201.%20Asena%20Sk.%20No%3A15A%2C%2034149%20Bah%C3%A7elievler%2F%C4%B0stanbul!5e0!3m2!1str!2str!4v1682600000000!5m2!1str!2str"
                 width="100%"
                 height="250"
                 style={{ border: 0 }}
                 allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Luna Spa Konum"
+                title="Luna Den Spa Konum"
                 className="w-full"
               ></iframe>
             </div>

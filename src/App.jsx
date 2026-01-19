@@ -70,7 +70,7 @@ function App() {
                   <Route path="/blog" element={<BlogPage />} />
                 </Routes>
                 <Footer />
-                <WhatsAppButton />
+                <WhatsAppButton onClick={handleOpenBottomSheet} />
                 <ReservationFloatingButton onClick={handleOpenBottomSheet} />
 
                 {/* Global Bottom Sheet */}

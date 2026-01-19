@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const WhatsAppButton = () => {
+const WhatsAppButton = ({ onClick }) => {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -12,21 +12,13 @@ const WhatsAppButton = () => {
     return () => clearTimeout(timer)
   }, [])
 
-  const handleClick = () => {
-    // WhatsApp numarasını buraya ekleyin (ör: 905xxxxxxxxx)
-    const phoneNumber = '905xxxxxxxxx' // Telefon numarasını güncelleyin
-    const message = 'Merhaba, bilgi almak istiyorum.' // Varsayılan mesaj
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
-    window.open(whatsappUrl, '_blank')
-  }
-
   return (
     <>
       {/* WhatsApp Butonu */}
       <button
-        onClick={handleClick}
+        onClick={onClick}
         className={`whatsapp-button ${isVisible ? 'visible' : ''}`}
-        aria-label="WhatsApp ile iletişime geç"
+        aria-label="Randevu Al"
       >
         {/* WhatsApp İkonu */}
         <svg 
