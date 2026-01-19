@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
+import ReservationFloatingButton from './components/ReservationFloatingButton'
 import BottomSheet from './components/BottomSheet'
 import BranchSelector, { SearchBar } from './components/BranchSelector'
 import BranchDetail from './components/BranchDetail'
@@ -49,6 +50,7 @@ function App() {
         </Routes>
         <Footer />
         <WhatsAppButton />
+        <ReservationFloatingButton onClick={handleOpenBottomSheet} />
 
         {/* Global Bottom Sheet */}
         <BottomSheet
