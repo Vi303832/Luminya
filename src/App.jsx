@@ -11,6 +11,10 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Services from './pages/Services'
 import BlogPage from './pages/BlogPage'
+import AdminLogin from './pages/AdminLogin'
+import AdminDashboard from './pages/AdminDashboard'
+import ProtectedRoute from './components/ProtectedRoute'
+import { AuthProvider } from './contexts/AuthContext'
 
 import './App.css'
 
@@ -39,41 +43,62 @@ function App() {
   }
 
   return (
-    <Router>
-      <div className="bg-white overflow-x-hidden">
-        <Header onOpenBottomSheet={handleOpenBottomSheet} />
+    <AuthProvider>
+      <Router>
         <Routes>
-          <Route path="/" element={<Home onOpenBottomSheet={handleOpenBottomSheet} />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services onOpenBottomSheet={handleOpenBottomSheet} />} />
-          <Route path="/blog" element={<BlogPage />} />
-        </Routes>
-        <Footer />
-        <WhatsAppButton />
-        <ReservationFloatingButton onClick={handleOpenBottomSheet} />
+          {/* Admin Routes */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Global Bottom Sheet */}
-        <BottomSheet
-          isOpen={isBottomSheetOpen}
-          onClose={handleCloseBottomSheet}
-          title={selectedBranch ? selectedBranch.name : "Şube Seçin"}
-          searchBar={!selectedBranch && <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />}
-        >
-          {selectedBranch ? (
-            <BranchDetail
-              branch={selectedBranch}
-              onBack={handleBackToBranchList}
-            />
-          ) : (
-            <BranchSelector
-              onSelectBranch={handleBranchSelect}
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-            />
-          )}
-        </BottomSheet>
-      </div>
-    </Router>
+          {/* Public Routes */}
+          <Route
+            path="/*"
+            element={
+              <div className="bg-white overflow-x-hidden">
+                <Header onOpenBottomSheet={handleOpenBottomSheet} />
+                <Routes>
+                  <Route path="/" element={<Home onOpenBottomSheet={handleOpenBottomSheet} />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/services" element={<Services onOpenBottomSheet={handleOpenBottomSheet} />} />
+                  <Route path="/blog" element={<BlogPage />} />
+                </Routes>
+                <Footer />
+                <WhatsAppButton />
+                <ReservationFloatingButton onClick={handleOpenBottomSheet} />
+
+                {/* Global Bottom Sheet */}
+                <BottomSheet
+                  isOpen={isBottomSheetOpen}
+                  onClose={handleCloseBottomSheet}
+                  title={selectedBranch ? selectedBranch.name : "Şube Seçin"}
+                  searchBar={!selectedBranch && <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />}
+                >
+                  {selectedBranch ? (
+                    <BranchDetail
+                      branch={selectedBranch}
+                      onBack={handleBackToBranchList}
+                    />
+                  ) : (
+                    <BranchSelector
+                      onSelectBranch={handleBranchSelect}
+                      searchQuery={searchQuery}
+                      setSearchQuery={setSearchQuery}
+                    />
+                  )}
+                </BottomSheet>
+              </div>
+            }
+          />
+        </Routes>
+      </Router>
+    </AuthProvider>
   )
 }
 
