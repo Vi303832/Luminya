@@ -80,7 +80,7 @@ const Footer = () => {
             className="break-words"
           >
             <h3 className="font-heading text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-white">
-              <span className="text-olive">Ruhunuzu</span> Wellness
+              <span className="text-olive">Luminya</span>
             </h3>
             <p className="text-sm sm:text-base text-gray-300 mb-4 sm:mb-6 leading-relaxed">
               Huzurun ve rahatlığın adresi. Profesyonel ekibimizle sizlere
@@ -212,7 +212,7 @@ const Footer = () => {
           transition={{ delay: 0.5 }}
         >
           <p className="text-gray-400 text-sm">
-            © {currentYear} Ruhunuzu Wellness Center. Tüm hakları saklıdır.
+            © {currentYear} Luminya Wellness Center. Tüm hakları saklıdır.
           </p>
         </motion.div>
       </div>

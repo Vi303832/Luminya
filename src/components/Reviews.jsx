@@ -8,7 +8,7 @@ const testimonials = [
     name: "Ayşe Yılmaz",
     role: "Düzenli Müşteri",
     content:
-      "Serenity Spa, hayatımda deneyimlediğim en güzel rahatlama anlarını yaşadığım yer. Profesyonel ekip ve muhteşem atmosfer ile her ziyaretim unutulmaz oluyor.",
+      "Luminya, hayatımda deneyimlediğim en güzel rahatlama anlarını yaşadığım yer. Profesyonel ekip ve muhteşem atmosfer ile her ziyaretim unutulmaz oluyor.",
     rating: 5,
   },
   {
