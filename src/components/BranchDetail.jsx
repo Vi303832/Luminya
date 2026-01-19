@@ -29,7 +29,7 @@ function BranchDetail({ branch, onBack }) {
         {/* Branch Image */}
         <div className="relative h-64 overflow-hidden animate-fadeIn group/image" style={{ animationDelay: '100ms' }}>
           <img
-            src={branch.image || 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80'}
+            src={branch.imageUrl || branch.image || 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80'}
             alt={branch.name}
             className="w-full h-full object-cover transition-transform duration-700 group-hover/image:scale-110"
           />
@@ -68,7 +68,7 @@ function BranchDetail({ branch, onBack }) {
 
             {/* WhatsApp Button */}
             <a
-              href={`https://wa.me/${branch.phone.replace(/\s/g, '').replace(/^0/, '90')}`}
+              href={`https://wa.me/${(branch.whatsapp || branch.phone).replace(/\s/g, '').replace(/^0/, '90')}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 bg-[#25D366] text-white py-4 rounded-xl hover:bg-[#20BA5A] transition-all duration-300 font-semibold shadow-md hover:shadow-xl hover:shadow-[#25D366]/50 hover:scale-[1.03] active:scale-[0.98] group hover:-translate-y-0.5"
@@ -110,7 +110,12 @@ function BranchDetail({ branch, onBack }) {
             <div className="flex-1">
               <h4 className="font-bold text-espresso mb-1 group-hover:text-olive transition-colors duration-300">Adres</h4>
               <p className="text-text-muted text-sm group-hover:text-espresso transition-colors duration-300">{branch.address}</p>
-              <p className="text-text-muted text-sm group-hover:text-espresso transition-colors duration-300">{branch.city}</p>
+              {branch.district && branch.city && (
+                <p className="text-text-muted text-sm group-hover:text-espresso transition-colors duration-300">{branch.district} / {branch.city}</p>
+              )}
+              {!branch.district && branch.city && (
+                <p className="text-text-muted text-sm group-hover:text-espresso transition-colors duration-300">{branch.city}</p>
+              )}
             </div>
           </div>
 

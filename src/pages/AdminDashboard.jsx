@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { LogOut, Plus, MapPin, Phone, Clock, Upload, CheckCircle, AlertCircle } from 'lucide-react';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../firebase';
-import BulkBranchUpload from '../components/BulkBranchUpload';
 
 const AdminDashboard = () => {
   const { currentUser, logout } = useAuth();
@@ -335,9 +334,6 @@ const AdminDashboard = () => {
             </button>
           </div>
         </form>
-
-        {/* Bulk Upload Component */}
-        <BulkBranchUpload currentUser={currentUser} />
       </div>
     </div>
   );

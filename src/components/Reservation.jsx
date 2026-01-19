@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Calendar, Clock, User, Phone, Mail, MessageSquare, Send, MapPin } from 'lucide-react'
+import { collection, getDocs, query, where } from 'firebase/firestore'
+import { db } from '../firebase'
 
 const services = [
   'Thai Masajı',
@@ -15,23 +17,9 @@ const services = [
   'Derin Doku Masajı',
 ]
 
-const branches = [
-  { id: 1, name: 'Adana Şube', city: 'Adana' },
-  { id: 2, name: 'Ankara Çankaya', city: 'Ankara' },
-  { id: 3, name: 'Ankara Kızılay', city: 'Ankara' },
-  { id: 4, name: 'Antalya Lara', city: 'Antalya' },
-  { id: 5, name: 'Bursa Nilüfer', city: 'Bursa' },
-  { id: 6, name: 'Eskişehir Şube', city: 'Eskişehir' },
-  { id: 7, name: 'İstanbul Beşiktaş', city: 'İstanbul' },
-  { id: 8, name: 'İstanbul Kadıköy', city: 'İstanbul' },
-  { id: 9, name: 'İstanbul Nişantaşı', city: 'İstanbul' },
-  { id: 10, name: 'İzmir Alsancak', city: 'İzmir' },
-  { id: 11, name: 'İzmir Bornova', city: 'İzmir' },
-  { id: 12, name: 'Kocaeli Şube', city: 'Kocaeli' },
-  { id: 13, name: 'Muğla Bodrum', city: 'Muğla' },
-]
-
 function Reservation() {
+  const [branches, setBranches] = useState([])
+  const [loadingBranches, setLoadingBranches] = useState(true)
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -42,6 +30,41 @@ function Reservation() {
     time: '',
     message: '',
   })
+
+  // Firebase'den şubeleri çek
+  useEffect(() => {
+    const fetchBranches = async () => {
+      try {
+        setLoadingBranches(true)
+        const branchesRef = collection(db, 'branches')
+        const q = query(branchesRef, where('active', '==', true))
+        const querySnapshot = await getDocs(q)
+
+        const branchesData = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          name: doc.data().name,
+          city: doc.data().city,
+          ...doc.data()
+        }))
+
+        // Şehir ve isme göre sırala
+        branchesData.sort((a, b) => {
+          const cityCompare = (a.city || '').localeCompare(b.city || '', 'tr')
+          if (cityCompare !== 0) return cityCompare
+          return (a.name || '').localeCompare(b.name || '', 'tr')
+        })
+
+        setBranches(branchesData)
+      } catch (error) {
+        console.error('Error fetching branches:', error)
+        setBranches([])
+      } finally {
+        setLoadingBranches(false)
+      }
+    }
+
+    fetchBranches()
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -275,11 +298,12 @@ function Reservation() {
                   onChange={(e) => setFormData({ ...formData, branch: e.target.value })}
                   className={`${inputClasses} appearance-none cursor-pointer`}
                   required
+                  disabled={loadingBranches}
                 >
-                  <option value="">Şube Seçin</option>
+                  <option value="">{loadingBranches ? 'Şubeler yükleniyor...' : 'Şube Seçin'}</option>
                   {branches.map((branch) => (
                     <option key={branch.id} value={branch.name}>
-                      {branch.name}
+                      {branch.name} - {branch.city}
                     </option>
                   ))}
                 </select>
