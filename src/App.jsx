@@ -13,6 +13,7 @@ import Services from './pages/Services'
 import BlogPage from './pages/BlogPage'
 import AdminLogin from './pages/AdminLogin'
 import AdminDashboard from './pages/AdminDashboard'
+import NotFound from './pages/NotFound'
 import ProtectedRoute from './components/ProtectedRoute'
 import { AuthProvider } from './contexts/AuthContext'
 
@@ -83,6 +84,7 @@ function App() {
                   <Route path="/about" element={<About />} />
                   <Route path="/services" element={<Services onOpenBottomSheet={handleOpenBottomSheetReservation} />} />
                   <Route path="/blog" element={<BlogPage />} />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />
                 <WhatsAppButton onClick={handleOpenBottomSheetWhatsApp} />
