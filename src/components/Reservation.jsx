@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { Calendar, Clock, User, Phone, Mail, MessageSquare, Send, MapPin } from 'lucide-react'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { db } from '../firebase'
+import { useForm, ValidationError } from '@formspree/react'
 
 const services = [
   'Thai Masajı',
@@ -30,6 +31,9 @@ function Reservation() {
     time: '',
     message: '',
   })
+
+  // Formspree hook
+  const [state, handleSubmit] = useForm(import.meta.env.VITE_FORMSPREE_ID)
 
   // Firebase'den şubeleri çek
   useEffect(() => {
@@ -66,21 +70,21 @@ function Reservation() {
     fetchBranches()
   }, [])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('Form submitted:', formData)
-    alert('Rezervasyon talebiniz alınmıştır. En kısa sürede size dönüş yapacağız.')
-    setFormData({
-      name: '',
-      phone: '',
-      email: '',
-      branch: '',
-      service: '',
-      date: '',
-      time: '',
-      message: '',
-    })
-  }
+  // Form başarılı gönderildikten sonra formu temizle
+  useEffect(() => {
+    if (state.succeeded) {
+      setFormData({
+        name: '',
+        phone: '',
+        email: '',
+        branch: '',
+        service: '',
+        date: '',
+        time: '',
+        message: '',
+      })
+    }
+  }, [state.succeeded])
 
   const inputClasses =
     'w-full pl-12 pr-4 py-4 bg-white border border-stone-dark rounded-lg font-body text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-olive/50 focus:border-olive transition-all duration-300'
@@ -221,6 +225,17 @@ function Reservation() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <h3 className="font-heading text-2xl md:text-3xl text-text-primary mb-8">Randevu Formu</h3>
+
+            {state.succeeded && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-6 p-4 bg-olive/10 border border-olive/30 rounded-lg text-olive text-center font-medium"
+              >
+                Rezervasyon talebiniz başarıyla alındı! En kısa sürede size dönüş yapacağız.
+              </motion.div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name */}
               <motion.div
@@ -233,11 +248,18 @@ function Reservation() {
                 <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
                 <input
                   type="text"
+                  name="name"
                   placeholder="Adınız Soyadınız"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className={inputClasses}
                   required
+                />
+                <ValidationError
+                  prefix="İsim"
+                  field="name"
+                  errors={state.errors}
+                  className="mt-1 text-sm text-red-600"
                 />
               </motion.div>
 
@@ -252,11 +274,18 @@ function Reservation() {
                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
                 <input
                   type="tel"
+                  name="phone"
                   placeholder="Telefon Numaranız"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   className={inputClasses}
                   required
+                />
+                <ValidationError
+                  prefix="Telefon"
+                  field="phone"
+                  errors={state.errors}
+                  className="mt-1 text-sm text-red-600"
                 />
               </motion.div>
 
@@ -271,11 +300,18 @@ function Reservation() {
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
                 <input
                   type="email"
+                  name="email"
                   placeholder="E-posta Adresiniz"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className={inputClasses}
                   required
+                />
+                <ValidationError
+                  prefix="Email"
+                  field="email"
+                  errors={state.errors}
+                  className="mt-1 text-sm text-red-600"
                 />
               </motion.div>
 
@@ -289,6 +325,7 @@ function Reservation() {
               >
                 <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
                 <select
+                  name="branch"
                   value={formData.branch}
                   onChange={(e) => setFormData({ ...formData, branch: e.target.value })}
                   className={`${inputClasses} appearance-none cursor-pointer`}
@@ -302,6 +339,12 @@ function Reservation() {
                     </option>
                   ))}
                 </select>
+                <ValidationError
+                  prefix="Şube"
+                  field="branch"
+                  errors={state.errors}
+                  className="mt-1 text-sm text-red-600"
+                />
               </motion.div>
 
               {/* Service */}
@@ -313,6 +356,7 @@ function Reservation() {
                 transition={{ delay: 0.3 }}
               >
                 <select
+                  name="service"
                   value={formData.service}
                   onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                   className={`${inputClasses} pl-4 appearance-none cursor-pointer`}
@@ -325,6 +369,12 @@ function Reservation() {
                     </option>
                   ))}
                 </select>
+                <ValidationError
+                  prefix="Hizmet"
+                  field="service"
+                  errors={state.errors}
+                  className="mt-1 text-sm text-red-600"
+                />
               </motion.div>
 
               {/* Date */}
@@ -338,10 +388,17 @@ function Reservation() {
                 <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
                 <input
                   type="date"
+                  name="date"
                   value={formData.date}
                   onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                   className={inputClasses}
                   required
+                />
+                <ValidationError
+                  prefix="Tarih"
+                  field="date"
+                  errors={state.errors}
+                  className="mt-1 text-sm text-red-600"
                 />
               </motion.div>
 
@@ -355,6 +412,7 @@ function Reservation() {
               >
                 <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
                 <select
+                  name="time"
                   value={formData.time}
                   onChange={(e) => setFormData({ ...formData, time: e.target.value })}
                   className={`${inputClasses} appearance-none cursor-pointer`}
@@ -372,6 +430,12 @@ function Reservation() {
                   <option value="19:00">19:00</option>
                   <option value="20:00">20:00</option>
                 </select>
+                <ValidationError
+                  prefix="Saat"
+                  field="time"
+                  errors={state.errors}
+                  className="mt-1 text-sm text-red-600"
+                />
               </motion.div>
 
               {/* Message */}
@@ -384,11 +448,18 @@ function Reservation() {
               >
                 <MessageSquare className="absolute left-4 top-4 w-5 h-5 text-text-muted" />
                 <textarea
+                  name="message"
                   placeholder="Mesajınız (Opsiyonel)"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className={`${inputClasses} min-h-[120px] resize-none`}
                   rows={4}
+                />
+                <ValidationError
+                  prefix="Mesaj"
+                  field="message"
+                  errors={state.errors}
+                  className="mt-1 text-sm text-red-600"
                 />
               </motion.div>
 
@@ -401,12 +472,13 @@ function Reservation() {
               >
                 <motion.button
                   type="submit"
-                  className="w-full bg-olive text-white py-4 rounded-lg hover:bg-olive-dark transition-all duration-300 font-medium text-lg shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  disabled={state.submitting}
+                  className="w-full bg-olive text-white py-4 rounded-lg hover:bg-olive-dark transition-all duration-300 font-medium text-lg shadow-lg hover:shadow-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  whileHover={{ scale: state.submitting ? 1 : 1.02 }}
+                  whileTap={{ scale: state.submitting ? 1 : 0.98 }}
                 >
                   <Send className="w-5 h-5" />
-                  Rezervasyon Yap
+                  {state.submitting ? 'Gönderiliyor...' : 'Rezervasyon Yap'}
                 </motion.button>
               </motion.div>
             </form>

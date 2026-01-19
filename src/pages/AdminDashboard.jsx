@@ -6,8 +6,8 @@ import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs, query, where, T
 import { db } from '../firebase';
 
 // Cloudinary yapılandırması
-const CLOUDINARY_CLOUD_NAME = 'ddqxl5msi';
-const CLOUDINARY_UPLOAD_PRESET = 'luna_spa_preset'; // Bu preset'i Cloudinary'de oluşturmanız gerekiyor
+const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
 const AdminDashboard = () => {
   const { currentUser, logout } = useAuth();
