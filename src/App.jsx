@@ -9,6 +9,7 @@ import BranchDetail from './components/BranchDetail'
 import Home from './pages/Home'
 import About from './pages/About'
 import Services from './pages/Services'
+import BlogPage from './pages/BlogPage'
 
 import './App.css'
 
@@ -44,6 +45,7 @@ function App() {
           <Route path="/" element={<Home onOpenBottomSheet={handleOpenBottomSheet} />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services onOpenBottomSheet={handleOpenBottomSheet} />} />
+          <Route path="/blog" element={<BlogPage />} />
         </Routes>
         <Footer />
         <WhatsAppButton />

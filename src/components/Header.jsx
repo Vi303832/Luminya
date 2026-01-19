@@ -8,7 +8,7 @@ const navLinks = [
   { name: "Anasayfa", href: "/", type: "link" },
   { name: "Hakkımızda", href: "/about", type: "link" },
   { name: "Hizmetlerimiz", href: "/services", type: "link" },
-  // Galeri kaldırıldı
+  { name: "Blog", href: "/blog", type: "link" },
   { name: "Şubelerimiz", href: "/#locations", type: "hero-scroll" },
   { name: "İletişim", href: "/#reservation", type: "hero-scroll" },
 ];
@@ -104,7 +104,7 @@ const Navbar = ({ onOpenBottomSheet }) => {
     >
       <nav className="container mx-auto px-3 sm:px-6 flex items-center justify-between max-w-7xl">
         {/* Logo */}
-        <Link to="/" onClick={() => handleNavClick("/", "link")} className="flex-shrink-0">
+        <Link to="/" onClick={() => handleNavClick("/", "link")} className="shrink-0">
           <motion.div
             className="flex items-center gap-2 sm:gap-3"
             whileHover={{ scale: 1.02 }}
@@ -150,7 +150,7 @@ const Navbar = ({ onOpenBottomSheet }) => {
           transition={{ delay: 0.6, duration: 0.5 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="hidden lg:flex items-center gap-2 px-4 xl:px-5 py-2.5 bg-olive text-white rounded-full font-medium text-sm shadow-soft hover:shadow-elevated transition-all duration-300 whitespace-nowrap flex-shrink-0"
+          className="hidden lg:flex items-center gap-2 px-4 xl:px-5 py-2.5 bg-olive text-white rounded-full font-medium text-sm shadow-soft hover:shadow-elevated transition-all duration-300 whitespace-nowrap shrink-0"
         >
           <motion.div
             animate={{ rotate: [0, 10, -10, 0] }}
@@ -170,7 +170,7 @@ const Navbar = ({ onOpenBottomSheet }) => {
         {/* Mobile Menu Button */}
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden p-1.5 sm:p-2 text-white flex-shrink-0"
+          className="lg:hidden p-1.5 sm:p-2 text-white shrink-0"
           whileTap={{ scale: 0.9 }}
         >
           <motion.div

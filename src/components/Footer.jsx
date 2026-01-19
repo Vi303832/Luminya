@@ -17,6 +17,7 @@ const Footer = () => {
     { name: "Ana Sayfa", href: "/", type: "link" },
     { name: "Hizmetler", href: "/services", type: "link" },
     { name: "Hakkımızda", href: "/about", type: "link" },
+    { name: "Blog", href: "/blog", type: "link" },
     { name: "Şubelerimiz", href: "/#locations", type: "scroll" },
     { name: "İletişim", href: "/#reservation", type: "scroll" },
   ];
@@ -46,7 +47,7 @@ const Footer = () => {
   };
 
   return (
-    <footer id="contact" className="bg-gradient-to-b from-espresso via-espresso/95 to-espresso pt-12 sm:pt-16 md:pt-20 pb-6 sm:pb-8 relative overflow-hidden">
+    <footer id="contact" className="bg-linear-to-b from-espresso via-espresso/95 to-espresso pt-12 sm:pt-16 md:pt-20 pb-6 sm:pb-8 relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
@@ -77,7 +78,7 @@ const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="break-words"
+            className="wrap-break-word"
           >
             <h3 className="font-heading text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-white">
               <span className="text-olive">Luminya</span>
@@ -143,12 +144,12 @@ const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="break-words"
+            className="wrap-break-word"
           >
             <h4 className="font-heading text-base sm:text-lg font-semibold mb-4 sm:mb-6 text-white">İletişim</h4>
             <ul className="space-y-3 sm:space-y-4">
               <li className="flex items-start gap-2 sm:gap-3">
-                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-olive flex-shrink-0 mt-1" />
+                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-olive shrink-0 mt-1" />
                 <span className="text-sm sm:text-base text-gray-300">
                   Nişantaşı, Teşvikiye Cad. No:123
                   <br />
@@ -156,7 +157,7 @@ const Footer = () => {
                 </span>
               </li>
               <li className="flex items-center gap-2 sm:gap-3">
-                <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-olive flex-shrink-0" />
+                <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-olive shrink-0" />
                 <a
                   href="tel:+902121234567"
                   className="text-sm sm:text-base text-gray-300 hover:text-olive transition-colors break-all"
@@ -165,7 +166,7 @@ const Footer = () => {
                 </a>
               </li>
               <li className="flex items-center gap-2 sm:gap-3">
-                <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-olive flex-shrink-0" />
+                <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-olive shrink-0" />
                 <a
                   href="mailto:info@ruhunuzu.com"
                   className="text-sm sm:text-base text-gray-300 hover:text-olive transition-colors break-all"
@@ -186,14 +187,14 @@ const Footer = () => {
             <h4 className="font-heading text-base sm:text-lg font-semibold mb-4 sm:mb-6 text-white">Çalışma Saatleri</h4>
             <ul className="space-y-2 sm:space-y-3">
               <li className="flex items-start gap-2 sm:gap-3">
-                <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-olive flex-shrink-0 mt-0.5" />
+                <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-olive shrink-0 mt-0.5" />
                 <div className="text-sm sm:text-base text-gray-300">
                   <span className="block">Pazartesi - Cuma</span>
                   <span className="text-white font-medium whitespace-nowrap">10:00 - 22:00</span>
                 </div>
               </li>
               <li className="flex items-start gap-2 sm:gap-3">
-                <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-olive flex-shrink-0 mt-0.5" />
+                <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-olive shrink-0 mt-0.5" />
                 <div className="text-sm sm:text-base text-gray-300">
                   <span className="block">Cumartesi - Pazar</span>
                   <span className="text-white font-medium whitespace-nowrap">09:00 - 23:00</span>

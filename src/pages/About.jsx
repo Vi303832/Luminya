@@ -92,7 +92,6 @@ const About = () => {
         <Stats />
       </section>
 
-
       {/* Story Section */}
       <section className="py-20 md:py-32 relative z-10">
         <div className="container mx-auto px-4 max-w-7xl">
@@ -171,7 +170,7 @@ const About = () => {
                 transition={{ duration: 0.4 }}
               >
                 <motion.img
-                  src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80"
+                  src="https://img.freepik.com/free-photo/close-up-therapist-hand-massaging-woman-s-back-with-hot-towel-spa_23-2147939902.jpg?t=st=1768812605~exp=1768816205~hmac=e04031fd482cbf9875fbdb41ca057490c59fc15250c0de4fd38687b0b4ee137f&w=1480"
                   alt="Luminya Spa"
                   className="w-full h-full object-cover"
                   initial={{ scale: 1.1 }}
@@ -196,12 +195,8 @@ const About = () => {
                 transition={{ delay: 0.4, type: "spring", stiffness: 200 }}
                 whileHover={{ scale: 1.1, rotate: 3 }}
               >
-                <motion.div
-                  animate={{ rotate: [0, 360] }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                >
-                  <Clock className="w-8 h-8 mb-2" />
-                </motion.div>
+                {/* Clock icon is now static, no animation */}
+                <Clock className="w-8 h-8 mb-2" />
                 <div className="font-heading text-2xl font-bold">15+</div>
                 <div className="text-sm opacity-90">Yıllık Deneyim</div>
               </motion.div>

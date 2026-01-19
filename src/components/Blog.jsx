@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { useInView } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { Calendar, Clock, ArrowRight, User } from "lucide-react";
 
 const blogPosts = [
@@ -39,12 +40,13 @@ const blogPosts = [
 const Blog = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const navigate = useNavigate();
 
   return (
     <section id="blog" className="py-20 md:py-32 bg-espresso relative overflow-hidden">
       {/* Background decoration */}
       <motion.div
-        className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-espresso to-espresso/90"
+        className="absolute top-0 left-0 w-full h-32 bg-linear-to-b from-espresso to-espresso/90"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
@@ -129,7 +131,7 @@ const Blog = () => {
           {blogPosts.map((post, index) => (
             <motion.article
               key={post.id}
-              onClick={() => alert('Blog yazısı yakında eklenecek!')}
+              onClick={() => navigate('/blog')}
               className="group bg-white rounded-2xl overflow-hidden shadow-elevated cursor-pointer hover:shadow-2xl border border-white/10"
               variants={{
                 hidden: { opacity: 0, y: 50, rotateX: -10 },
@@ -149,7 +151,7 @@ const Blog = () => {
                   alt={post.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-espresso/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-linear-to-t from-espresso/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 {/* Category badge */}
                 <motion.span
@@ -212,7 +214,7 @@ const Blog = () => {
           transition={{ delay: 0.6 }}
         >
           <motion.button
-            onClick={() => alert('Blog sayfası yakında eklenecek!')}
+            onClick={() => navigate('/blog')}
             className="inline-flex items-center gap-2 px-8 py-3 bg-olive text-white rounded-full hover:bg-olive-dark transition-all duration-500 font-medium shadow-soft hover:shadow-elevated"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

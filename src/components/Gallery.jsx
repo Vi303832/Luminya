@@ -44,6 +44,23 @@ function Gallery() {
   const [isPlaying, setIsPlaying] = useState(true)
   const [direction, setDirection] = useState('right')
   const [isHovered, setIsHovered] = useState(false)
+  const [imagesLoaded, setImagesLoaded] = useState(false)
+
+  // Preload images for smooth transitions
+  useEffect(() => {
+    const imagePromises = galleryImages.map((image) => {
+      return new Promise((resolve, reject) => {
+        const img = new Image()
+        img.src = image.url
+        img.onload = resolve
+        img.onerror = reject
+      })
+    })
+
+    Promise.all(imagePromises)
+      .then(() => setImagesLoaded(true))
+      .catch(() => setImagesLoaded(true)) // Continue even if some images fail
+  }, [])
 
   const nextSlide = useCallback(() => {
     setDirection('right')
@@ -60,11 +77,12 @@ function Gallery() {
     setActiveIndex(index)
   }
 
+  // Auto-play with faster and more stable interval
   useEffect(() => {
-    if (!isPlaying || isHovered) return
-    const interval = setInterval(nextSlide, 5000)
+    if (!isPlaying || isHovered || !imagesLoaded) return
+    const interval = setInterval(nextSlide, 3500)
     return () => clearInterval(interval)
-  }, [isPlaying, isHovered, nextSlide])
+  }, [isPlaying, isHovered, imagesLoaded, nextSlide])
 
   return (
     <section id="gallery" className="relative h-screen w-full overflow-hidden bg-gray-900">
@@ -86,14 +104,16 @@ function Gallery() {
           return (
             <div
               key={image.url}
-              className={`absolute inset-0 transition-all duration-1000 ease-out ${isActive ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-105 z-0'
+              className={`absolute inset-0 transition-all duration-700 ease-in-out ${isActive ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-105 z-0'
                 } ${isPrev && direction === 'right' ? '-translate-x-full' : ''} ${isNext && direction === 'left' ? 'translate-x-full' : ''
                 }`}
+              style={{ willChange: isActive ? 'transform, opacity' : 'auto' }}
             >
               <img
                 src={image.url}
                 alt={image.title}
                 className="w-full h-full object-cover"
+                loading="eager"
               />
 
               {/* Overlay gradients */}
@@ -130,7 +150,7 @@ function Gallery() {
                 <button
                   key={image.url}
                   onClick={() => goToSlide(index)}
-                  className={`relative w-20 h-14 overflow-hidden rounded transition-all duration-500 group ${index === activeIndex
+                  className={`relative w-20 h-14 overflow-hidden rounded transition-all duration-300 group ${index === activeIndex
                     ? 'ring-2 ring-white scale-110'
                     : 'opacity-60 hover:opacity-100 hover:scale-105'
                     }`}
@@ -138,7 +158,8 @@ function Gallery() {
                   <img
                     src={image.url}
                     alt={image.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    loading="lazy"
                   />
                   <div
                     className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${index === activeIndex ? 'opacity-0' : 'group-hover:opacity-0'
@@ -154,7 +175,7 @@ function Gallery() {
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`transition-all duration-500 ${index === activeIndex
+                  className={`transition-all duration-300 ${index === activeIndex
                     ? 'w-8 h-2 bg-white rounded-full'
                     : 'w-2 h-2 bg-white/50 rounded-full hover:bg-white/80'
                     }`}
@@ -168,7 +189,7 @@ function Gallery() {
               {/* Play/Pause */}
               <button
                 onClick={() => setIsPlaying(!isPlaying)}
-                className="w-10 h-10 flex items-center justify-center border border-white/30 text-white/80 hover:bg-white/10 hover:text-white transition-all duration-300 rounded-full"
+                className="w-10 h-10 flex items-center justify-center border border-white/30 text-white/80 hover:bg-white/10 hover:text-white transition-all duration-200 rounded-full"
                 aria-label={isPlaying ? 'Duraklat' : 'Oynat'}
               >
                 {isPlaying ? (
@@ -187,19 +208,19 @@ function Gallery() {
               <div className="flex items-center">
                 <button
                   onClick={prevSlide}
-                  className="w-12 h-12 flex items-center justify-center border border-white/30 text-white/80 hover:bg-white/10 hover:text-white transition-all duration-300 group"
+                  className="w-12 h-12 flex items-center justify-center border border-white/30 text-white/80 hover:bg-white/10 hover:text-white transition-all duration-200 group"
                   aria-label="Önceki"
                 >
-                  <svg className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
                 </button>
                 <button
                   onClick={nextSlide}
-                  className="w-12 h-12 flex items-center justify-center border border-white/30 border-l-0 text-white/80 hover:bg-white/10 hover:text-white transition-all duration-300 group"
+                  className="w-12 h-12 flex items-center justify-center border border-white/30 border-l-0 text-white/80 hover:bg-white/10 hover:text-white transition-all duration-200 group"
                   aria-label="Sonraki"
                 >
-                  <svg className="w-5 h-5 group-hover:translate-x-0.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 group-hover:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
@@ -211,10 +232,11 @@ function Gallery() {
         {/* Animated Progress Bar */}
         <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20 z-30">
           <div
-            className="h-full bg-olive transition-all"
+            key={activeIndex}
+            className="h-full bg-olive"
             style={{
-              width: isPlaying && !isHovered ? '100%' : `${((activeIndex + 1) / galleryImages.length) * 100}%`,
-              transition: isPlaying && !isHovered ? 'width 5s linear' : 'width 0.3s ease-out',
+              width: isPlaying && !isHovered ? '100%' : '0%',
+              transition: isPlaying && !isHovered ? 'width 3.5s linear' : 'none',
             }}
           />
         </div>
@@ -241,7 +263,7 @@ function Gallery() {
         }
         
         .animate-fade-in {
-          animation: fade-in 0.7s ease-out;
+          animation: fade-in 0.5s ease-out;
         }
       `}</style>
     </section>
