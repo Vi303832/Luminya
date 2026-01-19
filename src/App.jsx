@@ -22,10 +22,19 @@ function App() {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedBranch, setSelectedBranch] = useState(null)
+  const [bottomSheetMode, setBottomSheetMode] = useState('reservation') // 'whatsapp' veya 'reservation'
 
   const handleBranchSelect = (branch) => {
-    setSelectedBranch(branch)
-    setSearchQuery('')
+    // Eğer WhatsApp modu aktifse direkt WhatsApp'a yönlendir
+    if (bottomSheetMode === 'whatsapp') {
+      const phoneNumber = (branch.whatsapp || branch.phone).replace(/\s/g, '').replace(/^0/, '90')
+      window.open(`https://wa.me/${phoneNumber}`, '_blank')
+      handleCloseBottomSheet()
+    } else {
+      // Rezervasyon modu - şube detayını göster
+      setSelectedBranch(branch)
+      setSearchQuery('')
+    }
   }
 
   const handleBackToBranchList = () => {
@@ -38,7 +47,13 @@ function App() {
     setSearchQuery('')
   }
 
-  const handleOpenBottomSheet = () => {
+  const handleOpenBottomSheetWhatsApp = () => {
+    setBottomSheetMode('whatsapp')
+    setIsBottomSheetOpen(true)
+  }
+
+  const handleOpenBottomSheetReservation = () => {
+    setBottomSheetMode('reservation')
     setIsBottomSheetOpen(true)
   }
 
@@ -62,22 +77,22 @@ function App() {
             path="/*"
             element={
               <div className="bg-white overflow-x-hidden">
-                <Header onOpenBottomSheet={handleOpenBottomSheet} />
+                <Header onOpenBottomSheet={handleOpenBottomSheetReservation} />
                 <Routes>
-                  <Route path="/" element={<Home onOpenBottomSheet={handleOpenBottomSheet} />} />
+                  <Route path="/" element={<Home onOpenBottomSheet={handleOpenBottomSheetReservation} />} />
                   <Route path="/about" element={<About />} />
-                  <Route path="/services" element={<Services onOpenBottomSheet={handleOpenBottomSheet} />} />
+                  <Route path="/services" element={<Services onOpenBottomSheet={handleOpenBottomSheetReservation} />} />
                   <Route path="/blog" element={<BlogPage />} />
                 </Routes>
                 <Footer />
-                <WhatsAppButton onClick={handleOpenBottomSheet} />
-                <ReservationFloatingButton onClick={handleOpenBottomSheet} />
+                <WhatsAppButton onClick={handleOpenBottomSheetWhatsApp} />
+                <ReservationFloatingButton onClick={handleOpenBottomSheetReservation} />
 
                 {/* Global Bottom Sheet */}
                 <BottomSheet
                   isOpen={isBottomSheetOpen}
                   onClose={handleCloseBottomSheet}
-                  title={selectedBranch ? selectedBranch.name : "Şube Seçin"}
+                  title={selectedBranch ? selectedBranch.name : (bottomSheetMode === 'whatsapp' ? "WhatsApp için Şube Seçin" : "Şube Seçin")}
                   searchBar={!selectedBranch && <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />}
                 >
                   {selectedBranch ? (
