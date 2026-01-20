@@ -43,34 +43,35 @@ const Navbar = ({ onOpenBottomSheet }) => {
   };
 
   // Revised: Navigate to home then scroll to specific section from href
-  const handleNavClick = (href, type) => {
+  const handleNavClick = (e, href, type) => {
     setIsOpen(false);
+
     if (type === "link") {
-      // Regular link navigation (like "Anasayfa")
-      if (href === "/") {
-        // Going to home, scroll to top
-        if (location.pathname === "/") {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        } else {
-          navigate("/");
-        }
-      }
+      // Regular link navigation - let React Router handle it normally
+      // Don't prevent default, let Link component work naturally
+      return;
     } else if (type === "hero-scroll") {
+      // Prevent default only for scroll links
+      e.preventDefault();
+
       // Extract the hash from href (e.g., "/#hero" -> "#hero", "/#locations" -> "#locations")
       const hash = href.includes("#") ? href.split("#")[1] : "hero";
       const targetHash = `#${hash}`;
 
       if (location.pathname === "/") {
         // Already home, scroll to target section
-        scrollToHash(targetHash);
+        setTimeout(() => {
+          scrollToHash(targetHash);
+        }, 100); // Small delay to ensure mobile menu closes first
       } else {
-        // Go to home first, then scroll to target section after 1 second
+        // Go to home first, then scroll to target section
         navigate("/");
         setTimeout(() => {
           scrollToHash(targetHash);
         }, 500);
       }
     } else if (type === "scroll") {
+      e.preventDefault();
       if (location.pathname === "/") {
         // On home, scroll immediately
         scrollToHash(href.replace("/", ""));
@@ -78,6 +79,7 @@ const Navbar = ({ onOpenBottomSheet }) => {
         navigate(`/${href.split("#")[1] ? "" : href}`);
       }
     } else if (type === "contact") {
+      e.preventDefault();
       if (location.pathname === "/") {
         // Already home, scroll instantly to contact
         scrollToHash(href.replace("/", ""));
@@ -104,7 +106,7 @@ const Navbar = ({ onOpenBottomSheet }) => {
     >
       <nav className="container mx-auto px-3 sm:px-6 flex items-center justify-between max-w-7xl">
         {/* Logo */}
-        <Link to="/" onClick={() => handleNavClick("/", "link")} className="shrink-0">
+        <Link to="/" onClick={(e) => handleNavClick(e, "/", "link")} className="shrink-0">
           <motion.div
             className="flex items-center gap-2 sm:gap-3"
             whileHover={{ scale: 1.02 }}
@@ -124,7 +126,7 @@ const Navbar = ({ onOpenBottomSheet }) => {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-4 xl:gap-8">
           {navLinks.map((link, index) => (
-            <Link key={link.name} to={link.href} onClick={() => handleNavClick(link.href, link.type)}>
+            <Link key={link.name} to={link.href} onClick={(e) => handleNavClick(e, link.href, link.type)}>
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -197,7 +199,7 @@ const Navbar = ({ onOpenBottomSheet }) => {
                 <Link
                   key={link.name}
                   to={link.href}
-                  onClick={() => handleNavClick(link.href, link.type)}
+                  onClick={(e) => handleNavClick(e, link.href, link.type)}
                 >
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}

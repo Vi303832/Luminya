@@ -73,21 +73,21 @@ const packages = [
   {
     name: "Huzur Paketi",
     duration: "3 saat",
-    price: "1.200₺",
+    badge: "Seçili Günler",
     services: ["Türk Hamamı", "Aroma Terapi", "Cilt Bakımı", "İkramlar"],
     popular: false
   },
   {
     name: "Lüks Paket",
     duration: "4 saat",
-    price: "1.800₺",
+    badge: "Signature Paket",
     services: ["Hot Stone Masaj", "Thai Masaj", "Cilt Bakımı", "Özel Yemek", "VIP Oda"],
     popular: true
   },
   {
     name: "Romantik Çift Paketi",
     duration: "3.5 saat",
-    price: "3.200₺",
+    badge: "VIP Ayrıcalık",
     services: ["Çift Odası", "Aromaterapi", "Şampanya & İkramlar", "Özel Havuz", "Masaj Seansı"],
     popular: false
   }
@@ -181,9 +181,15 @@ const Services = ({ onOpenBottomSheet }) => {
                     {pkg.name}
                   </motion.h3>
                   <div className="text-espresso/60 text-sm mb-4 font-light">{pkg.duration}</div>
-                  <div className="font-heading text-4xl font-bold text-olive-dark">
-                    {pkg.price}
-                  </div>
+                  <motion.div 
+                    className="inline-block px-5 py-2 bg-linear-to-r from-olive/20 to-olive/10 rounded-full border border-olive/30 backdrop-blur-sm"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <span className="text-olive-dark font-semibold text-sm tracking-wide">
+                      {pkg.badge}
+                    </span>
+                  </motion.div>
                 </div>
 
                 <div className="space-y-3 mb-6 relative">
