@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Award, Heart, Users, Target, Clock, Shield } from "lucide-react";
 import Mission from "../components/Mission";
-
 import Stats from "../components/Stats";
+import SEO, { organizationSchema, generateBreadcrumbSchema } from "../components/SEO";
 
 const values = [
   {
@@ -41,8 +41,35 @@ const About = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  // Breadcrumb schema
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Ana Sayfa", url: "https://luminya.com/" },
+    { name: "Hakkımızda", url: "https://luminya.com/about" }
+  ]);
+
+  // About Page structured data
+  const aboutPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "Hakkımızda - Luminya Wellness Center",
+    "description": "2009 yılından beri Türkiye'nin önde gelen wellness ve spa merkezi. 13+ şube, 50.000+ mutlu müşteri, 15 yıllık deneyim.",
+    "mainEntity": organizationSchema
+  };
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [breadcrumbSchema, aboutPageSchema]
+  };
+
   return (
     <div className="bg-linear-to-b from-stone-light via-cream to-stone-light min-h-screen relative overflow-hidden">
+      <SEO
+        title="Hakkımızda | Luminya Wellness & Spa Center - Hikayemiz ve Değerlerimiz"
+        description="2009'dan beri Türkiye'nin önde gelen wellness merkezi. 13+ şubemizde, 100+ uzman kadromuzla 50.000'den fazla mutlu müşteriye hizmet veriyoruz. 15 yıllık deneyim ve kalite garantisi."
+        keywords="luminya hakkında, spa merkezi hikayesi, wellness center deneyim, türkiye spa, profesyonel masaj ekibi, uzman terapistler, spa şubeleri"
+        canonical="/about"
+        structuredData={structuredData}
+      />
       {/* Decorative Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
         <motion.div

@@ -1,0 +1,48 @@
+# robots.txt for Luminya Wellness & Spa Center
+# https://luminya.com/robots.txt
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin pages
+Disallow: /admin/
+Disallow: /admin/*
+
+# Disallow private/internal paths (if any)
+# Disallow: /private/
+
+# Crawl-delay for all bots (optional, helps with server load)
+Crawl-delay: 1
+
+# Specific settings for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 2
+
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://luminya.com/sitemap.xml
+Sitemap: https://luminya.com/sitemap-blog.xml

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Sparkles, Heart, Droplets, Wind, Flower, Flame, Leaf, Star } from "lucide-react";
+import SEO, { generateServiceSchema, generateBreadcrumbSchema, generateFAQSchema } from "../components/SEO";
 
 const services = [
   {
@@ -99,8 +100,73 @@ const Services = ({ onOpenBottomSheet }) => {
     window.scrollTo(0, 0);
   }, []);
 
+  // Breadcrumb schema
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Ana Sayfa", url: "https://luminya.com/" },
+    { name: "Hizmetlerimiz", url: "https://luminya.com/services" }
+  ]);
+
+  // Services ItemList Schema
+  const servicesListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Luminya Wellness Hizmetleri",
+    "description": "Profesyonel spa ve wellness hizmetlerimiz",
+    "numberOfItems": services.length,
+    "itemListElement": services.map((service, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "Service",
+        "name": service.title,
+        "description": service.description,
+        "provider": {
+          "@type": "Organization",
+          "name": "Luminya Wellness Center"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": service.price.replace('₺', ''),
+          "priceCurrency": "TRY"
+        }
+      }
+    }))
+  };
+
+  // FAQ Schema for services
+  const faqSchema = generateFAQSchema([
+    {
+      question: "Luminya'da hangi masaj türleri mevcut?",
+      answer: "İsveç masajı, Thai masajı, Hot Stone masajı, Aromaterapi masajı, Derin Doku masajı, Ayurvedik terapi ve Refleksoloji gibi çeşitli masaj türleri sunuyoruz."
+    },
+    {
+      question: "Türk hamamı seansı ne kadar sürer?",
+      answer: "Geleneksel Türk hamamı seansımız kese, köpük ve masaj dahil 60 dakika sürmektedir. Paket programlarımızda daha uzun süreler mevcuttur."
+    },
+    {
+      question: "Spa paketleri neler içerir?",
+      answer: "Spa paketlerimiz hamam, masaj, cilt bakımı, aromaterapi ve özel dinlenme alanı kullanımını içerir. 3-4 saat arasında değişen paket süreleri mevcuttur."
+    },
+    {
+      question: "Randevu almak için ne yapmalıyım?",
+      answer: "Web sitemizden, WhatsApp hattımızdan veya telefonla randevu alabilirsiniz. 13+ şubemizden size en yakınını seçerek rezervasyon yapabilirsiniz."
+    }
+  ]);
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [breadcrumbSchema, servicesListSchema, faqSchema]
+  };
+
   return (
     <div className="bg-cream min-h-screen">
+      <SEO
+        title="Hizmetlerimiz | Luminya Wellness - Masaj, Hamam, Spa ve Cilt Bakımı"
+        description="İsveç masajı, Thai masajı, Aromaterapi, Türk hamamı, Hot Stone masaj, Cilt bakımı, Refleksoloji ve Ayurvedik terapi. Uzman kadromuzla profesyonel wellness hizmetleri. Uygun fiyatlarla randevu alın!"
+        keywords="isveç masajı, thai masajı, aromaterapi, türk hamamı, hot stone masaj, cilt bakımı, refleksoloji, ayurvedik terapi, spa paketleri, wellness hizmetleri, masaj fiyatları, kese köpük, derin doku masajı"
+        canonical="/services"
+        structuredData={structuredData}
+      />
       {/* Packages Section */}
       <section className="pt-32 pb-20 md:py-32 bg-cream relative overflow-hidden">
         {/* Decorative Background */}

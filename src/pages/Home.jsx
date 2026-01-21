@@ -10,6 +10,7 @@ import Mission from '../components/Mission'
 import Reviews from '../components/Reviews'
 import Blog from '../components/Blog'
 import Reservation from '../components/Reservation'
+import SEO, { organizationSchema, generateBreadcrumbSchema } from '../components/SEO'
 
 function Home({ onOpenBottomSheet }) {
   // Scroll to top on page load
@@ -36,8 +37,40 @@ function Home({ onOpenBottomSheet }) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Breadcrumb schema for homepage
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Ana Sayfa", url: "https://luminya.com/" }
+  ]);
+
+  // Combined structured data
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      organizationSchema,
+      breadcrumbSchema,
+      {
+        "@type": "WebSite",
+        "name": "Luminya Wellness & Spa Center",
+        "url": "https://luminya.com",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://luminya.com/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    ]
+  };
+
   return (
     <>
+      <SEO
+        title="Luminya Wellness & Spa Center | Türkiye'nin En İyi Spa ve Masaj Merkezi"
+        description="Luminya Wellness Center olarak 13+ şubemizde İsveç masajı, Thai masajı, aromaterapi, Türk hamamı, cilt bakımı ve wellness paketleri sunuyoruz. 15 yıllık deneyim, uzman kadro. Hemen randevu alın!"
+        keywords="spa merkezi, wellness center, masaj salonu, hamam, türk hamamı, kese köpük, aromaterapi, isveç masajı, thai masajı, hot stone masaj, cilt bakımı, refleksoloji, spa paketleri, masaj terapisi, relaxation, istanbul spa, ankara spa, izmir spa, luminya"
+        canonical="/"
+        ogImage="https://luminya.com/og-image.jpg"
+        structuredData={structuredData}
+      />
       <Hero onOpenBottomSheet={onOpenBottomSheet} />
       <div className="scroll-reveal">
         <PopularTherapies />

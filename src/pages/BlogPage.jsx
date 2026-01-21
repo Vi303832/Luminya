@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useState, useMemo, useEffect } from "react";
 import { Calendar, Clock, ArrowRight, User, Search, Tag } from "lucide-react";
-import { Helmet } from "react-helmet";
+import SEO, { generateArticleSchema, generateBreadcrumbSchema } from "../components/SEO";
 
 // SEO odaklı kapsamlı blog içeriği
 const blogPosts = [
@@ -593,13 +593,56 @@ const BlogPage = () => {
 
   // Blog detay görünümü
   if (selectedPost) {
+    // Convert date to ISO format for structured data
+    const convertDateToISO = (dateStr) => {
+      const months = {
+        'Ocak': '01', 'Şubat': '02', 'Mart': '03', 'Nisan': '04',
+        'Mayıs': '05', 'Haziran': '06', 'Temmuz': '07', 'Ağustos': '08',
+        'Eylül': '09', 'Ekim': '10', 'Kasım': '11', 'Aralık': '12'
+      };
+      const parts = dateStr.split(' ');
+      const day = parts[0].padStart(2, '0');
+      const month = months[parts[1]];
+      const year = parts[2];
+      return `${year}-${month}-${day}`;
+    };
+
+    const articleSchema = generateArticleSchema({
+      title: selectedPost.title,
+      excerpt: selectedPost.excerpt,
+      image: selectedPost.image,
+      datePublished: convertDateToISO(selectedPost.date),
+      dateModified: convertDateToISO(selectedPost.date),
+      author: selectedPost.author,
+      authorTitle: selectedPost.authorTitle,
+      slug: selectedPost.slug,
+      tags: selectedPost.tags
+    });
+
+    const breadcrumbSchema = generateBreadcrumbSchema([
+      { name: "Ana Sayfa", url: "https://luminya.com/" },
+      { name: "Blog", url: "https://luminya.com/blog" },
+      { name: selectedPost.title, url: `https://luminya.com/blog/${selectedPost.slug}` }
+    ]);
+
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@graph": [breadcrumbSchema, articleSchema]
+    };
+
     return (
       <div className="min-h-screen bg-cream">
-        <Helmet>
-          <title>{selectedPost.title} | Luna Wellness Blog</title>
-          <meta name="description" content={selectedPost.excerpt} />
-          <meta name="keywords" content={selectedPost.tags.join(", ")} />
-        </Helmet>
+        <SEO
+          title={`${selectedPost.title} | Luminya Wellness Blog`}
+          description={selectedPost.excerpt}
+          keywords={selectedPost.tags.join(", ")}
+          canonical={`/blog/${selectedPost.slug}`}
+          ogImage={selectedPost.image}
+          ogType="article"
+          author={selectedPost.author}
+          publishedTime={convertDateToISO(selectedPost.date)}
+          structuredData={structuredData}
+        />
 
         {/* Hero Image */}
         <div className="relative h-[60vh] overflow-hidden">
@@ -761,19 +804,54 @@ const BlogPage = () => {
   }
 
   // Blog liste görünümü
+  
+  // Blog list structured data
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Ana Sayfa", url: "https://luminya.com/" },
+    { name: "Blog", url: "https://luminya.com/blog" }
+  ]);
+
+  const blogListSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Luminya Wellness Blog",
+    "description": "Spa, wellness, masaj terapileri ve sağlıklı yaşam hakkında uzman yazıları",
+    "url": "https://luminya.com/blog",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Luminya Wellness Center",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://luminya.com/logo.png"
+      }
+    },
+    "blogPost": blogPosts.slice(0, 8).map(post => ({
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "image": post.image,
+      "author": {
+        "@type": "Person",
+        "name": post.author
+      },
+      "datePublished": post.date,
+      "keywords": post.tags.join(", ")
+    }))
+  };
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [breadcrumbSchema, blogListSchema]
+  };
+
   return (
     <div className="min-h-screen bg-cream">
-      <Helmet>
-        <title>Wellness Blog | Luna Wellness Center - Sağlık, Güzellik ve Spa</title>
-        <meta
-          name="description"
-          content="Masaj terapileri, aromaterapi, cilt bakımı, hamam ritüelleri, yoga ve meditasyon hakkında uzman yazıları. Luna Wellness Center'dan sağlık ve güzellik önerileri."
-        />
-        <meta
-          name="keywords"
-          content="wellness blog, spa blog, masaj terapisi, aromaterapi, cilt bakımı, hamam, türk banyosu, yoga, meditasyon, stres yönetimi, sağlıklı yaşam, güzellik önerileri, spa terapileri, holistik tedavi, detoks, refleksoloji"
-        />
-      </Helmet>
+      <SEO
+        title="Wellness Blog | Luminya Wellness Center - Sağlık, Güzellik ve Spa Rehberi"
+        description="Masaj terapileri, aromaterapi, cilt bakımı, hamam ritüelleri, yoga ve meditasyon hakkında uzman yazıları. Luminya Wellness Center'dan sağlık ve güzellik önerileri. Stres yönetimi, detoks, holistik tedavi rehberleri."
+        keywords="wellness blog, spa blog, masaj terapisi, aromaterapi, cilt bakımı, hamam, türk banyosu, yoga, meditasyon, stres yönetimi, sağlıklı yaşam, güzellik önerileri, spa terapileri, holistik tedavi, detoks, refleksoloji, derin doku masajı, hot stone"
+        canonical="/blog"
+        structuredData={structuredData}
+      />
 
       {/* Hero Section */}
       <section className="relative bg-espresso py-20 md:py-32 overflow-hidden">
