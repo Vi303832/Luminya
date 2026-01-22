@@ -197,7 +197,7 @@ const About = () => {
                 transition={{ duration: 0.4 }}
               >
                 <motion.img
-                  src="https://img.freepik.com/free-photo/close-up-therapist-hand-massaging-woman-s-back-with-hot-towel-spa_23-2147939902.jpg?t=st=1768812605~exp=1768816205~hmac=e04031fd482cbf9875fbdb41ca057490c59fc15250c0de4fd38687b0b4ee137f&w=1480"
+                  src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Luminya Spa"
                   className="w-full h-full object-cover"
                   initial={{ scale: 1.1 }}
