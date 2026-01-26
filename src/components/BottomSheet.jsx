@@ -59,12 +59,13 @@ function BottomSheet({ isOpen, onClose, title, children, searchBar }) {
           >
             <div className="bg-white w-full h-full flex flex-col shadow-2xl rounded-t-3xl">
               {/* Handle Bar */}
-              <div
-                className="flex-shrink-0 flex justify-center pt-4 pb-2 cursor-pointer"
+              <button
+                className="flex-shrink-0 flex justify-center pt-4 pb-2 cursor-pointer w-full"
                 onClick={onClose}
+                aria-label="Alt paneli kapat"
               >
                 <div className="w-12 h-1.5 bg-gray-300 rounded-full hover:bg-gray-400 transition-colors" />
-              </div>
+              </button>
 
               {/* Header */}
               <div className="flex-shrink-0 px-6 py-4 bg-white border-b border-gray-200">

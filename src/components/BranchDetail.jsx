@@ -32,6 +32,8 @@ function BranchDetail({ branch, onBack }) {
             src={branch.imageUrl || branch.image || 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80'}
             alt={branch.name}
             className="w-full h-full object-cover transition-transform duration-700 group-hover/image:scale-110"
+            loading="lazy"
+            decoding="async"
           />
           <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent transition-all duration-500 group-hover/image:from-black/60"></div>
           <div className="absolute bottom-6 left-6 right-6 text-white">

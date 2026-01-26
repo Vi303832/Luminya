@@ -136,9 +136,9 @@ const Reviews = () => {
               </p>
 
               <div>
-                <h4 className="font-heading text-xl font-normal text-text-primary mb-1">
+                <h3 className="font-heading text-xl font-normal text-text-primary mb-1">
                   {testimonials[current].name}
-                </h4>
+                </h3>
                 <p className="text-olive text-sm font-medium">{testimonials[current].role}</p>
               </div>
             </motion.div>
@@ -149,6 +149,7 @@ const Reviews = () => {
                 className="p-3 rounded-full border-2 border-stone-dark/30 hover:border-olive hover:bg-olive/10 transition-all duration-300 shadow-soft hover:shadow-medium"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
+                aria-label="Önceki yorum"
               >
                 <ChevronLeft className="w-5 h-5 text-olive" />
               </motion.button>
@@ -163,6 +164,7 @@ const Reviews = () => {
                       }`}
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.9 }}
+                    aria-label={`Yorum ${i + 1}'e git`}
                   />
                 ))}
               </div>
@@ -171,6 +173,7 @@ const Reviews = () => {
                 className="p-3 rounded-full border-2 border-stone-dark/30 hover:border-olive hover:bg-olive/10 transition-all duration-300 shadow-soft hover:shadow-medium"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
+                aria-label="Sonraki yorum"
               >
                 <ChevronRight className="w-5 h-5 text-olive" />
               </motion.button>

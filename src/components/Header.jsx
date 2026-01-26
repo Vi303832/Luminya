@@ -153,6 +153,7 @@ const Navbar = ({ onOpenBottomSheet }) => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="hidden lg:flex items-center gap-2 px-4 xl:px-5 py-2.5 bg-olive text-white rounded-full font-medium text-sm shadow-soft hover:shadow-elevated transition-all duration-300 whitespace-nowrap shrink-0"
+          aria-label="Randevu almak için şube seç"
         >
           <motion.div
             animate={{ rotate: [0, 10, -10, 0] }}
@@ -174,6 +175,7 @@ const Navbar = ({ onOpenBottomSheet }) => {
           onClick={() => setIsOpen(!isOpen)}
           className="lg:hidden p-1.5 sm:p-2 text-white shrink-0"
           whileTap={{ scale: 0.9 }}
+          aria-label={isOpen ? "Menüyü kapat" : "Menüyü aç"}
         >
           <motion.div
             animate={{ rotate: isOpen ? 180 : 0 }}
@@ -217,6 +219,7 @@ const Navbar = ({ onOpenBottomSheet }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
                 className="mt-2 sm:mt-4 flex items-center justify-center gap-2 px-5 py-2.5 sm:py-3 bg-olive text-white rounded-full font-medium text-sm sm:text-base"
+                aria-label="Randevu almak için şube seç"
               >
                 <Phone className="w-4 h-4" />
                 <span>Randevu Al</span>

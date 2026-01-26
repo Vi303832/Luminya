@@ -245,15 +245,18 @@ function Reservation() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
               >
+                <label htmlFor="name" className="sr-only">Adınız Soyadınız</label>
                 <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
                 <input
                   type="text"
+                  id="name"
                   name="name"
                   placeholder="Adınız Soyadınız"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className={inputClasses}
                   required
+                  aria-label="Adınız Soyadınız"
                 />
                 <ValidationError
                   prefix="İsim"
@@ -271,15 +274,18 @@ function Reservation() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.15 }}
               >
+                <label htmlFor="phone" className="sr-only">Telefon Numaranız</label>
                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
                 <input
                   type="tel"
+                  id="phone"
                   name="phone"
                   placeholder="Telefon Numaranız"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   className={inputClasses}
                   required
+                  aria-label="Telefon Numaranız"
                 />
                 <ValidationError
                   prefix="Telefon"
@@ -297,15 +303,18 @@ function Reservation() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
               >
+                <label htmlFor="email" className="sr-only">E-posta Adresiniz</label>
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
                 <input
                   type="email"
+                  id="email"
                   name="email"
                   placeholder="E-posta Adresiniz"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className={inputClasses}
                   required
+                  aria-label="E-posta Adresiniz"
                 />
                 <ValidationError
                   prefix="Email"
@@ -323,14 +332,17 @@ function Reservation() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.25 }}
               >
+                <label htmlFor="branch" className="sr-only">Şube Seçin</label>
                 <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
                 <select
+                  id="branch"
                   name="branch"
                   value={formData.branch}
                   onChange={(e) => setFormData({ ...formData, branch: e.target.value })}
                   className={`${inputClasses} appearance-none cursor-pointer`}
                   required
                   disabled={loadingBranches}
+                  aria-label="Şube Seçin"
                 >
                   <option value="">{loadingBranches ? 'Şubeler yükleniyor...' : 'Şube Seçin'}</option>
                   {branches.map((branch) => (
@@ -355,12 +367,15 @@ function Reservation() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
               >
+                <label htmlFor="service" className="sr-only">Hizmet Seçin</label>
                 <select
+                  id="service"
                   name="service"
                   value={formData.service}
                   onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                   className={`${inputClasses} pl-4 appearance-none cursor-pointer`}
                   required
+                  aria-label="Hizmet Seçin"
                 >
                   <option value="">Hizmet Seçin</option>
                   {services.map((service) => (
@@ -385,14 +400,17 @@ function Reservation() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.35 }}
               >
+                <label htmlFor="date" className="sr-only">Tarih Seçin</label>
                 <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
                 <input
                   type="date"
+                  id="date"
                   name="date"
                   value={formData.date}
                   onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                   className={inputClasses}
                   required
+                  aria-label="Tarih Seçin"
                 />
                 <ValidationError
                   prefix="Tarih"
@@ -410,13 +428,16 @@ function Reservation() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
               >
+                <label htmlFor="time" className="sr-only">Saat Seçin</label>
                 <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
                 <select
+                  id="time"
                   name="time"
                   value={formData.time}
                   onChange={(e) => setFormData({ ...formData, time: e.target.value })}
                   className={`${inputClasses} appearance-none cursor-pointer`}
                   required
+                  aria-label="Saat Seçin"
                 >
                   <option value="">Saat Seçin</option>
                   <option value="10:00">10:00</option>
@@ -446,14 +467,17 @@ function Reservation() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.45 }}
               >
+                <label htmlFor="message" className="sr-only">Mesajınız (Opsiyonel)</label>
                 <MessageSquare className="absolute left-4 top-4 w-5 h-5 text-text-muted" />
                 <textarea
+                  id="message"
                   name="message"
                   placeholder="Mesajınız (Opsiyonel)"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className={`${inputClasses} min-h-[120px] resize-none`}
                   rows={4}
+                  aria-label="Mesajınız (Opsiyonel)"
                 />
                 <ValidationError
                   prefix="Mesaj"

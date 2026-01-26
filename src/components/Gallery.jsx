@@ -113,7 +113,9 @@ function Gallery() {
                 src={image.url}
                 alt={image.title}
                 className="w-full h-full object-cover"
-                loading="eager"
+                loading={isActive ? "eager" : "lazy"}
+                decoding="async"
+                fetchpriority={isActive ? "high" : "low"}
               />
 
               {/* Overlay gradients */}
@@ -157,9 +159,10 @@ function Gallery() {
                 >
                   <img
                     src={image.url}
-                    alt={image.title}
+                    alt={`${image.title} küçük resim`}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                     loading="lazy"
+                    decoding="async"
                   />
                   <div
                     className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${index === activeIndex ? 'opacity-0' : 'group-hover:opacity-0'

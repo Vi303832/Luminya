@@ -201,6 +201,7 @@ export function SearchBar({ searchQuery, setSearchQuery }) {
         <button
           onClick={() => setSearchQuery('')}
           className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-olive/10 rounded-full transition-all duration-300 hover:scale-110 active:scale-95 group/clear animate-fadeIn"
+          aria-label="Arama metnini temizle"
         >
           <svg
             className="w-4 h-4 text-gray-500 group-hover/clear:text-olive group-hover/clear:rotate-90 transition-all duration-300"

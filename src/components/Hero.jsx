@@ -45,7 +45,11 @@ function Hero({ onOpenBottomSheet }) {
             }}
           >
             {/* Ken Burns Effect Layer */}
-            <div className={`absolute inset-0 bg-cover bg-center animate-kenBurns`} style={{ backgroundImage: `url(${slide})` }} />
+            <div 
+              className={`absolute inset-0 bg-cover bg-center animate-kenBurns`} 
+              style={{ backgroundImage: `url(${slide})` }}
+              aria-hidden="true"
+            />
           </div>
         ))}
 
@@ -89,6 +93,7 @@ function Hero({ onOpenBottomSheet }) {
             <button
               onClick={onOpenBottomSheet}
               className="group relative w-full sm:w-auto min-w-[200px] px-8 md:px-10 py-4 md:py-5 bg-white text-espresso font-bold text-sm md:text-base rounded-full overflow-hidden transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:scale-95 z-30 cursor-pointer"
+              aria-label="Randevu almak için şube seç"
             >
               <div className="absolute inset-0 bg-linear-to-r from-cream to-white translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
               <div className="relative flex items-center justify-center gap-3">
@@ -104,6 +109,7 @@ function Hero({ onOpenBottomSheet }) {
             <button
               onClick={scrollToServices}
               className="group relative w-full sm:w-auto min-w-[200px] px-8 md:px-10 py-4 md:py-5 bg-transparent text-white font-bold text-sm md:text-base rounded-full border border-white/30 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-white hover:-translate-y-1 active:scale-95 z-30 cursor-pointer"
+              aria-label="Hizmetler bölümüne git"
             >
               <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
               <div className="relative flex items-center justify-center gap-3 group-hover:text-espresso transition-colors duration-300">
