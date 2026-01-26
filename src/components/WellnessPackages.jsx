@@ -34,7 +34,7 @@ function WellnessPackages() {
       services: ['Hamam', 'Masaj', 'Cilt Bakımı', 'Öğle Yemeği'],
       duration: '6 saat',
       price: '₺2,500',
-      image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=60&fm=webp',
     },
     {
       title: 'Detoks Paketi',
@@ -42,7 +42,7 @@ function WellnessPackages() {
       services: ['Detoks Masajı', 'Sauna', 'Özel Çay', 'Diyet Önerisi'],
       duration: '4 saat',
       price: '₺1,800',
-      image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=60&fm=webp',
     },
     {
       title: 'Romantik Çift Paketi',
@@ -50,7 +50,7 @@ function WellnessPackages() {
       services: ['Çift Masajı', 'Şampanya', 'Özel Oda', 'Çiçek'],
       duration: '3 saat',
       price: '₺3,200',
-      image: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=800&q=60&fm=webp',
     },
     {
       title: 'Anti-Stress Paketi',
@@ -58,7 +58,7 @@ function WellnessPackages() {
       services: ['Aromaterapi', 'Baş Masajı', 'Meditasyon', 'Çay Servisi'],
       duration: '3 saat',
       price: '₺1,500',
-      image: 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=800&q=60&fm=webp',
     },
     {
       title: 'Güzellik Paketi',
@@ -66,7 +66,7 @@ function WellnessPackages() {
       services: ['Yüz Bakımı', 'Vücut Peelingi', 'Nemlendirme', 'Manikür'],
       duration: '4 saat',
       price: '₺2,100',
-      image: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=800&q=60&fm=webp',
     },
     {
       title: 'Hafta Sonu Kaçamağı',
@@ -74,7 +74,7 @@ function WellnessPackages() {
       services: ['Konaklama', 'Kahvaltı', '2 Masaj', 'Havuz', 'Akşam Yemeği'],
       duration: '2 gün',
       price: '₺5,500',
-      image: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800&q=60&fm=webp',
     },
     {
       title: 'Prenatal Bakım',
@@ -82,7 +82,7 @@ function WellnessPackages() {
       services: ['Prenatal Masaj', 'Özel Yağlar', 'Gevşeme', 'Bitki Çayı'],
       duration: '2 saat',
       price: '₺1,200',
-      image: 'https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=800&q=60&fm=webp',
     },
     {
       title: 'Spor Sonrası Bakım',
@@ -90,7 +90,7 @@ function WellnessPackages() {
       services: ['Spor Masajı', 'Kas Gevşetme', 'Soğuk Kompres', 'Protein Shake'],
       duration: '2 saat',
       price: '₺1,300',
-      image: 'https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=800&q=60&fm=webp',
     },
     {
       title: 'VIP Lüks Paket',
@@ -98,7 +98,7 @@ function WellnessPackages() {
       services: ['Özel Suite', 'Premium Masaj', 'Şampanya', 'Transfer', 'Akşam Yemeği'],
       duration: '8 saat',
       price: '₺6,500',
-      image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=60&fm=webp',
     },
   ]
 

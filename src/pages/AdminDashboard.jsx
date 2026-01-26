@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { LogOut, Plus, Edit, Trash2, MapPin, Phone, Mail, Clock, Upload, CheckCircle, AlertCircle, X, Building2, Image, Tag, Star } from 'lucide-react';
 import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs, query, where, Timestamp, orderBy } from 'firebase/firestore';
-import { db } from '../firebase';
+import { getDb } from '../utils/firebaseLazy';
 
 // Cloudinary yapılandırması
 const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
@@ -63,6 +63,7 @@ const AdminDashboard = () => {
   const fetchBranches = async () => {
     try {
       setFetchingBranches(true);
+      const db = await getDb();
       const branchesRef = collection(db, 'branches');
       const q = query(branchesRef, where('active', '==', true));
       const querySnapshot = await getDocs(q);
@@ -80,7 +81,6 @@ const AdminDashboard = () => {
 
       setBranches(branchesData);
     } catch (error) {
-      console.error('Error fetching branches:', error);
       setError('Şubeler yüklenirken hata oluştu');
     } finally {
       setFetchingBranches(false);
@@ -90,6 +90,7 @@ const AdminDashboard = () => {
   const fetchCampaigns = async () => {
     try {
       setFetchingCampaigns(true);
+      const db = await getDb();
       const campaignsRef = collection(db, 'campaigns');
 
       let querySnapshot;
@@ -99,7 +100,6 @@ const AdminDashboard = () => {
         querySnapshot = await getDocs(q);
       } catch (orderByError) {
         // If orderBy fails (no index), use simple query
-        console.log('orderBy failed, using simple query:', orderByError);
         const q = query(campaignsRef, where('active', '==', true));
         querySnapshot = await getDocs(q);
       }
@@ -114,7 +114,6 @@ const AdminDashboard = () => {
 
       setCampaigns(campaignsData);
     } catch (error) {
-      console.error('Error fetching campaigns:', error);
       setError('Kampanyalar yüklenirken hata oluştu');
     } finally {
       setFetchingCampaigns(false);
@@ -126,7 +125,7 @@ const AdminDashboard = () => {
       await logout();
       navigate('/admin/login');
     } catch (error) {
-      console.error('Logout error:', error);
+      // Logout error handled silently
     }
   };
 
@@ -248,11 +247,6 @@ const AdminDashboard = () => {
       uploadData.append('file', file);
       uploadData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
 
-      console.log('Uploading to Cloudinary...', {
-        cloudName: CLOUDINARY_CLOUD_NAME,
-        preset: CLOUDINARY_UPLOAD_PRESET
-      });
-
       const response = await fetch(
         `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
         {
@@ -264,11 +258,8 @@ const AdminDashboard = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        console.error('Cloudinary error:', data);
         throw new Error(data.error?.message || 'Yükleme başarısız oldu');
       }
-
-      console.log('Upload successful:', data);
 
       setFormData(prev => ({
         ...prev,
@@ -279,7 +270,6 @@ const AdminDashboard = () => {
       setSuccess('Fotoğraf başarıyla yüklendi!');
       setTimeout(() => setSuccess(''), 3000);
     } catch (err) {
-      console.error('Image upload error:', err);
       let errorMessage = err.message;
 
       if (err.message.includes('Invalid upload preset')) {
@@ -327,6 +317,7 @@ const AdminDashboard = () => {
           active: true
         };
 
+        const db = await getDb();
         if (editingItem) {
           branchData.updatedAt = Timestamp.now();
           branchData.updatedBy = currentUser.email;
@@ -358,6 +349,7 @@ const AdminDashboard = () => {
           active: true
         };
 
+        const db = await getDb();
         if (editingItem) {
           campaignData.updatedAt = Timestamp.now();
           campaignData.updatedBy = currentUser.email;
@@ -379,7 +371,6 @@ const AdminDashboard = () => {
       }, 2000);
 
     } catch (err) {
-      console.error('Error saving:', err);
       setError('İşlem sırasında bir hata oluştu: ' + err.message);
     } finally {
       setLoading(false);
@@ -393,6 +384,7 @@ const AdminDashboard = () => {
       setSuccess('');
 
       // Fetch campaigns to check for duplicates
+      const db = await getDb();
       const campaignsRef = collection(db, 'campaigns');
       let querySnapshot;
       try {
@@ -430,6 +422,7 @@ const AdminDashboard = () => {
         createdBy: currentUser.email
       };
 
+      const db = await getDb();
       await addDoc(collection(db, 'campaigns'), campaignData);
       setSuccess(`"${branch.name}" için kampanya başarıyla oluşturuldu!`);
 
@@ -441,7 +434,6 @@ const AdminDashboard = () => {
       }, 1500);
 
     } catch (err) {
-      console.error('Error creating campaign from branch:', err);
       setError('Kampanya oluşturulurken hata oluştu: ' + err.message);
       setTimeout(() => setError(''), 3000);
     } finally {
@@ -463,6 +455,7 @@ const AdminDashboard = () => {
       setSuccess('');
 
       const collectionName = activeTab === 'branches' ? 'branches' : 'campaigns';
+      const db = await getDb();
 
       if (activeTab === 'branches') {
         // For branches, set active to false
@@ -484,7 +477,6 @@ const AdminDashboard = () => {
       }
       setTimeout(() => setSuccess(''), 3000);
     } catch (err) {
-      console.error('Error deleting:', err);
       setError('Silme sırasında hata oluştu: ' + err.message);
       setTimeout(() => setError(''), 3000);
     } finally {

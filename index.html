@@ -11,6 +11,49 @@
   <!-- Performance hints -->
   <meta http-equiv="x-dns-prefetch-control" content="on" />
   
+  <!-- Critical CSS - Inline for faster rendering -->
+  <style>
+    /* Critical Header & Hero Styles */
+    header.fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+    }
+    
+    /* Hero Section */
+    #hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    /* Essential Typography */
+    .font-heading {
+      font-family: "Optima", "Palatino", "Georgia", serif;
+      font-weight: 400;
+    }
+    
+    /* Background Colors */
+    .bg-espresso {
+      background-color: #3B2117;
+    }
+    
+    /* Basic Layout */
+    body {
+      margin: 0;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+    
+    /* Prevent FOUC */
+    #root {
+      min-height: 100vh;
+    }
+  </style>
+  
   <!-- Resource hints for faster loading -->
   <link rel="preload" as="style" href="/src/index.css" />
 

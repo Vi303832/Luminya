@@ -43,7 +43,7 @@ const branches = [
     address: 'Kahramanmaraş, Clarion Hotel',
     phone: '0344 000 00 00',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800'
+    image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=60&fm=webp'
   },
   {
     id: 5,
@@ -52,7 +52,7 @@ const branches = [
     address: 'Kahramanmaraş, Revizyon Yapı',
     phone: '0344 000 00 00',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800'
+    image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=60&fm=webp'
   },
   {
     id: 6,
@@ -61,7 +61,7 @@ const branches = [
     address: 'Alaçatı, İzmir, Soliport Hotel',
     phone: '0232 000 00 00',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800'
+    image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=60&fm=webp'
   },
   {
     id: 7,
@@ -70,7 +70,7 @@ const branches = [
     address: 'Bursa, Korupark AVM',
     phone: '0224 000 00 00',
     hours: '10:00 - 22:00',
-    image: 'https://images.unsplash.com/photo-1519167758481-83f29da8c8b0?w=800'
+    image: 'https://images.unsplash.com/photo-1519167758481-83f29da8c8b0?w=800&q=60&fm=webp'
   },
   {
     id: 8,
@@ -79,7 +79,7 @@ const branches = [
     address: 'İstanbul, The Conforium Hotel',
     phone: '0212 000 00 00',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800'
+    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=60&fm=webp'
   },
   {
     id: 9,
@@ -88,7 +88,7 @@ const branches = [
     address: 'Şanlıurfa, Dedeman Hotel',
     phone: '0414 000 00 00',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800'
+    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=60&fm=webp'
   },
   {
     id: 10,
@@ -97,7 +97,7 @@ const branches = [
     address: 'Merter, İstanbul, Ramada by Wyndham',
     phone: '0212 000 00 00',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800'
+    image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&q=60&fm=webp'
   },
   {
     id: 11,
@@ -106,7 +106,7 @@ const branches = [
     address: 'İstanbul, Pullman Hotel',
     phone: '0212 000 00 00',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800'
+    image: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&q=60&fm=webp'
   },
   {
     id: 12,
@@ -115,7 +115,7 @@ const branches = [
     address: 'Elazığ, Ramada Hotel',
     phone: '0424 000 00 00',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800'
+    image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=60&fm=webp'
   },
   {
     id: 13,
@@ -124,7 +124,7 @@ const branches = [
     address: 'Osmangazi, Bursa, Euphoria Fitness',
     phone: '0224 000 00 00',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800'
+    image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=60&fm=webp'
   },
   {
     id: 14,
@@ -133,7 +133,7 @@ const branches = [
     address: 'Çeşme, İzmir, Ramada By Wyndham',
     phone: '0232 000 00 00',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800'
+    image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=60&fm=webp'
   },
   {
     id: 15,
@@ -142,7 +142,7 @@ const branches = [
     address: 'Alaçatı, İzmir, Dolce Hotels & Resorts',
     phone: '0232 000 00 00',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800'
+    image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=60&fm=webp'
   },
   {
     id: 16,
@@ -151,7 +151,7 @@ const branches = [
     address: 'Balçova, İzmir, Ege Park AVM, Euphoria Plus',
     phone: '0232 000 00 00',
     hours: '10:00 - 22:00',
-    image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800'
+    image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=60&fm=webp'
   },
   {
     id: 17,
@@ -160,7 +160,7 @@ const branches = [
     address: 'Ankara, Latanya Hotel',
     phone: '0312 000 00 00',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800'
+    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=60&fm=webp'
   },
   {
     id: 18,
@@ -169,7 +169,7 @@ const branches = [
     address: 'Mardin, Büyük Mardin Oteli',
     phone: '0482 000 00 00',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800'
+    image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=60&fm=webp'
   },
   {
     id: 19,
@@ -178,7 +178,7 @@ const branches = [
     address: 'Trabzon, Sera Lake Center Hotel',
     phone: '0462 000 00 00',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800'
+    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=60&fm=webp'
   },
   {
     id: 20,
@@ -187,7 +187,7 @@ const branches = [
     address: 'Diyarbakır, The Green Park Hotel',
     phone: '0412 000 00 00',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800'
+    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=60&fm=webp'
   },
   {
     id: 21,
@@ -196,7 +196,7 @@ const branches = [
     address: 'Esenyurt, İstanbul, Days Inn & Suites',
     phone: '0212 000 00 00',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800'
+    image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&q=60&fm=webp'
   },
   {
     id: 22,
@@ -205,7 +205,7 @@ const branches = [
     address: 'İstanbul, Casa Nova Hotel',
     phone: '0212 000 00 00',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800'
+    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=60&fm=webp'
   },
   {
     id: 23,
@@ -214,7 +214,7 @@ const branches = [
     address: 'İstanbul, Sürmeli Hotel',
     phone: '0212 000 00 00',
     hours: '09:00 - 23:00',
-    image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800'
+    image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&q=60&fm=webp'
   },
 ];
 

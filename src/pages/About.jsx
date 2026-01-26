@@ -197,7 +197,7 @@ const About = () => {
                 transition={{ duration: 0.4 }}
               >
                 <motion.img
-                  src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=2070&q=60&fm=webp"
                   alt="Luminya Spa"
                   className="w-full h-full object-cover"
                   initial={{ scale: 1.1 }}

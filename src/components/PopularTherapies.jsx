@@ -32,7 +32,7 @@ function PopularTherapies() {
       title: 'SAUNA',
       subtitle: 'Luna Den Spa & Wellness',
       description: 'Geleneksel sauna deneyimi ile vücudunuzdaki toksinlerden arının ve stresden uzaklaşın',
-      image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=60&fm=webp',
       duration: '60 dakika',
       badge: 'Popüler',
       items: [
@@ -47,7 +47,7 @@ function PopularTherapies() {
       title: 'KESE KÖPÜK',
       subtitle: 'Luna Den Spa & Wellness',
       description: 'Derin temizlik ve yenilenme için geleneksel Türk hamamı ritüeli',
-      image: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&q=60&fm=webp',
       duration: '90 dakika',
       badge: 'En Çok Tercih Edilen',
       items: [
@@ -62,7 +62,7 @@ function PopularTherapies() {
       title: 'MASAJLAR',
       subtitle: 'Luna Den Spa & Wellness',
       description: 'Uzman terapistlerimiz ile profesyonel masaj terapileri',
-      image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=60&fm=webp',
       duration: '75 dakika',
       badge: 'Premium',
       items: [

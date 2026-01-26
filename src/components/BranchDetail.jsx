@@ -29,7 +29,7 @@ function BranchDetail({ branch, onBack }) {
         {/* Branch Image */}
         <div className="relative h-64 overflow-hidden animate-fadeIn group/image" style={{ animationDelay: '100ms' }}>
           <img
-            src={branch.imageUrl || branch.image || 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80'}
+            src={branch.imageUrl || branch.image || 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=60&fm=webp'}
             alt={branch.name}
             className="w-full h-full object-cover transition-transform duration-700 group-hover/image:scale-110"
             loading="lazy"

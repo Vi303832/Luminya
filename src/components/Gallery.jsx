@@ -2,37 +2,37 @@ import { useState, useEffect, useCallback } from 'react'
 
 const galleryImages = [
   {
-    url: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1920&q=80',
+    url: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1920&q=60&fm=webp',
     category: 'spa',
     title: 'Lüks Spa Deneyimi',
     description: 'Huzurun ve rahatlığın buluşma noktası'
   },
   {
-    url: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1920&q=80',
+    url: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1920&q=60&fm=webp',
     category: 'massage',
     title: 'Profesyonel Masaj Terapisi',
     description: 'Uzman ellerle yenilenme zamanı'
   },
   {
-    url: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=1920&q=80',
+    url: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=1920&q=60&fm=webp',
     category: 'facility',
     title: 'Şık Otel Lobisi',
     description: 'Konforlu ve modern lobide keyifli bir deneyim'
   },
   {
-    url: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1920&q=80',
+    url: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1920&q=60&fm=webp',
     category: 'massage',
     title: 'Sıcak Taş Masajı',
     description: 'Derin gevşeme ve arınma'
   },
   {
-    url: 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=1920&q=80',
+    url: 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=1920&q=60&fm=webp',
     category: 'spa',
     title: 'Termal Spa Havuzu',
     description: 'Doğanın şifa gücüyle tanışın'
   },
   {
-    url: 'https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=1920&q=80',
+    url: 'https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=1920&q=60&fm=webp',
     category: 'facility',
     title: 'Premium Dinlenme Alanları',
     description: 'Size özel huzur köşeleri'

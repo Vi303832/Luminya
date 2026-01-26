@@ -4,11 +4,11 @@ function Hero({ onOpenBottomSheet }) {
   const [currentSlide, setCurrentSlide] = useState(0)
 
   const slides = [
-    'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1920&q=80', // Spa stones massage
-    'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1920&q=80',
+    'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1920&q=60&fm=webp', // Spa stones massage
+    'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1920&q=60&fm=webp',
 
-    'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1920&q=80', // Spa candles and wellness
-    'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', // Spa wellness
+    'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1920&q=60&fm=webp', // Spa candles and wellness
+    'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1920&q=60&fm=webp', // Spa wellness
   ]
 
   useEffect(() => {

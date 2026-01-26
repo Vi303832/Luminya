@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react'
 import { collection, getDocs, query, where } from 'firebase/firestore'
-import { db } from '../firebase'
+import { getDb } from '../utils/firebaseLazy'
 
 function BranchSelector({ onSelectBranch, searchQuery, setSearchQuery }) {
   const [branches, setBranches] = useState([])
@@ -11,6 +11,8 @@ function BranchSelector({ onSelectBranch, searchQuery, setSearchQuery }) {
     const fetchBranches = async () => {
       try {
         setLoading(true)
+        // Lazy load Firebase
+        const db = await getDb()
         const branchesRef = collection(db, 'branches')
         const q = query(branchesRef, where('active', '==', true))
         const querySnapshot = await getDocs(q)
@@ -22,7 +24,6 @@ function BranchSelector({ onSelectBranch, searchQuery, setSearchQuery }) {
 
         setBranches(branchesData)
       } catch (error) {
-        console.error('Error fetching branches:', error)
         setBranches([])
       } finally {
         setLoading(false)

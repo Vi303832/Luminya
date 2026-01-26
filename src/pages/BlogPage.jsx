@@ -35,7 +35,7 @@ Spa wellness programlarına entegre edilen yoga seansları, esneklik kazandırı
 
 **Sonuç**
 Düzenli spa ve wellness uygulamaları, stres yönetiminin vazgeçilmez parçalarıdır. Luna Wellness Center olarak, size özel hazırlanmış wellness programlarımızla sağlıklı ve dengeli bir yaşam sürmenize yardımcı oluyoruz.`,
-    image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&q=60&fm=webp",
     author: "Dr. Ayşe Kara",
     authorTitle: "Wellness Uzmanı",
     date: "15 Ocak 2026",
@@ -85,7 +85,7 @@ Luna Wellness Center'da aromaterapi, her tedavinin ayrılmaz bir parçasıdır. 
 
 **Dikkat Edilmesi Gerekenler:**
 Esansiyel yağlar yüksek konsantrasyonludur, doğrudan cilde sürülmemelidir. Hamilelik, emzirme ve belirli sağlık durumlarında kullanmadan önce uzman görüşü alınmalıdır.`,
-    image: "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=1200&q=60&fm=webp",
     author: "Zeynep Demir",
     authorTitle: "Aromaterapi Terapisti",
     date: "12 Ocak 2026",
@@ -141,7 +141,7 @@ Esansiyel yağlar yüksek konsantrasyonludur, doğrudan cilde sürülmemelidir. 
 
 **Luna Wellness Center Cilt Bakım Programları:**
 Size özel hazırlanan cilt analizi sonrası, cildinizin ihtiyaçlarına yönelik özelleştirilmiş programlar sunuyoruz. Tüm tedavilerimiz dermatolojik olarak test edilmiş ürünlerle yapılmaktadır.`,
-    image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1200&q=60&fm=webp",
     author: "Mehmet Özkan",
     authorTitle: "Dermatoloji Uzmanı",
     date: "10 Ocak 2026",
@@ -210,7 +210,7 @@ Size özel hazırlanan cilt analizi sonrası, cildinizin ihtiyaçlarına yöneli
 
 **Luna Wellness Center İsveç Masajı:**
 Sertifikalı masaj terapistlerimiz, geleneksel İsveç masajı tekniklerini modern wellness anlayışıyla birleştirerek size özel seanslar hazırlıyor. Organik masaj yağları ve aromaterapi eklentileriyle deneyiminizi zenginleştiriyoruz.`,
-    image: "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1200&q=60&fm=webp",
     author: "Can Yılmaz",
     authorTitle: "Masaj Terapisti",
     date: "8 Ocak 2026",
@@ -267,7 +267,7 @@ Kronik problemler için haftada bir veya iki haftada bir seanslar önerilir. Bak
 
 **Luna Wellness Center Derin Doku Masajı:**
 Uzman terapistlerimiz, anatomik bilgi ve deneyimleriyle size özel tedavi planları hazırlar. Her seans öncesi detaylı değerlendirme yapılır ve terapi sürecinde düzenli takip edilirsiniz.`,
-    image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&q=60&fm=webp",
     author: "Elif Şahin",
     authorTitle: "Fizik Tedavi Uzmanı",
     date: "5 Ocak 2026",
@@ -348,7 +348,7 @@ Neredeyse herkes hamam deneyimi yaşayabilir. Ancak:
 
 **Ne Sıklıkla Hamama Gidilmeli?**
 Haftada bir veya iki haftada bir seanslar ideal cilt yenilenmesi ve detoks için önerilir.`,
-    image: "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1200&q=60&fm=webp",
     author: "Fatma Yıldız",
     authorTitle: "Geleneksel Hamam Uzmanı",
     date: "3 Ocak 2026",
@@ -439,7 +439,7 @@ Lenf sistemi ve bağışıklık organlarının refleks noktaları çalışılır
 
 **Luna Wellness Center Refleksoloji:**
 Uzman refleksologlarımız, geleneksel teknikleri modern wellness anlayışıyla birleştirerek size özel seanslar hazırlıyor.`,
-    image: "https://images.unsplash.com/photo-1556817411-31f11679f242?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1556817411-31f11679f242?w=1200&q=60&fm=webp",
     author: "Hakan Arslan",
     authorTitle: "Refleksoloji Uzmanı",
     date: "1 Ocak 2026",
@@ -552,7 +552,7 @@ Luna Wellness Center'da yoga ve meditasyon, spa tedavilerinize entegre edilir:
 - Bacakları Yukarı Duruş (Viparita Karani)
 
 Bu pratikler, spa deneyiminizi derinleştirir ve günlük yaşamınıza taşıyabileceğiniz araçlar sunar.`,
-    image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&q=60&fm=webp",
     author: "Selin Kaya",
     authorTitle: "Yoga & Meditasyon Eğitmeni",
     date: "29 Aralık 2025",

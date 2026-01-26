@@ -6,17 +6,17 @@ function WhyUs() {
     {
       title: 'Size Özel Sabunlar',
       description: 'Cildinizi ölü hücrelerden arındırarak okşijen alımını sağlar, canlılık verir.',
-      image: 'https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=800&q=60&fm=webp',
     },
     {
       title: 'Özel Kokular',
       description: 'Bitkilerden elde edilen kokular, vücutta rahatlatıcı etki gösterir.',
-      image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=60&fm=webp',
     },
     {
       title: 'Rahatlatıcı Yağlar',
       description: 'Cildinizi nemlendirerek canlı ve parlak bir görüntü sağlar.',
-      image: 'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=800&q=60&fm=webp',
     },
   ]
 

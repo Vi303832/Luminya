@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { Calendar, Clock, User, Phone, Mail, MessageSquare, Send, MapPin } from 'lucide-react'
 import { collection, getDocs, query, where } from 'firebase/firestore'
-import { db } from '../firebase'
+import { getDb } from '../utils/firebaseLazy'
 import { useForm, ValidationError } from '@formspree/react'
 
 const services = [
@@ -40,6 +40,8 @@ function Reservation() {
     const fetchBranches = async () => {
       try {
         setLoadingBranches(true)
+        // Lazy load Firebase
+        const db = await getDb()
         const branchesRef = collection(db, 'branches')
         const q = query(branchesRef, where('active', '==', true))
         const querySnapshot = await getDocs(q)
@@ -60,7 +62,6 @@ function Reservation() {
 
         setBranches(branchesData)
       } catch (error) {
-        console.error('Error fetching branches:', error)
         setBranches([])
       } finally {
         setLoadingBranches(false)

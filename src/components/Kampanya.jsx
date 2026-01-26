@@ -3,7 +3,7 @@ import { useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { collection, getDocs, query, where, orderBy, limit } from 'firebase/firestore'
-import { db } from '../firebase'
+import { getDb } from '../utils/firebaseLazy'
 
 function Kampanya({ onOpenBottomSheet }) {
   const ref = useRef(null)
@@ -19,6 +19,8 @@ function Kampanya({ onOpenBottomSheet }) {
   const fetchCampaigns = async () => {
     try {
       // Don't show loading, just fetch in background
+      // Lazy load Firebase
+      const db = await getDb()
       const campaignsRef = collection(db, 'campaigns')
 
       // Try with orderBy first, if it fails use simple query
@@ -33,7 +35,6 @@ function Kampanya({ onOpenBottomSheet }) {
         querySnapshot = await getDocs(q)
       } catch (orderByError) {
         // If orderBy fails (no index), use simple query
-        console.log('orderBy failed, using simple query:', orderByError)
         try {
           const q = query(
             campaignsRef,
@@ -43,11 +44,9 @@ function Kampanya({ onOpenBottomSheet }) {
           querySnapshot = await getDocs(q)
         } catch (simpleQueryError) {
           // If simple query also fails, try without where clause
-          console.log('Simple query failed, trying without where:', simpleQueryError)
           try {
             querySnapshot = await getDocs(campaignsRef)
           } catch (finalError) {
-            console.error('All query attempts failed:', finalError)
             setLoading(false)
             return
           }
@@ -55,7 +54,6 @@ function Kampanya({ onOpenBottomSheet }) {
       }
 
       if (!querySnapshot || querySnapshot.empty) {
-        console.log('No campaigns found in Firebase, using defaults')
         setLoading(false)
         return
       }
@@ -71,10 +69,9 @@ function Kampanya({ onOpenBottomSheet }) {
       // Limit to 3 after sorting
       const limitedCampaigns = campaignsData.slice(0, 3)
 
-      console.log('Fetched campaigns:', limitedCampaigns)
       setCampaigns(limitedCampaigns)
     } catch (error) {
-      console.error('Error fetching campaigns:', error)
+      // Error handled silently
     } finally {
       setLoading(false)
     }
@@ -119,21 +116,21 @@ function Kampanya({ onOpenBottomSheet }) {
     {
       id: 'default-1',
       branchName: 'Kadıköy Şubesi',
-      branchImage: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80',
+      branchImage: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=60&fm=webp',
       description: 'Özel kampanyalarımızdan haberdar olun ve avantajlı fiyatlardan yararlanın',
       badge: 'Özel Kampanya'
     },
     {
       id: 'default-2',
       branchName: 'Beşiktaş Şubesi',
-      branchImage: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&q=80',
+      branchImage: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&q=60&fm=webp',
       description: 'Wellness paketlerimizde özel indirimler ve hediye seçenekleri',
       badge: 'Popüler'
     },
     {
       id: 'default-3',
       branchName: 'Nişantaşı Şubesi',
-      branchImage: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80',
+      branchImage: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=60&fm=webp',
       description: 'Yeni açılan şubemizde özel açılış kampanyaları ve fırsatlar',
       badge: 'Yeni'
     }
@@ -173,7 +170,6 @@ function Kampanya({ onOpenBottomSheet }) {
         navigate('/#locations')
       }
     } catch (error) {
-      console.error('Error fetching branch:', error)
       navigate('/#locations')
     }
   }
@@ -234,7 +230,7 @@ function Kampanya({ onOpenBottomSheet }) {
                 {/* Image */}
                 <div className="relative h-72 overflow-hidden">
                   <img
-                    src={campaign.branchImage || 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80'}
+                    src={campaign.branchImage || 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=60&fm=webp'}
                     alt={campaign.branchName}
                     className="w-full h-full object-cover group-hover:scale-125 group-hover:rotate-2 transition-all duration-700 ease-out"
                     loading="lazy"

@@ -25,7 +25,6 @@ const AdminLogin = () => {
       await login(email, password);
       navigate('/admin/dashboard');
     } catch (error) {
-      console.error('Login error:', error);
       if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found') {
         setError('Email veya şifre hatalı');
       } else if (error.code === 'auth/too-many-requests') {
