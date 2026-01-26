@@ -422,7 +422,6 @@ const AdminDashboard = () => {
         createdBy: currentUser.email
       };
 
-      const db = await getDb();
       await addDoc(collection(db, 'campaigns'), campaignData);
       setSuccess(`"${branch.name}" için kampanya başarıyla oluşturuldu!`);
 
