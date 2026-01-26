@@ -87,7 +87,12 @@ function BranchDetail({ branch, onBack }) {
           </div>
 
           {/* Location */}
-          <div className="flex items-start gap-4 p-4 bg-stone-light rounded-xl hover:shadow-lg hover:shadow-olive/10 transition-all duration-300 group animate-fadeIn hover:scale-[1.02] hover:-translate-y-0.5 cursor-pointer" style={{ animationDelay: '300ms' }}>
+          <a
+            href={`https://maps.google.com/?q=${encodeURIComponent(branch.address)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-start gap-4 p-4 bg-stone-light rounded-xl hover:shadow-lg hover:shadow-olive/10 transition-all duration-300 group animate-fadeIn hover:scale-[1.02] hover:-translate-y-0.5 cursor-pointer active:scale-[0.98]" style={{ animationDelay: '300ms' }}
+          >
             <div className="w-12 h-12 bg-olive/10 rounded-full flex items-center justify-center shrink-0 group-hover:bg-olive/20 group-hover:scale-110 transition-all duration-300">
               <svg
                 className="w-6 h-6 text-olive group-hover:scale-110 transition-transform duration-300"
@@ -114,7 +119,7 @@ function BranchDetail({ branch, onBack }) {
               <p className="text-text-muted text-sm group-hover:text-espresso transition-colors duration-300">{branch.address}</p>
 
             </div>
-          </div>
+          </a>
 
           {/* Phone */}
           <div className="flex items-start gap-4 p-4 bg-stone-light rounded-xl hover:shadow-lg hover:shadow-olive/10 transition-all duration-300 group animate-fadeIn hover:scale-[1.02] hover:-translate-y-0.5 cursor-pointer" style={{ animationDelay: '400ms' }}>

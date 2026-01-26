@@ -150,11 +150,16 @@ const Footer = () => {
             <ul className="space-y-3 sm:space-y-4">
               <li className="flex items-start gap-2 sm:gap-3">
                 <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-olive shrink-0 mt-1" />
-                <span className="text-sm sm:text-base text-gray-300">
+                <a
+                  href="https://maps.google.com/?q=Nişantaşı+Teşvikiye+Cad.+No:123+Şişli+İstanbul"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm sm:text-base text-gray-300 hover:text-olive transition-colors cursor-pointer active:scale-[0.98] inline-block"
+                >
                   Nişantaşı, Teşvikiye Cad. No:123
                   <br />
                   Şişli, İstanbul
-                </span>
+                </a>
               </li>
               <li className="flex items-center gap-2 sm:gap-3">
                 <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-olive shrink-0" />

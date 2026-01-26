@@ -122,19 +122,24 @@ function Reservation() {
 
             {/* Address */}
             <div className="mb-7">
-              <div className="flex items-start gap-4">
-                <div className="bg-olive/10 p-3 rounded-lg">
+              <a
+                href="https://maps.google.com/?q=Yenibosna+Merkez+Mh.+1.+Asena+Sk.+İstanbul+Kongre+Merkezi+Otel+A+No:15A+Bahçelievler+İSTANBUL"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-4 group cursor-pointer active:scale-[0.98] transition-transform"
+              >
+                <div className="bg-olive/10 p-3 rounded-lg group-hover:bg-olive/20 transition-colors">
                   <MapPin className="w-5 h-5 text-olive" />
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-semibold text-base text-text-primary mb-2">Adres</h4>
-                  <p className="text-text-secondary text-sm leading-relaxed">
+                  <h4 className="font-semibold text-base text-text-primary mb-2 group-hover:text-olive transition-colors">Adres</h4>
+                  <p className="text-text-secondary text-sm leading-relaxed group-hover:text-text-primary transition-colors">
                     Yenibosna Merkez Mh. 1. Asena Sk.<br />
                     İstanbul Kongre Merkezi Otel A No:15A<br />
                     Bahçelievler / İSTANBUL
                   </p>
                 </div>
-              </div>
+              </a>
             </div>
 
             {/* Phone Numbers */}
