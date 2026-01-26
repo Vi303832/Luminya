@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
@@ -24,6 +24,23 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedBranch, setSelectedBranch] = useState(null)
   const [bottomSheetMode, setBottomSheetMode] = useState('reservation') // 'whatsapp' veya 'reservation'
+
+  // Listen for custom event to open branch detail from campaign
+  useEffect(() => {
+    const handleOpenBranchDetail = (event) => {
+      const branch = event.detail
+      if (branch) {
+        setSelectedBranch(branch)
+        setBottomSheetMode('reservation')
+        setIsBottomSheetOpen(true)
+      }
+    }
+
+    window.addEventListener('openBranchDetail', handleOpenBranchDetail)
+    return () => {
+      window.removeEventListener('openBranchDetail', handleOpenBranchDetail)
+    }
+  }, [])
 
   const handleBranchSelect = (branch) => {
     // Eğer WhatsApp modu aktifse direkt WhatsApp'a yönlendir

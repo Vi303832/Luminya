@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Hero from '../components/Hero'
 import PopularTherapies from '../components/PopularTherapies'
 import WellnessPackages from '../components/WellnessPackages'
+import Kampanya from '../components/Kampanya'
 import Stats from '../components/Stats'
 import WhyUs from '../components/WhyUs'
 import Gallery from '../components/Gallery'
@@ -72,6 +73,9 @@ function Home({ onOpenBottomSheet }) {
         structuredData={structuredData}
       />
       <Hero onOpenBottomSheet={onOpenBottomSheet} />
+      <div className="scroll-reveal">
+        <Kampanya onOpenBottomSheet={onOpenBottomSheet} />
+      </div>
       <div className="scroll-reveal">
         <PopularTherapies />
       </div>

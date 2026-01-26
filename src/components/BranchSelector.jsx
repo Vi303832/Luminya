@@ -14,12 +14,12 @@ function BranchSelector({ onSelectBranch, searchQuery, setSearchQuery }) {
         const branchesRef = collection(db, 'branches')
         const q = query(branchesRef, where('active', '==', true))
         const querySnapshot = await getDocs(q)
-        
+
         const branchesData = querySnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data()
         }))
-        
+
         setBranches(branchesData)
       } catch (error) {
         console.error('Error fetching branches:', error)
@@ -37,6 +37,7 @@ function BranchSelector({ onSelectBranch, searchQuery, setSearchQuery }) {
     const filtered = branches.filter((branch) =>
       branch.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       branch.city?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      branch.district?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       branch.address?.toLowerCase().includes(searchQuery.toLowerCase())
     )
 
@@ -121,7 +122,7 @@ function BranchSelector({ onSelectBranch, searchQuery, setSearchQuery }) {
                         {branch.name}
                       </h4>
                       <span className="px-2.5 py-0.5 bg-olive/10 text-olive text-xs font-bold rounded-full shrink-0 group-hover:bg-olive group-hover:text-white group-hover:scale-110 transition-all duration-300 group-hover:shadow-md">
-                        {branch.city}
+                        {branch.district ? `${branch.district} / ` : ''}{branch.city}
                       </span>
                     </div>
 
