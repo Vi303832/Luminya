@@ -1,16 +1,46 @@
-# React + Vite
+# Luminya - Kurumsal Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🔗 **Website**  
+https://luminyaspa.com.tr/
 
-Currently, two official plugins are available:
+## Proje Açıklaması
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Bu proje, **Luminya** markasının kurumsal kimliğini ve bünyesindeki spa şubelerini modern bir arayüzle tanıtmak amacıyla geliştirilmiş
+**kurumsal website + admin panel** çözümüdür.
 
-## React Compiler
+Kullanıcı tarafında mobil uyumlu, hızlı ve animasyonlu bir deneyim sunarken; yönetici tarafında **giriş yaparak şube içeriklerini düzenleyebilecekleri** basit bir panel bulunmaktadır.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+> Luminya markası için geliştirilmiş **şube bazlı kurumsal tanıtım sistemi**.
 
-## Expanding the ESLint configuration
+## Kullanılan Teknolojiler
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **React.js**
+- **Tailwind CSS**
+- **Firebase Authentication**
+- **Firestore Database**
+- **Vercel** (Deploy)
+
+## Özellikler
+
+### ✅ Kullanıcı Tarafı (Kurumsal Website)
+- %100 Responsive tasarım
+- Kurumsal sayfalar (hakkımızda / hizmetler / iletişim vb.)
+- Şube listeleme ve şube detay alanları
+- Modern UI + animasyonlu geçişler
+- SEO uyumlu meta ayarları 
+- Performans odaklı hızlı yükleme ve optimize edilmiş sayfa yapısı
+
+### ✅ Yönetim (Admin Panel)
+- Firebase Auth ile güvenli giriş sistemi
+- Şube ekleme, içerik düzenleme
+- Şube seçip kampanya oluşturma
+- Verilerin Firestore üzerinden dinamik olarak güncellenmesi
+- Basit ve özel tasarlanmış admin panel arayüzü
+
+## Kurulum ve Çalıştırma
+
+```bash
+git clone https://github.com/kullaniciAdi/proje-adi.git
+cd proje-adi
+npm install
+npm run dev
