@@ -147,6 +147,9 @@ function Kampanya({ onOpenBottomSheet }) {
     }
 
     try {
+      // Ensure Firebase DB is available (lazy loaded)
+      const db = await getDb()
+
       // Fetch branch data from Firebase using branchName
       const branchesRef = collection(db, 'branches')
       const q = query(branchesRef, where('active', '==', true))
@@ -161,6 +164,9 @@ function Kampanya({ onOpenBottomSheet }) {
       const branch = branchesData.find(b => b.name === campaign.branchName)
       
       if (branch) {
+        // Open the global bottom sheet (also triggers Firebase preload in App)
+        onOpenBottomSheet()
+
         // Create a custom event to open bottom sheet with branch data
         // We'll use a custom event since we need to pass branch data to App.jsx
         const event = new CustomEvent('openBranchDetail', { detail: branch })
