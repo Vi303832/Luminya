@@ -3,12 +3,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, User } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { useCart } from "../contexts/CartContext";
 
 // Change 'İletişim' and 'Şubelerimiz' to scroll to their sections
 const navLinks = [
   { name: "Anasayfa", href: "/", type: "link" },
   { name: "Hakkımızda", href: "/about", type: "link" },
   { name: "Hizmetlerimiz", href: "/services", type: "link" },
+  { name: "Mağaza", href: "/store", type: "link" },
   { name: "Blog", href: "/blog", type: "link" },
   { name: "Şubelerimiz", href: "/#locations", type: "hero-scroll" },
   { name: "İletişim", href: "/#reservation", type: "hero-scroll" },
@@ -20,6 +22,7 @@ const Navbar = ({ onOpenBottomSheet }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { currentUser } = useAuth();
+  const { itemCount } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -148,6 +151,17 @@ const Navbar = ({ onOpenBottomSheet }) => {
 
         {/* Auth / CTA */}
         <div className="hidden lg:flex items-center gap-3">
+          {itemCount > 0 && (
+            <Link
+              to="/checkout"
+              className="relative flex items-center gap-1 px-3 py-2 text-white/90 hover:text-olive transition-colors text-sm"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              <span className="text-xs font-medium">({itemCount})</span>
+            </Link>
+          )}
           {currentUser ? (
             <Link
               to="/profile"

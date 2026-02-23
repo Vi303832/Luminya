@@ -9,6 +9,7 @@ import BranchSelector, { SearchBar } from './components/BranchSelector'
 import BranchDetail from './components/BranchDetail'
 import { setupFirebaseScrollTrigger, triggerFirebaseOnFormOpen } from './utils/firebaseTrigger'
 import { AuthProvider } from './contexts/AuthContext'
+import { CartProvider } from './contexts/CartContext'
 
 import './App.css'
 
@@ -22,6 +23,8 @@ const AdminDashboard = lazy(() => import('./pages/AdminDashboard'))
 const Login = lazy(() => import('./pages/Login'))
 const Register = lazy(() => import('./pages/Register'))
 const Profile = lazy(() => import('./pages/Profile'))
+const Store = lazy(() => import('./pages/Store'))
+const Checkout = lazy(() => import('./pages/Checkout'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 import ProtectedRoute from './components/ProtectedRoute'
 
@@ -100,6 +103,7 @@ function App() {
 
   return (
     <AuthProvider>
+      <CartProvider>
       <Router>
         <Routes>
           {/* Admin Routes */}
@@ -150,6 +154,8 @@ function App() {
                     <Route path="/" element={<Home onOpenBottomSheet={handleOpenBottomSheetReservation} />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/services" element={<Services onOpenBottomSheet={handleOpenBottomSheetReservation} />} />
+                    <Route path="/store" element={<Store />} />
+                    <Route path="/checkout" element={<Checkout />} />
                     <Route path="/blog" element={<BlogPage />} />
                     <Route
                       path="/profile"
@@ -191,6 +197,7 @@ function App() {
           />
         </Routes>
       </Router>
+      </CartProvider>
     </AuthProvider>
   )
 }

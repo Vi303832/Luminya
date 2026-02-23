@@ -65,10 +65,10 @@ const Profile = () => {
                 Henüz siparişiniz bulunmuyor. Mağaza sayfasından hizmet satın alabilirsiniz.
               </p>
               <Link
-                to="/services"
+                to="/store"
                 className="inline-block mt-3 text-olive-dark font-medium hover:text-olive text-sm"
               >
-                Hizmetlere git →
+                Mağazaya git →
               </Link>
             </div>
 
