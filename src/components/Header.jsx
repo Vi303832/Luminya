@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone, Sparkles } from "lucide-react";
+import { Menu, X, Phone, User } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 // Change 'İletişim' and 'Şubelerimiz' to scroll to their sections
 const navLinks = [
@@ -18,6 +19,7 @@ const Navbar = ({ onOpenBottomSheet }) => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -144,8 +146,26 @@ const Navbar = ({ onOpenBottomSheet }) => {
           ))}
         </div>
 
-        {/* CTA Button */}
-        <motion.button
+        {/* Auth / CTA */}
+        <div className="hidden lg:flex items-center gap-3">
+          {currentUser ? (
+            <Link
+              to="/profile"
+              className="flex items-center gap-2 px-3 py-2 text-white/90 hover:text-olive transition-colors text-sm"
+            >
+              <User className="w-4 h-4" />
+              <span>Profilim</span>
+            </Link>
+          ) : (
+            <Link
+              to="/login"
+              className="flex items-center gap-2 px-3 py-2 text-white/90 hover:text-olive transition-colors text-sm"
+            >
+              <User className="w-4 h-4" />
+              <span>Giriş</span>
+            </Link>
+          )}
+          <motion.button
           onClick={handleOpenBottomSheetClick}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -165,10 +185,10 @@ const Navbar = ({ onOpenBottomSheet }) => {
           <motion.div
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-          >
+          />
 
-          </motion.div>
         </motion.button>
+        </div>
 
         {/* Mobile Menu Button */}
         <motion.button
@@ -213,6 +233,25 @@ const Navbar = ({ onOpenBottomSheet }) => {
                   </motion.div>
                 </Link>
               ))}
+              {currentUser ? (
+                <Link
+                  to="/profile"
+                  onClick={() => setIsOpen(false)}
+                  className="mt-2 sm:mt-4 flex items-center justify-center gap-2 px-5 py-2.5 sm:py-3 text-white/90 hover:text-olive font-medium text-sm sm:text-base"
+                >
+                  <User className="w-4 h-4" />
+                  <span>Profilim</span>
+                </Link>
+              ) : (
+                <Link
+                  to="/login"
+                  onClick={() => setIsOpen(false)}
+                  className="mt-2 sm:mt-4 flex items-center justify-center gap-2 px-5 py-2.5 sm:py-3 text-white/90 hover:text-olive font-medium text-sm sm:text-base"
+                >
+                  <User className="w-4 h-4" />
+                  <span>Giriş</span>
+                </Link>
+              )}
               <motion.button
                 onClick={handleOpenBottomSheetClick}
                 initial={{ opacity: 0, y: 10 }}

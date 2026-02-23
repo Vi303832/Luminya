@@ -19,6 +19,9 @@ const Services = lazy(() => import('./pages/Services'))
 const BlogPage = lazy(() => import('./pages/BlogPage'))
 const AdminLogin = lazy(() => import('./pages/AdminLogin'))
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'))
+const Login = lazy(() => import('./pages/Login'))
+const Register = lazy(() => import('./pages/Register'))
+const Profile = lazy(() => import('./pages/Profile'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 import ProtectedRoute from './components/ProtectedRoute'
 
@@ -119,6 +122,23 @@ function App() {
             }
           />
 
+          {/* Customer Auth Routes */}
+          <Route
+            path="/login"
+            element={
+              <Suspense fallback={<PageLoader />}>
+                <Login />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <Suspense fallback={<PageLoader />}>
+                <Register />
+              </Suspense>
+            }
+          />
           {/* Public Routes */}
           <Route
             path="/*"
@@ -131,6 +151,14 @@ function App() {
                     <Route path="/about" element={<About />} />
                     <Route path="/services" element={<Services onOpenBottomSheet={handleOpenBottomSheetReservation} />} />
                     <Route path="/blog" element={<BlogPage />} />
+                    <Route
+                      path="/profile"
+                      element={
+                        <ProtectedRoute redirectTo="/login">
+                          <Profile />
+                        </ProtectedRoute>
+                      }
+                    />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </Suspense>
