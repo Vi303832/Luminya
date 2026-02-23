@@ -1,23 +1,81 @@
-import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ShoppingBag, Shield, ArrowLeft } from 'lucide-react';
+import { ShoppingBag, Shield, ArrowLeft, Loader2 } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
 import { formatPrice } from '../data/massageServices';
+import { createOrder } from '../lib/orders';
 
 const Checkout = () => {
-  const navigate = useNavigate();
-  const { items, total, clearCart } = useCart();
+  const { items, total } = useCart();
   const { currentUser, userProfile } = useAuth();
+  const [paytrToken, setPaytrToken] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    if (paytrToken && typeof window !== 'undefined') {
+      const script = document.createElement('script');
+      script.src = 'https://www.paytr.com/js/iframeResizer.min.js';
+      script.async = true;
+      script.onload = () => {
+        if (window.iFrameResize) {
+          window.iFrameResize({}, '#paytriframe');
+        }
+      };
+      document.body.appendChild(script);
+      return () => {
+        const s = document.querySelector('script[src*="iframeResizer"]');
+        if (s) s.remove();
+      };
+    }
+  }, [paytrToken]);
+
   const displayName = userProfile
     ? `${userProfile.firstName || ''} ${userProfile.lastName || ''}`.trim() || currentUser?.email
     : currentUser?.email;
+
+  const handleStartPayment = async () => {
+    if (!currentUser || items.length === 0) return;
+    setError('');
+    setLoading(true);
+    try {
+      const order = await createOrder({
+        userId: currentUser.uid,
+        items,
+        total
+      });
+      const baseUrl = import.meta.env.VITE_SITE_URL || window.location.origin;
+      const res = await fetch(`${baseUrl}/api/paytr-init`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          orderId: order.id,
+          items,
+          total,
+          email: currentUser.email,
+          userName: displayName,
+          userPhone: userProfile?.phone || ''
+        })
+      });
+      const data = await res.json();
+      if (data.token) {
+        setPaytrToken(data.token);
+      } else {
+        setError(data.error || 'Ödeme başlatılamadı');
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Ödeme başlatılırken bir hata oluştu');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (items.length === 0) {
     return (
@@ -112,17 +170,38 @@ const Checkout = () => {
               </div>
             </div>
 
-            {/* Ödeme Butonu */}
+            {/* Ödeme Butonu / PayTR Iframe */}
             <div className="pt-4">
-              {currentUser ? (
+              {error && (
+                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+                  {error}
+                </div>
+              )}
+              {paytrToken ? (
+                <div className="space-y-4">
+                  <iframe
+                    id="paytriframe"
+                    src={`https://www.paytr.com/odeme/guvenli/${paytrToken}`}
+                    frameBorder="0"
+                    scrolling="no"
+                    style={{ width: '100%' }}
+                    title="PayTR Ödeme"
+                  />
+                </div>
+              ) : currentUser ? (
                 <button
-                  onClick={() => {
-                    // PayTR entegrasyonu buraya gelecek
-                    alert('Ödeme sistemi entegrasyonu bir sonraki adımda eklenecek.');
-                  }}
-                  className="w-full py-4 bg-olive text-white rounded-lg font-medium hover:bg-olive-dark transition-colors"
+                  onClick={handleStartPayment}
+                  disabled={loading}
+                  className="w-full py-4 bg-olive text-white rounded-lg font-medium hover:bg-olive-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  Güvenli Ödemeye Geç
+                  {loading ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Hazırlanıyor...
+                    </>
+                  ) : (
+                    'Güvenli Ödemeye Geç'
+                  )}
                 </button>
               ) : (
                 <div className="bg-olive/10 border border-olive/30 rounded-lg p-4 text-center">

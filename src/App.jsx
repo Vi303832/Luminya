@@ -25,6 +25,8 @@ const Register = lazy(() => import('./pages/Register'))
 const Profile = lazy(() => import('./pages/Profile'))
 const Store = lazy(() => import('./pages/Store'))
 const Checkout = lazy(() => import('./pages/Checkout'))
+const PaymentSuccess = lazy(() => import('./pages/PaymentSuccess'))
+const PaymentFailed = lazy(() => import('./pages/PaymentFailed'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 import ProtectedRoute from './components/ProtectedRoute'
 
@@ -156,6 +158,8 @@ function App() {
                     <Route path="/services" element={<Services onOpenBottomSheet={handleOpenBottomSheetReservation} />} />
                     <Route path="/store" element={<Store />} />
                     <Route path="/checkout" element={<Checkout />} />
+                    <Route path="/payment/success" element={<PaymentSuccess />} />
+                    <Route path="/payment/failed" element={<PaymentFailed />} />
                     <Route path="/blog" element={<BlogPage />} />
                     <Route
                       path="/profile"
