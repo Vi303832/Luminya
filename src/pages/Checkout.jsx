@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ShoppingBag, Shield, ArrowLeft, Loader2 } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
 import { formatPrice } from '../data/massageServices';
-import { createOrder } from '../lib/orders';
 
 const Checkout = () => {
   const { items, total } = useCart();
@@ -13,10 +12,15 @@ const Checkout = () => {
   const [paytrToken, setPaytrToken] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const idempotencyKeyRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    idempotencyKeyRef.current = null;
+  }, [items, total]);
 
   useEffect(() => {
     if (paytrToken && typeof window !== 'undefined') {
@@ -45,17 +49,20 @@ const Checkout = () => {
     setError('');
     setLoading(true);
     try {
-      const order = await createOrder({
-        userId: currentUser.uid,
-        items,
-        total
-      });
+      const idToken = await currentUser.getIdToken();
+      if (!idempotencyKeyRef.current) {
+        idempotencyKeyRef.current = crypto.randomUUID?.() || `pay_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+      }
+      const idempotencyKey = idempotencyKeyRef.current;
       const baseUrl = import.meta.env.VITE_SITE_URL || window.location.origin;
       const res = await fetch(`${baseUrl}/api/paytr-init`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${idToken}`,
+          'Idempotency-Key': idempotencyKey
+        },
         body: JSON.stringify({
-          orderId: order.id,
           items,
           total,
           email: currentUser.email,

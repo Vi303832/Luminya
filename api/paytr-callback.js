@@ -5,25 +5,19 @@
  */
 
 import crypto from 'crypto';
-import admin from 'firebase-admin';
-
-function getFirestore() {
-  if (!admin.apps.length) {
-    const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
-    if (!serviceAccount) {
-      throw new Error('FIREBASE_SERVICE_ACCOUNT_JSON not configured');
-    }
-    admin.initializeApp({
-      credential: admin.credential.cert(JSON.parse(serviceAccount))
-    });
-  }
-  return admin.firestore();
-}
+import { getFirebaseAdmin } from './lib/firebase.js';
+import { validatePaytrCallback } from './lib/validation.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).send('Method not allowed');
   }
+
+  const validation = validatePaytrCallback(req.body);
+  if (validation.error) {
+    return res.status(400).send('OK');
+  }
+  const { merchant_oid, status, total_amount, hash } = validation.data;
 
   const merchantKey = process.env.PAYTR_MERCHANT_KEY;
   const merchantSalt = process.env.PAYTR_MERCHANT_SALT;
@@ -31,12 +25,6 @@ export default async function handler(req, res) {
   if (!merchantKey || !merchantSalt) {
     console.error('PayTR callback: credentials missing');
     return res.status(500).send('OK');
-  }
-
-  const { merchant_oid, status, total_amount, hash } = req.body;
-
-  if (!merchant_oid || !status || !hash) {
-    return res.status(400).send('OK');
   }
 
   const hashStr = merchant_oid + merchantSalt + status + total_amount;
@@ -51,7 +39,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    const db = getFirestore();
+    const admin = getFirebaseAdmin();
+    const db = admin.firestore();
     const orderRef = db.collection('orders').doc(merchant_oid);
 
     const orderDoc = await orderRef.get();

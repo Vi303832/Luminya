@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Kullanıcılar: Sadece kendi profilini okuyup yazabilir
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Siparişler: Sadece kendi siparişlerini okuyabilir, sadece kendisi için sipariş oluşturabilir
+    match /orders/{orderId} {
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if false; // Sadece backend (callback) günceller
+    }
+
+    // Şubeler: Herkes okuyabilir. Yazma: giriş yapmış kullanıcılar (admin paneli).
+    match /branches/{branchId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Kampanyalar: Aynı kural
+    match /campaigns/{campaignId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // API tarafından kullanılan koleksiyonlar - client erişimi yok
+    match /rateLimits/{doc} {
+      allow read, write: if false;
+    }
+    match /idempotencyKeys/{doc} {
+      allow read, write: if false;
+    }
+  }
+}

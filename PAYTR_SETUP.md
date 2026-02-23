@@ -33,3 +33,23 @@ firebase deploy --only firestore:indexes
 ```
 
 Veya Firebase Console'dan ilk sipariş sorgusu çalıştığında otomatik oluşturma linki çıkar.
+
+## 5. Firestore Güvenlik Kuralları
+
+`firestore.rules` dosyasını Firebase'e deploy edin:
+
+```bash
+firebase deploy --only firestore:rules
+```
+
+Kurallar:
+- **users**: Sadece kendi profili okunup yazılabilir
+- **orders**: Sadece kendi siparişleri okunabilir, sadece kendisi için sipariş oluşturulabilir
+- **branches / campaigns**: Herkes okuyabilir, giriş yapmış kullanıcılar yazabilir
+- **rateLimits / idempotencyKeys**: Sadece API (backend) erişir
+
+## 6. Güvenlik Özellikleri
+
+- **Veri Validasyonu**: Zod ile schema doğrulama (items, total, email, vb.)
+- **Idempotency**: Aynı `Idempotency-Key` ile tekrarlanan isteklerde önbelleğe alınmış yanıt döner (çift tıklama önleme)
+- **Rate Limiting**: IP başına dakikada 10 istek limiti
