@@ -86,9 +86,15 @@ export default async function handler(req, res) {
   const merchantId = process.env.PAYTR_MERCHANT_ID;
   const merchantKey = process.env.PAYTR_MERCHANT_KEY;
   const merchantSalt = process.env.PAYTR_MERCHANT_SALT;
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : process.env.SITE_URL || 'https://luminya.com';
+  // Kullanıcının bulunduğu siteye yönlendir (Origin) - env değişkenlerine güvenme
+  const origin = req.headers.origin || req.headers.referer;
+  let baseUrl = process.env.SITE_URL || 'https://luminyaspa.com.tr';
+  if (origin) {
+    try {
+      const u = new URL(origin.startsWith('http') ? origin : `https://${origin}`);
+      baseUrl = `${u.protocol}//${u.host}`;
+    } catch (_) {}
+  }
 
   if (!merchantId || !merchantKey || !merchantSalt) {
     return res.status(500).json({ error: 'PayTR credentials not configured' });
