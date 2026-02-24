@@ -1,13 +1,13 @@
 import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ShoppingBag, Shield, ArrowLeft, Loader2 } from 'lucide-react';
+import { ShoppingBag, Shield, ArrowLeft, Loader2, Lock, CreditCard, Plus, Minus } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
 import { formatPrice } from '../data/massageServices';
 
 const Checkout = () => {
-  const { items, total } = useCart();
+  const { items, total, updateQuantity } = useCart();
   const { currentUser, userProfile } = useAuth();
   const [paytrToken, setPaytrToken] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -86,14 +86,31 @@ const Checkout = () => {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-cream flex items-center justify-center px-4">
-        <div className="text-center">
-          <ShoppingBag className="w-16 h-16 text-olive/50 mx-auto mb-4" />
-          <h2 className="font-heading text-2xl text-espresso mb-2">Sepetiniz boş</h2>
-          <p className="text-text-muted mb-6">Ödeme yapmak için ürün ekleyin.</p>
-          <Link to="/store" className="text-olive-dark font-medium hover:text-olive underline">
-            Mağazaya git →
-          </Link>
+      <div className="min-h-screen bg-cream pt-28 pb-16">
+        <div className="container mx-auto px-4 max-w-xl">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="bg-white rounded-2xl shadow-soft border border-stone-dark/10 p-10 sm:p-14 text-center"
+          >
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-stone/50 mb-6">
+              <ShoppingBag className="w-10 h-10 text-olive/70" strokeWidth={1.5} />
+            </div>
+            <h2 className="font-heading text-2xl sm:text-3xl font-light text-espresso mb-2">
+              Sepetiniz boş
+            </h2>
+            <p className="text-text-muted text-sm sm:text-base mb-8 max-w-sm mx-auto">
+              Ödeme yapmak için mağazadan hizmet ekleyin.
+            </p>
+            <Link
+              to="/store"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-olive text-white rounded-full font-medium text-sm hover:bg-olive-dark transition-colors shadow-soft hover:shadow-elevated"
+            >
+              Mağazaya git
+              <ArrowLeft className="w-4 h-4 rotate-180" />
+            </Link>
+          </motion.div>
         </div>
       </div>
     );
@@ -101,63 +118,114 @@ const Checkout = () => {
 
   return (
     <div className="min-h-screen bg-cream">
-      <div className="container mx-auto px-4 max-w-3xl py-24">
-        <Link
-          to="/store"
-          className="inline-flex items-center gap-2 text-sm text-text-muted hover:text-olive mb-8 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Mağazaya dön
-        </Link>
+      {/* Page header */}
+      <section className="pt-28 pb-8 md:pt-36 md:pb-10">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            <Link
+              to="/store"
+              className="inline-flex items-center gap-2 text-sm text-text-muted hover:text-olive mb-6 transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Mağazaya dön
+            </Link>
+            <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl font-light text-espresso mb-2">
+              Ödeme <span className="italic text-olive-dark">Özeti</span>
+            </h1>
+            <p className="text-text-muted text-sm sm:text-base">
+              Siparişinizi gözden geçirin ve güvenli ödeme ile tamamlayın.
+            </p>
+          </motion.div>
+        </div>
+      </section>
 
+      <div className="container mx-auto px-4 max-w-3xl pb-20">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
           className="bg-white rounded-2xl shadow-soft border border-stone-dark/10 overflow-hidden"
         >
-          <div className="bg-olive/10 px-6 py-4 flex items-center gap-2">
-            <Shield className="w-5 h-5 text-olive-dark" />
-            <h1 className="font-heading text-xl font-light text-espresso">
-              Güvenli Ödeme Özeti
-            </h1>
+          {/* Güvenli ödeme başlığı */}
+          <div className="bg-linear-to-r from-olive/15 via-olive/10 to-stone/20 px-6 py-4 flex items-center gap-3 border-b border-stone-dark/10">
+            <div className="flex items-center gap-2 text-olive-dark">
+              <Shield className="w-5 h-5" />
+              <Lock className="w-4 h-4" />
+            </div>
+            <span className="text-sm font-medium text-espresso">
+              SSL ile şifrelenmiş, güvenli ödeme
+            </span>
           </div>
 
-          <div className="p-6 space-y-6">
+          <div className="p-6 sm:p-8 space-y-6">
             {/* Sipariş Özeti */}
             <div>
-              <h2 className="text-xs font-medium text-text-muted uppercase tracking-wider mb-3">
+              <h2 className="text-xs font-medium text-text-muted uppercase tracking-wider mb-4 flex items-center gap-2">
+                <CreditCard className="w-3.5 h-3.5" />
                 Sipariş Özeti
               </h2>
-              <dl className="space-y-2">
-                {items.map((item) => (
-                  <div
+              <div className="space-y-0 divide-y divide-stone-dark/10">
+                {items.map((item, i) => (
+                  <motion.div
                     key={item.id}
-                    className="flex justify-between items-center py-2 border-b border-stone-dark/10 last:border-0"
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.15 + i * 0.05 }}
+                    className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-3 first:pt-0"
                   >
-                    <dt className="text-espresso">
-                      {item.title} <span className="text-text-muted">× {item.quantity}</span>
-                    </dt>
-                    <dd className="font-medium text-olive-dark">{formatPrice(item.price * item.quantity)}</dd>
-                  </div>
+                    <div className="flex-1 min-w-0">
+                      <span className="text-espresso text-sm sm:text-base block truncate">{item.title}</span>
+                      <span className="text-text-muted text-xs sm:hidden">{formatPrice(item.price)} / adet</span>
+                    </div>
+                    <div className="flex items-center justify-between sm:justify-end gap-4">
+                      <div className="flex items-center gap-1 bg-stone/40 rounded-lg p-0.5">
+                        <button
+                          type="button"
+                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          className="w-8 h-8 flex items-center justify-center rounded-md text-olive-dark hover:bg-olive/20 hover:text-espresso transition-colors disabled:opacity-40"
+                          aria-label="Adet azalt"
+                        >
+                          <Minus className="w-3.5 h-3.5" />
+                        </button>
+                        <span className="min-w-6 text-center text-sm font-medium text-espresso">
+                          {item.quantity}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          className="w-8 h-8 flex items-center justify-center rounded-md text-olive-dark hover:bg-olive/20 hover:text-espresso transition-colors"
+                          aria-label="Adet artır"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                      <span className="font-medium text-olive-dark min-w-16 text-right">
+                        {formatPrice(item.price * item.quantity)}
+                      </span>
+                    </div>
+                  </motion.div>
                 ))}
-              </dl>
+              </div>
             </div>
 
             {/* Müşteri Bilgileri */}
             {currentUser && (
-              <div>
+              <div className="pt-4 border-t border-stone-dark/10">
                 <h2 className="text-xs font-medium text-text-muted uppercase tracking-wider mb-3">
                   Müşteri Bilgileri
                 </h2>
-                <dl className="space-y-2 text-sm">
+                <dl className="space-y-2 text-sm bg-stone/30 rounded-xl p-4">
                   <div className="flex justify-between">
                     <dt className="text-text-secondary">Ad Soyad</dt>
                     <dd className="text-espresso font-medium">{displayName}</dd>
                   </div>
                   <div className="flex justify-between">
                     <dt className="text-text-secondary">E-posta</dt>
-                    <dd className="text-espresso font-medium">{currentUser.email}</dd>
+                    <dd className="text-espresso font-medium truncate max-w-[180px] sm:max-w-none">{currentUser.email}</dd>
                   </div>
                   {userProfile?.phone && (
                     <div className="flex justify-between">
@@ -173,14 +241,14 @@ const Checkout = () => {
             <div className="pt-4 border-t-2 border-stone-dark/20">
               <div className="flex justify-between items-center">
                 <span className="font-medium text-espresso">Toplam</span>
-                <span className="text-xl font-bold text-olive-dark">{formatPrice(total)}</span>
+                <span className="text-xl sm:text-2xl font-bold text-olive-dark">{formatPrice(total)}</span>
               </div>
             </div>
 
             {/* Ödeme Butonu / PayTR Iframe */}
             <div className="pt-4">
               {error && (
-                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+                <div className="mb-4 p-4 bg-red-50/80 border border-red-200/80 rounded-xl text-sm text-red-700">
                   {error}
                 </div>
               )}
@@ -193,13 +261,16 @@ const Checkout = () => {
                     scrolling="no"
                     style={{ width: '100%' }}
                     title="PayTR Ödeme"
+                    className="rounded-xl overflow-hidden"
                   />
                 </div>
               ) : currentUser ? (
-                <button
+                <motion.button
                   onClick={handleStartPayment}
                   disabled={loading}
-                  className="w-full py-4 bg-olive text-white rounded-lg font-medium hover:bg-olive-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  whileHover={{ scale: loading ? 1 : 1.01 }}
+                  whileTap={{ scale: loading ? 1 : 0.99 }}
+                  className="w-full py-4 bg-gradient-primary text-white rounded-xl font-medium hover:shadow-olive transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-soft"
                 >
                   {loading ? (
                     <>
@@ -207,18 +278,21 @@ const Checkout = () => {
                       Hazırlanıyor...
                     </>
                   ) : (
-                    'Güvenli Ödemeye Geç'
+                    <>
+                      <Lock className="w-4 h-4" />
+                      Güvenli Ödemeye Geç
+                    </>
                   )}
-                </button>
+                </motion.button>
               ) : (
-                <div className="bg-olive/10 border border-olive/30 rounded-lg p-4 text-center">
-                  <p className="text-sm text-espresso mb-3">
+                <div className="bg-olive/10 border border-olive/30 rounded-xl p-5 text-center">
+                  <p className="text-sm text-espresso mb-4">
                     Ödeme yapmak için giriş yapmanız gerekiyor.
                   </p>
                   <Link
                     to="/login"
                     state={{ from: '/checkout' }}
-                    className="inline-block px-6 py-2 rounded-lg bg-olive text-white text-sm font-medium hover:bg-olive-dark transition-colors"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-olive text-white text-sm font-medium hover:bg-olive-dark transition-colors shadow-soft"
                   >
                     Giriş Yap
                   </Link>

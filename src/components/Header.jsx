@@ -204,20 +204,37 @@ const Navbar = ({ onOpenBottomSheet }) => {
         </motion.button>
         </div>
 
-        {/* Mobile Menu Button */}
-        <motion.button
-          onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden p-1.5 sm:p-2 text-white shrink-0"
-          whileTap={{ scale: 0.9 }}
-          aria-label={isOpen ? "Menüyü kapat" : "Menüyü aç"}
-        >
-          <motion.div
-            animate={{ rotate: isOpen ? 180 : 0 }}
-            transition={{ duration: 0.3 }}
+        {/* Mobile: Sepet + Menu Button */}
+        <div className="lg:hidden flex items-center gap-1">
+          {itemCount > 0 && (
+            <Link
+              to="/checkout"
+              onClick={() => setIsOpen(false)}
+              className="relative p-2 text-white/90 hover:text-olive transition-colors"
+              aria-label={`Sepet (${itemCount} ürün)`}
+            >
+              <svg className="w-5 h-5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              <span className="absolute -top-0.5 -right-0.5 min-w-4 h-4 px-1 flex items-center justify-center bg-olive text-white text-[10px] font-medium rounded-full">
+                {itemCount}
+              </span>
+            </Link>
+          )}
+          <motion.button
+            onClick={() => setIsOpen(!isOpen)}
+            className="p-1.5 sm:p-2 text-white shrink-0"
+            whileTap={{ scale: 0.9 }}
+            aria-label={isOpen ? "Menüyü kapat" : "Menüyü aç"}
           >
-            {isOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
-          </motion.div>
-        </motion.button>
+            <motion.div
+              animate={{ rotate: isOpen ? 180 : 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {isOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
+            </motion.div>
+          </motion.button>
+        </div>
       </nav>
 
       {/* Mobile Menu */}
@@ -247,6 +264,18 @@ const Navbar = ({ onOpenBottomSheet }) => {
                   </motion.div>
                 </Link>
               ))}
+              {itemCount > 0 && (
+                <Link
+                  to="/checkout"
+                  onClick={() => setIsOpen(false)}
+                  className="mt-2 flex items-center justify-center gap-2 px-5 py-2.5 sm:py-3 text-white/90 hover:text-olive font-medium text-sm sm:text-base bg-white/5 rounded-lg"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  <span>Sepet ({itemCount})</span>
+                </Link>
+              )}
               {currentUser ? (
                 <Link
                   to="/profile"

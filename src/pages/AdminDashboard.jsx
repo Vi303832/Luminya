@@ -46,9 +46,7 @@ const AdminDashboard = () => {
     branchImage: '',
     description: '',
     badge: '',
-    order: 0,
-    phone: '',
-    whatsapp: ''
+    order: 0
   });
 
   // Fetch data based on active tab
@@ -171,9 +169,7 @@ const AdminDashboard = () => {
         branchImage: '',
         description: '',
         badge: '',
-        order: campaigns.length,
-        phone: '',
-        whatsapp: ''
+        order: campaigns.length
       });
     }
     setShowModal(true);
@@ -203,8 +199,8 @@ const AdminDashboard = () => {
         name: '',
         city: '',
         address: '',
-        phone: '',
-        whatsapp: '',
+        phone: item.phone || '',
+        whatsapp: item.whatsapp || '',
         email: '',
         hours: '',
         district: '',
@@ -213,9 +209,7 @@ const AdminDashboard = () => {
         branchImage: item.branchImage || '',
         description: item.description || '',
         badge: item.badge || '',
-        order: item.order || 0,
-        phone: item.phone || '',
-        whatsapp: item.whatsapp || ''
+        order: item.order || 0
       });
     }
     setShowModal(true);

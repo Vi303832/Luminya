@@ -3,7 +3,10 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  updatePassword,
+  reauthenticateWithCredential,
+  EmailAuthProvider
 } from 'firebase/auth';
 import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { getAuth, getDb } from '../utils/firebaseLazy';
@@ -151,12 +154,21 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const changePassword = async (currentPassword, newPassword) => {
+    if (!currentUser) throw new Error('Kullanıcı giriş yapmamış');
+    const auth = authInstance || await getAuth();
+    const credential = EmailAuthProvider.credential(currentUser.email, currentPassword);
+    await reauthenticateWithCredential(currentUser, credential);
+    await updatePassword(currentUser, newPassword);
+  };
+
   const value = {
     currentUser,
     userProfile,
     login,
     register,
     logout,
+    changePassword,
     loading
   };
 
