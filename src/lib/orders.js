@@ -1,4 +1,4 @@
-import { collection, doc, addDoc, updateDoc, getDoc, query, where, orderBy, getDocs, serverTimestamp } from 'firebase/firestore';
+import { collection, doc, addDoc, updateDoc, getDoc, query, where, getDocs, serverTimestamp } from 'firebase/firestore';
 import { getDb } from '../utils/firebaseLazy';
 
 export const ORDER_STATUS = {
@@ -34,11 +34,15 @@ export const getOrderById = async (orderId) => {
 export const getOrdersByUserId = async (userId) => {
   const db = await getDb();
   const ordersRef = collection(db, 'orders');
-  const q = query(
-    ordersRef,
-    where('userId', '==', userId),
-    orderBy('createdAt', 'desc')
-  );
+  // orderBy olmadan sorgula - bileşik index gerektirmez, sıralamayı client'ta yapıyoruz
+  const q = query(ordersRef, where('userId', '==', userId));
   const snapshot = await getDocs(q);
-  return snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+  const list = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+  // createdAt'e göre azalan sıralama (en yeni önce)
+  list.sort((a, b) => {
+    const ta = a.createdAt?.toMillis?.() ?? a.createdAt?.seconds ?? 0;
+    const tb = b.createdAt?.toMillis?.() ?? b.createdAt?.seconds ?? 0;
+    return tb - ta;
+  });
+  return list;
 };

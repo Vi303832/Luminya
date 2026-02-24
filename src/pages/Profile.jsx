@@ -18,6 +18,7 @@ const Profile = () => {
   const location = useLocation();
   const [orders, setOrders] = useState([]);
   const [ordersLoading, setOrdersLoading] = useState(true);
+  const [ordersError, setOrdersError] = useState('');
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -33,11 +34,13 @@ const Profile = () => {
   const loadOrders = useCallback(async () => {
     if (!currentUser?.uid) return;
     setOrdersLoading(true);
+    setOrdersError('');
     try {
       const list = await getOrdersByUserId(currentUser.uid);
       setOrders(list);
     } catch (err) {
       console.error(err);
+      setOrdersError('Siparişler yüklenirken bir hata oluştu. Lütfen sayfayı yenileyin.');
     } finally {
       setOrdersLoading(false);
     }
@@ -319,7 +322,19 @@ const Profile = () => {
                   </button>
                 )}
               </div>
-              {ordersLoading ? (
+              {ordersError ? (
+                <div className="flex flex-col items-center gap-3 p-6 bg-red-50/80 border border-red-200/80 rounded-xl text-sm text-red-700">
+                  <AlertCircle className="w-8 h-8 shrink-0" />
+                  <p>{ordersError}</p>
+                  <button
+                    type="button"
+                    onClick={() => loadOrders()}
+                    className="px-4 py-2 bg-red-100 hover:bg-red-200 rounded-lg font-medium transition-colors"
+                  >
+                    Tekrar Dene
+                  </button>
+                </div>
+              ) : ordersLoading ? (
                 <div className="flex items-center gap-2 text-sm text-text-muted py-8 justify-center bg-stone/20 rounded-xl">
                   <Loader2 className="w-4 h-4 animate-spin" />
                   Yükleniyor...
