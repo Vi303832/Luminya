@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState, useCallback } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
-import { User, LogOut, Package, Loader2, ArrowLeft, ShoppingBag, Mail, Phone, Lock, ChevronDown, ChevronUp, CheckCircle, AlertCircle } from 'lucide-react';
+import { User, LogOut, Package, Loader2, ArrowLeft, ShoppingBag, Mail, Phone, Lock, ChevronDown, ChevronUp, CheckCircle, AlertCircle, RefreshCw } from 'lucide-react';
 import { getOrdersByUserId } from '../lib/orders';
 import { formatPrice } from '../data/massageServices';
 
@@ -15,6 +15,7 @@ const STATUS_LABELS = {
 
 const Profile = () => {
   const { currentUser, userProfile, logout, changePassword } = useAuth();
+  const location = useLocation();
   const [orders, setOrders] = useState([]);
   const [ordersLoading, setOrdersLoading] = useState(true);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
@@ -29,20 +30,32 @@ const Profile = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
+  const loadOrders = useCallback(async () => {
     if (!currentUser?.uid) return;
-    const load = async () => {
-      try {
-        const list = await getOrdersByUserId(currentUser.uid);
-        setOrders(list);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setOrdersLoading(false);
-      }
-    };
-    load();
+    setOrdersLoading(true);
+    try {
+      const list = await getOrdersByUserId(currentUser.uid);
+      setOrders(list);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setOrdersLoading(false);
+    }
   }, [currentUser?.uid]);
+
+  useEffect(() => {
+    loadOrders();
+  }, [loadOrders]);
+
+  // Ödeme başarılı sayfasından gelindiyse, callback gecikmesi için birkaç saniye sonra tekrar yükle
+  useEffect(() => {
+    if (location.state?.fromPaymentSuccess && currentUser?.uid) {
+      const timer = setTimeout(() => {
+        loadOrders();
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [location.state?.fromPaymentSuccess, currentUser?.uid, loadOrders]);
 
   const displayName = userProfile
     ? `${userProfile.firstName || ''} ${userProfile.lastName || ''}`.trim() || currentUser?.email
@@ -289,10 +302,23 @@ const Profile = () => {
 
             {/* Siparişlerim */}
             <div>
-              <h3 className="text-xs font-medium text-text-muted uppercase tracking-wider mb-4 flex items-center gap-2">
-                <Package className="w-3.5 h-3.5" />
-                Siparişlerim
-              </h3>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xs font-medium text-text-muted uppercase tracking-wider flex items-center gap-2">
+                  <Package className="w-3.5 h-3.5" />
+                  Siparişlerim
+                </h3>
+                {currentUser?.uid && (
+                  <button
+                    type="button"
+                    onClick={() => loadOrders()}
+                    disabled={ordersLoading}
+                    className="p-1.5 text-text-muted hover:text-olive hover:bg-olive/10 rounded-lg transition-colors disabled:opacity-50"
+                    title="Yenile"
+                  >
+                    <RefreshCw className={`w-4 h-4 ${ordersLoading ? 'animate-spin' : ''}`} />
+                  </button>
+                )}
+              </div>
               {ordersLoading ? (
                 <div className="flex items-center gap-2 text-sm text-text-muted py-8 justify-center bg-stone/20 rounded-xl">
                   <Loader2 className="w-4 h-4 animate-spin" />

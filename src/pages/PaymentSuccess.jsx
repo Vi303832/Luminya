@@ -24,6 +24,7 @@ const PaymentSuccess = () => {
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             to="/profile"
+            state={{ fromPaymentSuccess: true }}
             className="px-6 py-3 bg-olive text-white rounded-lg font-medium hover:bg-olive-dark transition-colors"
           >
             Siparişlerim
