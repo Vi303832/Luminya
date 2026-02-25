@@ -179,10 +179,26 @@ const AdminDashboard = () => {
     try {
       setFetchingOrders(true);
       setError('');
+      const idToken = await currentUser?.getIdToken?.();
+      const baseUrl = import.meta.env.VITE_SITE_URL || window.location.origin;
+      const res = await fetch(`${baseUrl}/api/admin-orders`, {
+        headers: { Authorization: `Bearer ${idToken}` }
+      });
+      if (res.ok) {
+        const list = await res.json();
+        setOrders(list);
+        return;
+      }
+      // API hata verirse Firestore'dan direkt al
       const list = await getAllOrdersForAdmin();
       setOrders(list);
     } catch (error) {
-      setError('Siparişler yüklenirken hata oluştu: ' + (error.message || 'Bilinmeyen hata'));
+      try {
+        const list = await getAllOrdersForAdmin();
+        setOrders(list);
+      } catch (fallbackErr) {
+        setError('Siparişler yüklenirken hata oluştu: ' + (error.message || 'Bilinmeyen hata'));
+      }
     } finally {
       setFetchingOrders(false);
     }
@@ -998,7 +1014,7 @@ const AdminDashboard = () => {
                 const statusInfo = ORDER_STATUS_LABELS[order.status] || ORDER_STATUS_LABELS.pending;
                 const orderDate = order.createdAt?.toDate?.()
                   ? order.createdAt.toDate().toLocaleString('tr-TR')
-                  : '-';
+                  : (typeof order.createdAt === 'string' ? new Date(order.createdAt).toLocaleString('tr-TR') : '-');
                 return (
                   <div
                     key={order.id}
@@ -1610,7 +1626,7 @@ const AdminDashboard = () => {
                 <p className="text-sm text-white">
                   {selectedOrder.createdAt?.toDate?.()
                     ? selectedOrder.createdAt.toDate().toLocaleString('tr-TR')
-                    : '-'}
+                    : (typeof selectedOrder.createdAt === 'string' ? new Date(selectedOrder.createdAt).toLocaleString('tr-TR') : '-')}
                 </p>
               </div>
 
