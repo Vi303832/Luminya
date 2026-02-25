@@ -1034,31 +1034,9 @@ const AdminDashboard = () => {
                       <span className="text-olive font-bold">{formatPrice(order.total)}</span>
                     </div>
                     <div className="text-xs text-gray-500 mb-2">{orderDate}</div>
-                    <p className="text-sm text-gray-300 mb-2">
+                    <p className="text-sm text-gray-300">
                       {order.items?.map((i) => `${i.title} x${i.quantity || 1}`).join(', ')}
                     </p>
-                    <div className="space-y-1 text-xs text-gray-300">
-                      {order.userName && (
-                        <p className="flex items-center gap-1">
-                          <span className="text-gray-500">İsim:</span> {order.userName}
-                        </p>
-                      )}
-                      {order.userPhone && (
-                        <p className="flex items-center gap-1">
-                          <Phone className="w-3 h-3 text-gray-500 shrink-0" />
-                          <span className="text-gray-500">Tel:</span> {order.userPhone}
-                        </p>
-                      )}
-                      {order.email && (
-                        <p className="flex items-center gap-1 truncate">
-                          <Mail className="w-3 h-3 text-gray-500 shrink-0" />
-                          {order.email}
-                        </p>
-                      )}
-                      {!order.userName && !order.userPhone && !order.email && (
-                        <p className="text-gray-500">Müşteri ID: {order.userId?.slice(0, 8)}...</p>
-                      )}
-                    </div>
                   </div>
                 );
               });
