@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { LogOut, Plus, Edit, Trash2, MapPin, Phone, Mail, Clock, Upload, CheckCircle, AlertCircle, X, Building2, Image, Tag, Star, ShoppingBag } from 'lucide-react';
+import { LogOut, Plus, Edit, Trash2, MapPin, Phone, Mail, Clock, Upload, CheckCircle, AlertCircle, X, Building2, Image, Tag, Star, ShoppingBag, Package, RefreshCw, Search } from 'lucide-react';
 import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs, query, where, Timestamp, orderBy } from 'firebase/firestore';
 import { getDb } from '../utils/firebaseLazy';
-import { ICON_MAP } from '../data/massageServices';
+import { ICON_MAP, formatPrice } from '../data/massageServices';
+import { getAllOrdersForAdmin } from '../lib/orders';
 
 // Cloudinary yapılandırması
 const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
@@ -13,7 +14,7 @@ const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 const AdminDashboard = () => {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('branches'); // 'branches' | 'campaigns' | 'products'
+  const [activeTab, setActiveTab] = useState('branches'); // 'branches' | 'campaigns' | 'products' | 'orders'
 
   // Branches state
   const [branches, setBranches] = useState([]);
@@ -26,6 +27,12 @@ const AdminDashboard = () => {
   // Products state
   const [products, setProducts] = useState([]);
   const [fetchingProducts, setFetchingProducts] = useState(true);
+
+  // Orders state
+  const [orders, setOrders] = useState([]);
+  const [fetchingOrders, setFetchingOrders] = useState(true);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [orderSearchQuery, setOrderSearchQuery] = useState('');
 
   // Common state
   const [loading, setLoading] = useState(false);
@@ -70,6 +77,8 @@ const AdminDashboard = () => {
       fetchCampaigns();
     } else if (activeTab === 'products') {
       fetchProducts();
+    } else if (activeTab === 'orders') {
+      fetchOrders();
     }
   }, [activeTab]);
 
@@ -156,6 +165,26 @@ const AdminDashboard = () => {
       setError('Ürünler yüklenirken hata oluştu');
     } finally {
       setFetchingProducts(false);
+    }
+  };
+
+  const ORDER_STATUS_LABELS = {
+    pending: { label: 'Beklemede', color: 'bg-yellow-600/30 text-yellow-400' },
+    paid: { label: 'Ödendi', color: 'bg-olive/30 text-green-400' },
+    cancelled: { label: 'İptal', color: 'bg-gray-600/30 text-gray-400' },
+    failed: { label: 'Hata', color: 'bg-red-600/30 text-red-400' }
+  };
+
+  const fetchOrders = async () => {
+    try {
+      setFetchingOrders(true);
+      setError('');
+      const list = await getAllOrdersForAdmin();
+      setOrders(list);
+    } catch (error) {
+      setError('Siparişler yüklenirken hata oluştu: ' + (error.message || 'Bilinmeyen hata'));
+    } finally {
+      setFetchingOrders(false);
     }
   };
 
@@ -609,25 +638,48 @@ const AdminDashboard = () => {
               <span>Mağaza</span>
             </div>
           </button>
+          <button
+            onClick={() => setActiveTab('orders')}
+            className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${activeTab === 'orders'
+              ? 'border-white text-white'
+              : 'border-transparent text-gray-500 hover:text-gray-300'
+              }`}
+          >
+            <div className="flex items-center gap-2">
+              <Package className="w-4 h-4" />
+              <span>Siparişler</span>
+            </div>
+          </button>
         </div>
 
         {/* Header with Add Button */}
         <div className="flex justify-between items-center mb-8">
           <div>
             <h2 className="text-xl font-medium text-white mb-1">
-              {activeTab === 'branches' ? 'Şube Yönetimi' : activeTab === 'campaigns' ? 'Kampanya Yönetimi' : 'Mağaza Yönetimi'}
+              {activeTab === 'branches' ? 'Şube Yönetimi' : activeTab === 'campaigns' ? 'Kampanya Yönetimi' : activeTab === 'products' ? 'Mağaza Yönetimi' : 'Sipariş Takip'}
             </h2>
             <p className="text-sm text-gray-500">
-              Toplam {activeTab === 'branches' ? branches.length : activeTab === 'campaigns' ? campaigns.length : products.length} {activeTab === 'branches' ? 'şube' : activeTab === 'campaigns' ? 'kampanya' : 'ürün'}
+              Toplam {activeTab === 'branches' ? branches.length : activeTab === 'campaigns' ? campaigns.length : activeTab === 'products' ? products.length : orders.length} {activeTab === 'branches' ? 'şube' : activeTab === 'campaigns' ? 'kampanya' : activeTab === 'products' ? 'ürün' : 'sipariş'}
             </p>
           </div>
-          <button
-            onClick={openAddModal}
-            className={`flex items-center gap-2 px-4 py-2 bg-white text-black hover:bg-gray-200 ${activeTab === 'products' ? '' : ''}`}
-          >
-            <Plus className="w-4 h-4" />
-            <span className="text-sm">Yeni {activeTab === 'branches' ? 'Şube' : activeTab === 'campaigns' ? 'Kampanya' : 'Ürün'}</span>
-          </button>
+          {activeTab === 'orders' ? (
+            <button
+              onClick={fetchOrders}
+              disabled={fetchingOrders}
+              className="flex items-center gap-2 px-4 py-2 bg-gray-800 text-white hover:bg-gray-700 disabled:opacity-50"
+            >
+              <RefreshCw className={`w-4 h-4 ${fetchingOrders ? 'animate-spin' : ''}`} />
+              <span className="text-sm">Yenile</span>
+            </button>
+          ) : (
+            <button
+              onClick={openAddModal}
+              className="flex items-center gap-2 px-4 py-2 bg-white text-black hover:bg-gray-200"
+            >
+              <Plus className="w-4 h-4" />
+              <span className="text-sm">Yeni {activeTab === 'branches' ? 'Şube' : activeTab === 'campaigns' ? 'Kampanya' : 'Ürün'}</span>
+            </button>
+          )}
         </div>
 
         {/* Success/Error Messages */}
@@ -821,7 +873,7 @@ const AdminDashboard = () => {
               ))}
             </div>
           )
-        ) : (
+        ) : activeTab === 'products' ? (
           fetchingProducts ? (
             <div className="flex items-center justify-center py-20">
               <div className="text-center">
@@ -884,6 +936,119 @@ const AdminDashboard = () => {
                 );
               })}
             </div>
+          )
+        ) : (
+          fetchingOrders ? (
+            <div className="flex items-center justify-center py-20">
+              <div className="text-center">
+                <div className="w-12 h-12 border-2 border-gray-800 border-t-white animate-spin mx-auto mb-4"></div>
+                <p className="text-gray-500 text-sm">Yükleniyor...</p>
+              </div>
+            </div>
+          ) : orders.length === 0 ? (
+            <div className="text-center py-20">
+              <Package className="w-12 h-12 text-gray-700 mx-auto mb-4" />
+              <p className="text-gray-500 text-sm">Henüz sipariş yok</p>
+            </div>
+          ) : (
+            <>
+              {/* Sipariş arama */}
+              <div className="mb-4">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                  <input
+                    type="text"
+                    value={orderSearchQuery}
+                    onChange={(e) => setOrderSearchQuery(e.target.value)}
+                    placeholder="Sipariş kodu veya müşteri adı ile ara..."
+                    className="w-full pl-10 pr-4 py-2.5 bg-gray-900 border border-gray-800 text-white placeholder-gray-500 focus:border-gray-700 outline-none text-sm"
+                  />
+                  {orderSearchQuery && (
+                    <button
+                      onClick={() => setOrderSearchQuery('')}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              <div className="space-y-4">
+              {(() => {
+                const filtered = orders.filter((order) => {
+                  if (!orderSearchQuery.trim()) return true;
+                  const q = orderSearchQuery.trim().toLowerCase();
+                  const orderCode = (order.id || '').toLowerCase();
+                  const custName = (order.userName || '').toLowerCase();
+                  const custEmail = (order.email || '').toLowerCase();
+                  const custUserId = (order.userId || '').toLowerCase();
+                  return (
+                    orderCode.includes(q) ||
+                    custName.includes(q) ||
+                    custEmail.includes(q) ||
+                    custUserId.includes(q)
+                  );
+                });
+                return filtered.length === 0 ? (
+                  <div className="text-center py-12 text-gray-500 text-sm">
+                    "{orderSearchQuery}" ile eşleşen sipariş bulunamadı.
+                  </div>
+                ) : filtered.map((order) => {
+                const statusInfo = ORDER_STATUS_LABELS[order.status] || ORDER_STATUS_LABELS.pending;
+                const orderDate = order.createdAt?.toDate?.()
+                  ? order.createdAt.toDate().toLocaleString('tr-TR')
+                  : '-';
+                return (
+                  <div
+                    key={order.id}
+                    onClick={() => setSelectedOrder(order)}
+                    className="bg-gray-900 p-4 border border-gray-800 cursor-pointer hover:border-gray-700 transition-colors"
+                  >
+                    <div className="flex flex-wrap justify-between items-start gap-3 mb-3">
+                      <div className="flex items-center gap-2">
+                        <Package className="w-4 h-4 text-gray-500 shrink-0" />
+                        <span className="font-mono text-sm text-white">
+                          #{order.id.slice(-8).toUpperCase()}
+                        </span>
+                        <span className={`px-2.5 py-1 rounded text-xs font-medium ${statusInfo.color}`}>
+                          {statusInfo.label}
+                        </span>
+                      </div>
+                      <span className="text-olive font-bold">{formatPrice(order.total)}</span>
+                    </div>
+                    <div className="text-xs text-gray-500 mb-2">{orderDate}</div>
+                    <p className="text-sm text-gray-300 mb-2">
+                      {order.items?.map((i) => `${i.title} x${i.quantity || 1}`).join(', ')}
+                    </p>
+                    <div className="space-y-1 text-xs text-gray-300">
+                      {order.userName && (
+                        <p className="flex items-center gap-1">
+                          <span className="text-gray-500">İsim:</span> {order.userName}
+                        </p>
+                      )}
+                      {order.userPhone && (
+                        <p className="flex items-center gap-1">
+                          <Phone className="w-3 h-3 text-gray-500 shrink-0" />
+                          <span className="text-gray-500">Tel:</span> {order.userPhone}
+                        </p>
+                      )}
+                      {order.email && (
+                        <p className="flex items-center gap-1 truncate">
+                          <Mail className="w-3 h-3 text-gray-500 shrink-0" />
+                          {order.email}
+                        </p>
+                      )}
+                      {!order.userName && !order.userPhone && !order.email && (
+                        <p className="text-gray-500">Müşteri ID: {order.userId?.slice(0, 8)}...</p>
+                      )}
+                    </div>
+                  </div>
+                );
+              });
+              })()}
+            </div>
+            </>
           )
         )}
       </div>
@@ -1407,6 +1572,100 @@ const AdminDashboard = () => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Sipariş Detay Modal */}
+      {selectedOrder && (
+        <div
+          className="fixed inset-0 bg-black/95 flex items-center justify-center p-4 z-50"
+          onClick={() => setSelectedOrder(null)}
+        >
+          <div
+            className="bg-black max-w-lg w-full max-h-[90vh] overflow-y-auto border border-gray-800"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="sticky top-0 bg-black border-b border-gray-800 px-4 py-3 flex justify-between items-center">
+              <h3 className="text-base font-medium text-white">
+                Sipariş #{selectedOrder.id?.slice(-8).toUpperCase()}
+              </h3>
+              <button
+                onClick={() => setSelectedOrder(null)}
+                className="text-gray-500 hover:text-white"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="p-4 space-y-4">
+              <div className="flex items-center gap-2">
+                <span className={`px-2.5 py-1 rounded text-xs font-medium ${(ORDER_STATUS_LABELS[selectedOrder.status] || ORDER_STATUS_LABELS.pending).color}`}>
+                  {(ORDER_STATUS_LABELS[selectedOrder.status] || ORDER_STATUS_LABELS.pending).label}
+                </span>
+                <span className="text-olive font-bold text-lg">{formatPrice(selectedOrder.total)}</span>
+              </div>
+
+              <div>
+                <h4 className="text-xs text-gray-500 uppercase tracking-wider mb-2">Tarih</h4>
+                <p className="text-sm text-white">
+                  {selectedOrder.createdAt?.toDate?.()
+                    ? selectedOrder.createdAt.toDate().toLocaleString('tr-TR')
+                    : '-'}
+                </p>
+              </div>
+
+              <div>
+                <h4 className="text-xs text-gray-500 uppercase tracking-wider mb-2">Müşteri Bilgileri</h4>
+                <div className="space-y-1 text-sm">
+                  {selectedOrder.userName && (
+                    <p className="text-white">Ad: {selectedOrder.userName}</p>
+                  )}
+                  {selectedOrder.email && (
+                    <p className="text-gray-300 flex items-center gap-1">
+                      <Mail className="w-3 h-3" /> {selectedOrder.email}
+                    </p>
+                  )}
+                  {selectedOrder.userPhone && (
+                    <p className="text-gray-300 flex items-center gap-1">
+                      <Phone className="w-3 h-3" /> {selectedOrder.userPhone}
+                    </p>
+                  )}
+                  {!selectedOrder.userName && !selectedOrder.email && !selectedOrder.userPhone && (
+                    <p className="text-gray-500">Müşteri ID: {selectedOrder.userId}</p>
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-xs text-gray-500 uppercase tracking-wider mb-2">Ürünler</h4>
+                <div className="space-y-2">
+                  {selectedOrder.items?.map((item, idx) => (
+                    <div key={idx} className="flex justify-between items-center py-2 border-b border-gray-800 last:border-0">
+                      <div>
+                        <p className="text-sm text-white">{item.title}</p>
+                        <p className="text-xs text-gray-500">Adet: {item.quantity || 1}</p>
+                      </div>
+                      <span className="text-olive font-medium">{formatPrice((item.price || 0) * (item.quantity || 1))}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-gray-800">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-400">Toplam</span>
+                  <span className="text-lg font-bold text-olive">{formatPrice(selectedOrder.total)}</span>
+                </div>
+              </div>
+
+              {selectedOrder.status === 'failed' && (selectedOrder.failedReasonMsg || selectedOrder.failedReasonCode) && (
+                <div className="bg-red-900/30 border border-red-800/50 p-3 rounded">
+                  <p className="text-xs text-red-400">
+                    {selectedOrder.failedReasonMsg || `Hata kodu: ${selectedOrder.failedReasonCode}`}
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}

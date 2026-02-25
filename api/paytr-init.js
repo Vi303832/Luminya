@@ -109,6 +109,9 @@ export default async function handler(req, res) {
       items,
       total,
       status: 'pending',
+      email: email || '',
+      userName: userName || '',
+      userPhone: userPhone || '',
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
       updatedAt: admin.firestore.FieldValue.serverTimestamp()
     };
