@@ -1,20 +1,50 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ShoppingCart, User } from 'lucide-react';
-import { MASSAGE_SERVICES, formatPrice } from '../data/massageServices';
+import { MASSAGE_SERVICES, formatPrice, ICON_MAP } from '../data/massageServices';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
 import SEO, { generateBreadcrumbSchema } from '../components/SEO';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { getDb } from '../utils/firebaseLazy';
 
 const Store = () => {
   const navigate = useNavigate();
   const { addItem, itemCount } = useCart();
   const { currentUser } = useAuth();
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const db = await getDb();
+        const productsRef = collection(db, 'products');
+        const q = query(productsRef, where('active', '==', true));
+        const querySnapshot = await getDocs(q);
+        const productsData = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+          icon: ICON_MAP[doc.data().icon] || ICON_MAP.Sparkles
+        }));
+        productsData.sort((a, b) => (a.order || 0) - (b.order || 0));
+        setProducts(productsData);
+      } catch (err) {
+        console.error('Ürünler yüklenemedi, varsayılan liste kullanılıyor:', err);
+        setProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  const services = products.length > 0 ? products : MASSAGE_SERVICES;
 
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Ana Sayfa', url: 'https://luminya.com/' },
@@ -73,8 +103,13 @@ const Store = () => {
             </div>
           </motion.div>
 
+          {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <div className="w-10 h-10 border-2 border-olive border-t-transparent rounded-full animate-spin" />
+          </div>
+        ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {MASSAGE_SERVICES.map((service, index) => (
+            {services.map((service, index) => (
               <motion.div
                 key={service.id}
                 className="group relative bg-white rounded-2xl p-6 overflow-hidden border border-stone-dark/10 shadow-lg"
@@ -98,7 +133,7 @@ const Store = () => {
                 </p>
 
                 <div className="relative space-y-2 mb-4">
-                  {service.features.slice(0, 3).map((feature, idx) => (
+                  {(service.features || []).slice(0, 3).map((feature, idx) => (
                     <div key={idx} className="flex items-center gap-2 text-xs text-espresso/60">
                       <div className="w-5 h-5 bg-olive/25 rounded-full flex items-center justify-center shrink-0">
                         <div className="w-2 h-2 bg-olive-dark rounded-full" />
@@ -131,6 +166,7 @@ const Store = () => {
               </motion.div>
             ))}
           </div>
+        )}
         </div>
       </section>
     </div>

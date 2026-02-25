@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { LogOut, Plus, Edit, Trash2, MapPin, Phone, Mail, Clock, Upload, CheckCircle, AlertCircle, X, Building2, Image, Tag, Star } from 'lucide-react';
+import { LogOut, Plus, Edit, Trash2, MapPin, Phone, Mail, Clock, Upload, CheckCircle, AlertCircle, X, Building2, Image, Tag, Star, ShoppingBag } from 'lucide-react';
 import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs, query, where, Timestamp, orderBy } from 'firebase/firestore';
 import { getDb } from '../utils/firebaseLazy';
+import { ICON_MAP } from '../data/massageServices';
 
 // Cloudinary yapılandırması
 const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
@@ -12,7 +13,7 @@ const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 const AdminDashboard = () => {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('branches'); // 'branches' or 'campaigns'
+  const [activeTab, setActiveTab] = useState('branches'); // 'branches' | 'campaigns' | 'products'
 
   // Branches state
   const [branches, setBranches] = useState([]);
@@ -21,6 +22,10 @@ const AdminDashboard = () => {
   // Campaigns state
   const [campaigns, setCampaigns] = useState([]);
   const [fetchingCampaigns, setFetchingCampaigns] = useState(true);
+
+  // Products state
+  const [products, setProducts] = useState([]);
+  const [fetchingProducts, setFetchingProducts] = useState(true);
 
   // Common state
   const [loading, setLoading] = useState(false);
@@ -46,15 +51,25 @@ const AdminDashboard = () => {
     branchImage: '',
     description: '',
     badge: '',
-    order: 0
+    order: 0,
+    // Product fields
+    productTitle: '',
+    productDescription: '',
+    productDuration: '',
+    productPrice: '',
+    productFeatures: '',
+    productIcon: 'Droplets',
+    productOrder: 0
   });
 
   // Fetch data based on active tab
   useEffect(() => {
     if (activeTab === 'branches') {
       fetchBranches();
-    } else {
+    } else if (activeTab === 'campaigns') {
       fetchCampaigns();
+    } else if (activeTab === 'products') {
+      fetchProducts();
     }
   }, [activeTab]);
 
@@ -118,6 +133,32 @@ const AdminDashboard = () => {
     }
   };
 
+  const fetchProducts = async () => {
+    try {
+      setFetchingProducts(true);
+      const db = await getDb();
+      const productsRef = collection(db, 'products');
+      let querySnapshot;
+      try {
+        const q = query(productsRef, where('active', '==', true), orderBy('order', 'asc'));
+        querySnapshot = await getDocs(q);
+      } catch (orderByError) {
+        const q = query(productsRef, where('active', '==', true));
+        querySnapshot = await getDocs(q);
+      }
+      const productsData = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      productsData.sort((a, b) => (a.order || 0) - (b.order || 0));
+      setProducts(productsData);
+    } catch (error) {
+      setError('Ürünler yüklenirken hata oluştu');
+    } finally {
+      setFetchingProducts(false);
+    }
+  };
+
   const handleLogout = async () => {
     try {
       await logout();
@@ -139,37 +180,21 @@ const AdminDashboard = () => {
     setEditingItem(null);
     if (activeTab === 'branches') {
       setFormData({
-        name: '',
-        city: '',
-        address: '',
-        phone: '',
-        whatsapp: '',
-        email: '',
-        hours: '',
-        district: '',
-        imageUrl: '',
-        branchName: '',
-        branchImage: '',
-        description: '',
-        badge: '',
-        order: 0
+        name: '', city: '', address: '', phone: '', whatsapp: '', email: '', hours: '', district: '', imageUrl: '',
+        branchName: '', branchImage: '', description: '', badge: '', order: 0,
+        productTitle: '', productDescription: '', productDuration: '', productPrice: '', productFeatures: '', productIcon: 'Droplets', productOrder: 0
+      });
+    } else if (activeTab === 'campaigns') {
+      setFormData({
+        name: '', city: '', address: '', phone: '', whatsapp: '', email: '', hours: '', district: '', imageUrl: '',
+        branchName: '', branchImage: '', description: '', badge: '', order: campaigns.length,
+        productTitle: '', productDescription: '', productDuration: '', productPrice: '', productFeatures: '', productIcon: 'Droplets', productOrder: 0
       });
     } else {
       setFormData({
-        name: '',
-        city: '',
-        address: '',
-        phone: '',
-        whatsapp: '',
-        email: '',
-        hours: '',
-        district: '',
-        imageUrl: '',
-        branchName: '',
-        branchImage: '',
-        description: '',
-        badge: '',
-        order: campaigns.length
+        name: '', city: '', address: '', phone: '', whatsapp: '', email: '', hours: '', district: '', imageUrl: '',
+        branchName: '', branchImage: '', description: '', badge: '', order: 0,
+        productTitle: '', productDescription: '', productDuration: '', productPrice: '', productFeatures: '', productIcon: 'Droplets', productOrder: products.length
       });
     }
     setShowModal(true);
@@ -188,28 +213,33 @@ const AdminDashboard = () => {
         hours: item.hours || '',
         district: item.district || '',
         imageUrl: item.imageUrl || '',
-        branchName: '',
-        branchImage: '',
-        description: '',
-        badge: '',
-        order: 0
+        branchName: '', branchImage: '', description: '', badge: '', order: 0,
+        productTitle: '', productDescription: '', productDuration: '', productPrice: '', productFeatures: '', productIcon: 'Droplets', productOrder: 0
       });
-    } else {
+    } else if (activeTab === 'campaigns') {
       setFormData({
-        name: '',
-        city: '',
-        address: '',
+        name: '', city: '', address: '',
         phone: item.phone || '',
         whatsapp: item.whatsapp || '',
-        email: '',
-        hours: '',
-        district: '',
-        imageUrl: '',
+        email: '', hours: '', district: '', imageUrl: '',
         branchName: item.branchName || '',
         branchImage: item.branchImage || '',
         description: item.description || '',
         badge: item.badge || '',
-        order: item.order || 0
+        order: item.order || 0,
+        productTitle: '', productDescription: '', productDuration: '', productPrice: '', productFeatures: '', productIcon: 'Droplets', productOrder: 0
+      });
+    } else {
+      setFormData({
+        name: '', city: '', address: '', phone: '', whatsapp: '', email: '', hours: '', district: '', imageUrl: '',
+        branchName: '', branchImage: '', description: '', badge: '', order: 0,
+        productTitle: item.title || '',
+        productDescription: item.description || '',
+        productDuration: item.duration || '',
+        productPrice: item.price ?? '',
+        productFeatures: Array.isArray(item.features) ? item.features.join('\n') : (item.features || ''),
+        productIcon: item.icon || 'Droplets',
+        productOrder: item.order ?? 0
       });
     }
     setShowModal(true);
@@ -325,8 +355,7 @@ const AdminDashboard = () => {
         }
 
         await fetchBranches();
-      } else {
-        // Campaigns
+      } else if (activeTab === 'campaigns') {
         if (!formData.branchName || !formData.description) {
           setError('Lütfen şube adı ve açıklama bilgilerini girin');
           return;
@@ -357,6 +386,37 @@ const AdminDashboard = () => {
         }
 
         await fetchCampaigns();
+      } else if (activeTab === 'products') {
+        if (!formData.productTitle || !formData.productPrice) {
+          setError('Lütfen ürün adı ve fiyat bilgilerini girin');
+          return;
+        }
+        const features = formData.productFeatures
+          ? formData.productFeatures.split('\n').map(f => f.trim()).filter(Boolean)
+          : [];
+        const productData = {
+          title: formData.productTitle.trim(),
+          description: formData.productDescription.trim() || '',
+          duration: formData.productDuration.trim() || '',
+          price: Number(formData.productPrice) || 0,
+          features,
+          icon: formData.productIcon || 'Droplets',
+          order: Number(formData.productOrder) || 0,
+          active: true
+        };
+        const db = await getDb();
+        if (editingItem) {
+          productData.updatedAt = Timestamp.now();
+          productData.updatedBy = currentUser.email;
+          await updateDoc(doc(db, 'products', editingItem.id), productData);
+          setSuccess('Ürün başarıyla güncellendi!');
+        } else {
+          productData.createdAt = Timestamp.now();
+          productData.createdBy = currentUser.email;
+          await addDoc(collection(db, 'products'), productData);
+          setSuccess('Ürün başarıyla eklendi!');
+        }
+        await fetchProducts();
       }
 
       setTimeout(() => {
@@ -435,8 +495,8 @@ const AdminDashboard = () => {
   };
 
   const handleDelete = async (item) => {
-    const itemName = activeTab === 'branches' ? item.name : item.branchName;
-    const itemType = activeTab === 'branches' ? 'şube' : 'kampanya';
+    const itemName = activeTab === 'branches' ? item.name : activeTab === 'campaigns' ? item.branchName : item.title;
+    const itemType = activeTab === 'branches' ? 'şube' : activeTab === 'campaigns' ? 'kampanya' : 'ürün';
 
     if (!window.confirm(`"${itemName}" ${itemType}sini silmek istediğinize emin misiniz?`)) {
       return;
@@ -447,26 +507,32 @@ const AdminDashboard = () => {
       setError('');
       setSuccess('');
 
-      const collectionName = activeTab === 'branches' ? 'branches' : 'campaigns';
+      const collectionName = activeTab === 'branches' ? 'branches' : activeTab === 'campaigns' ? 'campaigns' : 'products';
       const db = await getDb();
 
       if (activeTab === 'branches') {
-        // For branches, set active to false
+        await updateDoc(doc(db, collectionName, item.id), {
+          active: false,
+          deletedAt: Timestamp.now(),
+          deletedBy: currentUser.email
+        });
+      } else if (activeTab === 'products') {
         await updateDoc(doc(db, collectionName, item.id), {
           active: false,
           deletedAt: Timestamp.now(),
           deletedBy: currentUser.email
         });
       } else {
-        // For campaigns, delete directly
         await deleteDoc(doc(db, collectionName, item.id));
       }
 
       setSuccess(`${itemName} ${itemType}si silindi`);
       if (activeTab === 'branches') {
         await fetchBranches();
-      } else {
+      } else if (activeTab === 'campaigns') {
         await fetchCampaigns();
+      } else {
+        await fetchProducts();
       }
       setTimeout(() => setSuccess(''), 3000);
     } catch (err) {
@@ -531,24 +597,36 @@ const AdminDashboard = () => {
               <span>Kampanyalar</span>
             </div>
           </button>
+          <button
+            onClick={() => setActiveTab('products')}
+            className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${activeTab === 'products'
+              ? 'border-white text-white'
+              : 'border-transparent text-gray-500 hover:text-gray-300'
+              }`}
+          >
+            <div className="flex items-center gap-2">
+              <ShoppingBag className="w-4 h-4" />
+              <span>Mağaza</span>
+            </div>
+          </button>
         </div>
 
         {/* Header with Add Button */}
         <div className="flex justify-between items-center mb-8">
           <div>
             <h2 className="text-xl font-medium text-white mb-1">
-              {activeTab === 'branches' ? 'Şube Yönetimi' : 'Kampanya Yönetimi'}
+              {activeTab === 'branches' ? 'Şube Yönetimi' : activeTab === 'campaigns' ? 'Kampanya Yönetimi' : 'Mağaza Yönetimi'}
             </h2>
             <p className="text-sm text-gray-500">
-              Toplam {activeTab === 'branches' ? branches.length : campaigns.length} {activeTab === 'branches' ? 'şube' : 'kampanya'}
+              Toplam {activeTab === 'branches' ? branches.length : activeTab === 'campaigns' ? campaigns.length : products.length} {activeTab === 'branches' ? 'şube' : activeTab === 'campaigns' ? 'kampanya' : 'ürün'}
             </p>
           </div>
           <button
             onClick={openAddModal}
-            className="flex items-center gap-2 px-4 py-2 bg-white text-black hover:bg-gray-200"
+            className={`flex items-center gap-2 px-4 py-2 bg-white text-black hover:bg-gray-200 ${activeTab === 'products' ? '' : ''}`}
           >
             <Plus className="w-4 h-4" />
-            <span className="text-sm">Yeni {activeTab === 'branches' ? 'Şube' : 'Kampanya'}</span>
+            <span className="text-sm">Yeni {activeTab === 'branches' ? 'Şube' : activeTab === 'campaigns' ? 'Kampanya' : 'Ürün'}</span>
           </button>
         </div>
 
@@ -658,7 +736,7 @@ const AdminDashboard = () => {
               ))}
             </div>
           )
-        ) : (
+        ) : activeTab === 'campaigns' ? (
           fetchingCampaigns ? (
             <div className="flex items-center justify-center py-20">
               <div className="text-center">
@@ -743,6 +821,70 @@ const AdminDashboard = () => {
               ))}
             </div>
           )
+        ) : (
+          fetchingProducts ? (
+            <div className="flex items-center justify-center py-20">
+              <div className="text-center">
+                <div className="w-12 h-12 border-2 border-gray-800 border-t-white animate-spin mx-auto mb-4"></div>
+                <p className="text-gray-500 text-sm">Yükleniyor...</p>
+              </div>
+            </div>
+          ) : products.length === 0 ? (
+            <div className="text-center py-20">
+              <ShoppingBag className="w-12 h-12 text-gray-700 mx-auto mb-4" />
+              <p className="text-gray-500 text-sm">Henüz ürün yok</p>
+              <button
+                onClick={openAddModal}
+                className="mt-4 text-white hover:text-gray-300 underline text-sm"
+              >
+                İlk ürünü ekle
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {products.map((product) => {
+                const IconComponent = ICON_MAP[product.icon] || Star;
+                return (
+                  <div
+                    key={product.id}
+                    className="bg-gray-900 p-4 border border-gray-800"
+                  >
+                    <div className="flex items-start gap-3 mb-3">
+                      <div className="w-10 h-10 bg-gray-800 flex items-center justify-center shrink-0">
+                        <IconComponent className="w-5 h-5 text-gray-400" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-base font-medium text-white mb-1">{product.title}</h3>
+                        <span className="text-olive font-bold">{product.price}₺</span>
+                        {product.duration && (
+                          <span className="text-gray-500 text-xs ml-2">{product.duration}</span>
+                        )}
+                      </div>
+                    </div>
+                    {product.description && (
+                      <p className="text-xs text-gray-400 line-clamp-2 mb-3">{product.description}</p>
+                    )}
+                    <div className="flex gap-2 pt-3 border-t border-gray-800">
+                      <button
+                        onClick={() => openEditModal(product)}
+                        className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 bg-gray-800 text-white hover:bg-gray-700 text-xs"
+                      >
+                        <Edit className="w-3 h-3" />
+                        <span>Düzenle</span>
+                      </button>
+                      <button
+                        onClick={() => handleDelete(product)}
+                        className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 bg-gray-800 text-white hover:bg-gray-700 text-xs"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                        <span>Sil</span>
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )
         )}
       </div>
 
@@ -754,8 +896,8 @@ const AdminDashboard = () => {
             <div className="sticky top-0 bg-black border-b border-gray-800 px-4 py-3 flex justify-between items-center">
               <h3 className="text-base font-medium text-white">
                 {editingItem
-                  ? (activeTab === 'branches' ? 'Şube Düzenle' : 'Kampanya Düzenle')
-                  : (activeTab === 'branches' ? 'Yeni Şube' : 'Yeni Kampanya')
+                  ? (activeTab === 'branches' ? 'Şube Düzenle' : activeTab === 'campaigns' ? 'Kampanya Düzenle' : 'Ürün Düzenle')
+                  : (activeTab === 'branches' ? 'Yeni Şube' : activeTab === 'campaigns' ? 'Yeni Kampanya' : 'Yeni Ürün')
                 }
               </h3>
               <button
@@ -783,7 +925,119 @@ const AdminDashboard = () => {
                 </div>
               )}
 
-              {activeTab === 'branches' ? (
+              {activeTab === 'products' ? (
+                <>
+                  {/* Ürün Adı */}
+                  <div>
+                    <label className="block text-xs text-gray-400 mb-1">
+                      Ürün Adı <span className="text-white">*</span>
+                    </label>
+                    <input
+                      name="productTitle"
+                      type="text"
+                      value={formData.productTitle}
+                      onChange={handleChange}
+                      className="w-full px-3 py-2 bg-gray-900 border border-gray-800 text-white placeholder-gray-600 focus:border-gray-700 outline-none text-sm"
+                      placeholder="Örn: Türk Hamamı"
+                      required
+                    />
+                  </div>
+
+                  {/* Açıklama */}
+                  <div>
+                    <label className="block text-xs text-gray-400 mb-1">
+                      Açıklama
+                    </label>
+                    <textarea
+                      name="productDescription"
+                      value={formData.productDescription}
+                      onChange={handleChange}
+                      rows={3}
+                      className="w-full px-3 py-2 bg-gray-900 border border-gray-800 text-white placeholder-gray-600 focus:border-gray-700 outline-none text-sm resize-none"
+                      placeholder="Ürün açıklaması"
+                    />
+                  </div>
+
+                  {/* Süre ve Fiyat */}
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs text-gray-400 mb-1">
+                        Süre
+                      </label>
+                      <input
+                        name="productDuration"
+                        type="text"
+                        value={formData.productDuration}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 bg-gray-900 border border-gray-800 text-white placeholder-gray-600 focus:border-gray-700 outline-none text-sm"
+                        placeholder="Örn: 60 dakika"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs text-gray-400 mb-1">
+                        Fiyat (₺) <span className="text-white">*</span>
+                      </label>
+                      <input
+                        name="productPrice"
+                        type="number"
+                        value={formData.productPrice}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 bg-gray-900 border border-gray-800 text-white placeholder-gray-600 focus:border-gray-700 outline-none text-sm"
+                        placeholder="450"
+                        min="0"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  {/* Özellikler */}
+                  <div>
+                    <label className="block text-xs text-gray-400 mb-1">
+                      Özellikler (her satıra bir özellik)
+                    </label>
+                    <textarea
+                      name="productFeatures"
+                      value={formData.productFeatures}
+                      onChange={handleChange}
+                      rows={4}
+                      className="w-full px-3 py-2 bg-gray-900 border border-gray-800 text-white placeholder-gray-600 focus:border-gray-700 outline-none text-sm resize-none"
+                      placeholder="Her satıra bir özellik yazın"
+                    />
+                  </div>
+
+                  {/* İkon ve Sıra */}
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs text-gray-400 mb-1">
+                        İkon
+                      </label>
+                      <select
+                        name="productIcon"
+                        value={formData.productIcon}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 bg-gray-900 border border-gray-800 text-white focus:border-gray-700 outline-none text-sm"
+                      >
+                        {Object.keys(ICON_MAP).map((iconName) => (
+                          <option key={iconName} value={iconName}>{iconName}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-xs text-gray-400 mb-1">
+                        Sıra
+                      </label>
+                      <input
+                        name="productOrder"
+                        type="number"
+                        value={formData.productOrder}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 bg-gray-900 border border-gray-800 text-white placeholder-gray-600 focus:border-gray-700 outline-none text-sm"
+                        min="0"
+                      />
+                    </div>
+                  </div>
+                </>
+              ) : activeTab === 'branches' ? (
                 <>
                   {/* Şube Adı */}
                   <div>

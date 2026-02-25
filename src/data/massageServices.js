@@ -1,5 +1,10 @@
 import { Droplets, Heart, Flame, Flower, Wind, Leaf, Sparkles, Star } from 'lucide-react';
 
+// Firebase'de icon string olarak saklanır, bu map ile component'e çevrilir
+export const ICON_MAP = {
+  Droplets, Heart, Flame, Flower, Wind, Leaf, Sparkles, Star
+};
+
 export const MASSAGE_SERVICES = [
   { id: 'turk-hamami', icon: Droplets, title: 'Türk Hamamı', description: 'Geleneksel Türk hamamı deneyimi. Kese, köpük masajı ve peştemal.', duration: '60 dakika', price: 450, features: ['Kese & Köpük', 'Göbek Taşı', 'Geleneksel Masaj', 'Peştemal Hizmeti'] },
   { id: 'aroma-terapi', icon: Heart, title: 'Aroma Terapi', description: 'Özel yağlarla yapılan aromatik masaj ile ruh ve beden dinginliği.', duration: '75 dakika', price: 550, features: ['Özel Yağ Karışımı', 'Rahatlatıcı Masaj', 'Aromaterapi Buhar', 'Sıcak Havlu'] },
