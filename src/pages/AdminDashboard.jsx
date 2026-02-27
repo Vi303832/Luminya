@@ -589,92 +589,92 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-black overflow-x-hidden pb-[env(safe-area-inset-bottom)]">
       {/* Header */}
       <div className="bg-black border-b border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-3">
-              <Building2 className="w-6 h-6 text-white" />
-              <div>
-                <h1 className="text-lg font-medium text-white">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-14 sm:h-16 gap-2 min-w-0">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+              <Building2 className="w-5 h-5 sm:w-6 sm:h-6 text-white shrink-0" />
+              <div className="min-w-0">
+                <h1 className="text-base sm:text-lg font-medium text-white truncate">
                   Admin Panel
                 </h1>
-                <p className="text-xs text-gray-500">{currentUser?.email}</p>
+                <p className="text-xs text-gray-500 truncate hidden sm:block">{currentUser?.email}</p>
               </div>
             </div>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 px-3 py-1 text-gray-400 hover:text-white border border-gray-800 hover:border-gray-700"
+              className="flex items-center gap-2 px-2 sm:px-3 py-1.5 sm:py-1 text-gray-400 hover:text-white border border-gray-800 hover:border-gray-700 shrink-0"
             >
               <LogOut className="w-4 h-4" />
-              <span className="text-sm">Çıkış</span>
+              <span className="text-sm hidden sm:inline">Çıkış</span>
             </button>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Tabs */}
-        <div className="flex gap-4 mb-8 border-b border-gray-800">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
+        {/* Tabs - scrollable on mobile */}
+        <div className="flex gap-2 sm:gap-4 mb-6 sm:mb-8 border-b border-gray-800 overflow-x-auto scrollbar-hide -mx-3 px-3 sm:mx-0 sm:px-0">
           <button
             onClick={() => setActiveTab('branches')}
-            className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${activeTab === 'branches'
+            className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium border-b-2 transition-colors whitespace-nowrap shrink-0 ${activeTab === 'branches'
               ? 'border-white text-white'
               : 'border-transparent text-gray-500 hover:text-gray-300'
               }`}
           >
-            <div className="flex items-center gap-2">
-              <Building2 className="w-4 h-4" />
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <Building2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               <span>Şubeler</span>
             </div>
           </button>
           <button
             onClick={() => setActiveTab('campaigns')}
-            className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${activeTab === 'campaigns'
+            className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium border-b-2 transition-colors whitespace-nowrap shrink-0 ${activeTab === 'campaigns'
               ? 'border-white text-white'
               : 'border-transparent text-gray-500 hover:text-gray-300'
               }`}
           >
-            <div className="flex items-center gap-2">
-              <Tag className="w-4 h-4" />
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <Tag className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               <span>Kampanyalar</span>
             </div>
           </button>
           <button
             onClick={() => setActiveTab('products')}
-            className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${activeTab === 'products'
+            className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium border-b-2 transition-colors whitespace-nowrap shrink-0 ${activeTab === 'products'
               ? 'border-white text-white'
               : 'border-transparent text-gray-500 hover:text-gray-300'
               }`}
           >
-            <div className="flex items-center gap-2">
-              <ShoppingBag className="w-4 h-4" />
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               <span>Mağaza</span>
             </div>
           </button>
           <button
             onClick={() => setActiveTab('orders')}
-            className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${activeTab === 'orders'
+            className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium border-b-2 transition-colors whitespace-nowrap shrink-0 ${activeTab === 'orders'
               ? 'border-white text-white'
               : 'border-transparent text-gray-500 hover:text-gray-300'
               }`}
           >
-            <div className="flex items-center gap-2">
-              <Package className="w-4 h-4" />
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <Package className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               <span>Siparişler</span>
             </div>
           </button>
         </div>
 
         {/* Header with Add Button */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h2 className="text-xl font-medium text-white mb-1">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 sm:mb-8">
+          <div className="min-w-0">
+            <h2 className="text-lg sm:text-xl font-medium text-white mb-1 truncate">
               {activeTab === 'branches' ? 'Şube Yönetimi' : activeTab === 'campaigns' ? 'Kampanya Yönetimi' : activeTab === 'products' ? 'Mağaza Yönetimi' : 'Sipariş Takip'}
             </h2>
-            <p className="text-sm text-gray-500">
+            <p className="text-xs sm:text-sm text-gray-500">
               Toplam {activeTab === 'branches' ? branches.length : activeTab === 'campaigns' ? campaigns.length : activeTab === 'products' ? products.length : orders.length} {activeTab === 'branches' ? 'şube' : activeTab === 'campaigns' ? 'kampanya' : activeTab === 'products' ? 'ürün' : 'sipariş'}
             </p>
           </div>
@@ -682,17 +682,17 @@ const AdminDashboard = () => {
             <button
               onClick={fetchOrders}
               disabled={fetchingOrders}
-              className="flex items-center gap-2 px-4 py-2 bg-gray-800 text-white hover:bg-gray-700 disabled:opacity-50"
+              className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-gray-800 text-white hover:bg-gray-700 disabled:opacity-50 shrink-0 w-full sm:w-auto"
             >
-              <RefreshCw className={`w-4 h-4 ${fetchingOrders ? 'animate-spin' : ''}`} />
+              <RefreshCw className={`w-4 h-4 shrink-0 ${fetchingOrders ? 'animate-spin' : ''}`} />
               <span className="text-sm">Yenile</span>
             </button>
           ) : (
             <button
               onClick={openAddModal}
-              className="flex items-center gap-2 px-4 py-2 bg-white text-black hover:bg-gray-200"
+              className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-white text-black hover:bg-gray-200 shrink-0 w-full sm:w-auto"
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-4 h-4 shrink-0" />
               <span className="text-sm">Yeni {activeTab === 'branches' ? 'Şube' : activeTab === 'campaigns' ? 'Kampanya' : 'Ürün'}</span>
             </button>
           )}
@@ -775,28 +775,28 @@ const AdminDashboard = () => {
                       )}
                     </div>
                   </div>
-                  <div className="flex gap-2 mt-3 pt-3 border-t border-gray-800">
+                  <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-gray-800">
                     <button
                       onClick={() => handleCreateCampaignFromBranch(branch)}
-                      className="flex items-center justify-center gap-1 px-3 py-1.5 bg-yellow-600 text-white hover:bg-yellow-700 text-xs"
+                      className="flex items-center justify-center gap-1 px-2.5 sm:px-3 py-1.5 bg-yellow-600 text-white hover:bg-yellow-700 text-xs shrink-0"
                       title="Kampanya Oluştur"
                       disabled={loading}
                     >
-                      <Star className="w-3 h-3 fill-current" />
+                      <Star className="w-3 h-3 fill-current shrink-0" />
                       <span>Kampanya</span>
                     </button>
                     <button
                       onClick={() => openEditModal(branch)}
-                      className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 bg-gray-800 text-white hover:bg-gray-700 text-xs"
+                      className="flex-1 min-w-0 flex items-center justify-center gap-1 px-2.5 sm:px-3 py-1.5 bg-gray-800 text-white hover:bg-gray-700 text-xs"
                     >
-                      <Edit className="w-3 h-3" />
+                      <Edit className="w-3 h-3 shrink-0" />
                       <span>Düzenle</span>
                     </button>
                     <button
                       onClick={() => handleDelete(branch)}
-                      className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 bg-gray-800 text-white hover:bg-gray-700 text-xs"
+                      className="flex-1 min-w-0 flex items-center justify-center gap-1 px-2.5 sm:px-3 py-1.5 bg-gray-800 text-white hover:bg-gray-700 text-xs"
                     >
-                      <Trash2 className="w-3 h-3" />
+                      <Trash2 className="w-3 h-3 shrink-0" />
                       <span>Sil</span>
                     </button>
                   </div>
@@ -869,19 +869,19 @@ const AdminDashboard = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex gap-2 mt-3 pt-3 border-t border-gray-800">
+                  <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-gray-800">
                     <button
                       onClick={() => openEditModal(campaign)}
-                      className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 bg-gray-800 text-white hover:bg-gray-700 text-xs"
+                      className="flex-1 min-w-0 flex items-center justify-center gap-1 px-2.5 sm:px-3 py-1.5 bg-gray-800 text-white hover:bg-gray-700 text-xs"
                     >
-                      <Edit className="w-3 h-3" />
+                      <Edit className="w-3 h-3 shrink-0" />
                       <span>Düzenle</span>
                     </button>
                     <button
                       onClick={() => handleDelete(campaign)}
-                      className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 bg-gray-800 text-white hover:bg-gray-700 text-xs"
+                      className="flex-1 min-w-0 flex items-center justify-center gap-1 px-2.5 sm:px-3 py-1.5 bg-gray-800 text-white hover:bg-gray-700 text-xs"
                     >
-                      <Trash2 className="w-3 h-3" />
+                      <Trash2 className="w-3 h-3 shrink-0" />
                       <span>Sil</span>
                     </button>
                   </div>
@@ -932,19 +932,19 @@ const AdminDashboard = () => {
                     {product.description && (
                       <p className="text-xs text-gray-400 line-clamp-2 mb-3">{product.description}</p>
                     )}
-                    <div className="flex gap-2 pt-3 border-t border-gray-800">
+                    <div className="flex flex-wrap gap-2 pt-3 border-t border-gray-800">
                       <button
                         onClick={() => openEditModal(product)}
-                        className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 bg-gray-800 text-white hover:bg-gray-700 text-xs"
+                        className="flex-1 min-w-0 flex items-center justify-center gap-1 px-2.5 sm:px-3 py-1.5 bg-gray-800 text-white hover:bg-gray-700 text-xs"
                       >
-                        <Edit className="w-3 h-3" />
+                        <Edit className="w-3 h-3 shrink-0" />
                         <span>Düzenle</span>
                       </button>
                       <button
                         onClick={() => handleDelete(product)}
-                        className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 bg-gray-800 text-white hover:bg-gray-700 text-xs"
+                        className="flex-1 min-w-0 flex items-center justify-center gap-1 px-2.5 sm:px-3 py-1.5 bg-gray-800 text-white hover:bg-gray-700 text-xs"
                       >
-                        <Trash2 className="w-3 h-3" />
+                        <Trash2 className="w-3 h-3 shrink-0" />
                         <span>Sil</span>
                       </button>
                     </div>
@@ -969,7 +969,7 @@ const AdminDashboard = () => {
           ) : (
             <>
               {/* Sipariş arama */}
-              <div className="mb-4">
+              <div className="mb-4 min-w-0">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                   <input
@@ -1019,22 +1019,22 @@ const AdminDashboard = () => {
                   <div
                     key={order.id}
                     onClick={() => setSelectedOrder(order)}
-                    className="bg-gray-900 p-4 border border-gray-800 cursor-pointer hover:border-gray-700 transition-colors"
+                    className="bg-gray-900 p-3 sm:p-4 border border-gray-800 cursor-pointer hover:border-gray-700 transition-colors"
                   >
-                    <div className="flex flex-wrap justify-between items-start gap-3 mb-3">
-                      <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap justify-between items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
+                      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 min-w-0">
                         <Package className="w-4 h-4 text-gray-500 shrink-0" />
-                        <span className="font-mono text-sm text-white">
+                        <span className="font-mono text-xs sm:text-sm text-white truncate">
                           #{order.id.slice(-8).toUpperCase()}
                         </span>
-                        <span className={`px-2.5 py-1 rounded text-xs font-medium ${statusInfo.color}`}>
+                        <span className={`px-2 sm:px-2.5 py-0.5 sm:py-1 rounded text-xs font-medium shrink-0 ${statusInfo.color}`}>
                           {statusInfo.label}
                         </span>
                       </div>
-                      <span className="text-olive font-bold">{formatPrice(order.total)}</span>
+                      <span className="text-olive font-bold text-sm sm:text-base shrink-0">{formatPrice(order.total)}</span>
                     </div>
-                    <div className="text-xs text-gray-500 mb-2">{orderDate}</div>
-                    <p className="text-sm text-gray-300">
+                    <div className="text-xs text-gray-500 mb-1 sm:mb-2">{orderDate}</div>
+                    <p className="text-xs sm:text-sm text-gray-300 line-clamp-2">
                       {order.items?.map((i) => `${i.title} x${i.quantity || 1}`).join(', ')}
                     </p>
                   </div>
@@ -1049,10 +1049,10 @@ const AdminDashboard = () => {
 
       {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/95 flex items-center justify-center p-4 z-50">
-          <div className="bg-black max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-800">
+        <div className="fixed inset-0 bg-black/95 flex items-center justify-center p-2 sm:p-4 z-50 overflow-y-auto">
+          <div className="bg-black max-w-2xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto border border-gray-800 my-auto">
             {/* Modal Header */}
-            <div className="sticky top-0 bg-black border-b border-gray-800 px-4 py-3 flex justify-between items-center">
+            <div className="sticky top-0 bg-black border-b border-gray-800 px-3 sm:px-4 py-2.5 sm:py-3 flex justify-between items-center z-10">
               <h3 className="text-base font-medium text-white">
                 {editingItem
                   ? (activeTab === 'branches' ? 'Şube Düzenle' : activeTab === 'campaigns' ? 'Kampanya Düzenle' : 'Ürün Düzenle')
@@ -1068,7 +1068,7 @@ const AdminDashboard = () => {
             </div>
 
             {/* Modal Content */}
-            <form onSubmit={handleSubmit} className="p-4 space-y-4">
+            <form onSubmit={handleSubmit} className="p-3 sm:p-4 space-y-4">
               {/* Success/Error in Modal */}
               {success && (
                 <div className="bg-gray-900 border border-gray-800 p-2 flex items-start gap-2">
@@ -1118,7 +1118,7 @@ const AdminDashboard = () => {
                   </div>
 
                   {/* Süre ve Fiyat */}
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs text-gray-400 mb-1">
                         Süre
@@ -1165,7 +1165,7 @@ const AdminDashboard = () => {
                   </div>
 
                   {/* İkon ve Sıra */}
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs text-gray-400 mb-1">
                         İkon
@@ -1215,7 +1215,7 @@ const AdminDashboard = () => {
                   </div>
 
                   {/* Şehir ve İlçe */}
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs text-gray-400 mb-1">
                         Şehir
@@ -1261,7 +1261,7 @@ const AdminDashboard = () => {
                   </div>
 
                   {/* Telefon ve WhatsApp */}
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs text-gray-400 mb-1">
                         Telefon <span className="text-white">*</span>
@@ -1344,9 +1344,9 @@ const AdminDashboard = () => {
                       </div>
                     )}
 
-                    <div className="flex gap-2">
-                      <label className="flex-1 cursor-pointer">
-                        <div className="flex items-center justify-center gap-1 px-3 py-2 bg-gray-800 text-white hover:bg-gray-700 text-xs">
+                    <div className="flex flex-col sm:flex-row gap-2">
+                      <label className="flex-1 cursor-pointer min-w-0">
+                        <div className="flex items-center justify-center gap-1 px-3 py-2 bg-gray-800 text-white hover:bg-gray-700 text-xs w-full">
                           {uploadingImage ? (
                             <>
                               <div className="w-3 h-3 border border-white border-t-transparent animate-spin" />
@@ -1373,7 +1373,7 @@ const AdminDashboard = () => {
                         type="url"
                         value={formData.imageUrl}
                         onChange={handleChange}
-                        className="flex-1 px-3 py-2 bg-gray-900 border border-gray-800 text-white placeholder-gray-600 focus:border-gray-700 outline-none text-xs"
+                        className="flex-1 min-w-0 px-3 py-2 bg-gray-900 border border-gray-800 text-white placeholder-gray-600 focus:border-gray-700 outline-none text-xs"
                         placeholder="veya URL"
                       />
                     </div>
@@ -1418,7 +1418,7 @@ const AdminDashboard = () => {
                   </div>
 
                   {/* Badge ve Sıra */}
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs text-gray-400 mb-1">
                         Badge (Etiket)
@@ -1449,7 +1449,7 @@ const AdminDashboard = () => {
                   </div>
 
                   {/* Telefon ve WhatsApp */}
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs text-gray-400 mb-1">
                         Telefon
@@ -1501,9 +1501,9 @@ const AdminDashboard = () => {
                       </div>
                     )}
 
-                    <div className="flex gap-2">
-                      <label className="flex-1 cursor-pointer">
-                        <div className="flex items-center justify-center gap-1 px-3 py-2 bg-gray-800 text-white hover:bg-gray-700 text-xs">
+                    <div className="flex flex-col sm:flex-row gap-2">
+                      <label className="flex-1 cursor-pointer min-w-0">
+                        <div className="flex items-center justify-center gap-1 px-3 py-2 bg-gray-800 text-white hover:bg-gray-700 text-xs w-full">
                           {uploadingImage ? (
                             <>
                               <div className="w-3 h-3 border border-white border-t-transparent animate-spin" />
@@ -1530,7 +1530,7 @@ const AdminDashboard = () => {
                         type="url"
                         value={formData.branchImage}
                         onChange={handleChange}
-                        className="flex-1 px-3 py-2 bg-gray-900 border border-gray-800 text-white placeholder-gray-600 focus:border-gray-700 outline-none text-xs"
+                        className="flex-1 min-w-0 px-3 py-2 bg-gray-900 border border-gray-800 text-white placeholder-gray-600 focus:border-gray-700 outline-none text-xs"
                         placeholder="veya URL"
                       />
                     </div>
@@ -1542,7 +1542,7 @@ const AdminDashboard = () => {
               )}
 
               {/* Submit Buttons */}
-              <div className="flex gap-2 pt-3">
+              <div className="flex flex-col-reverse sm:flex-row gap-2 pt-3">
                 <button
                   type="button"
                   onClick={closeModal}
@@ -1573,14 +1573,14 @@ const AdminDashboard = () => {
       {/* Sipariş Detay Modal */}
       {selectedOrder && (
         <div
-          className="fixed inset-0 bg-black/95 flex items-center justify-center p-4 z-50"
+          className="fixed inset-0 bg-black/95 flex items-center justify-center p-2 sm:p-4 z-50 overflow-y-auto"
           onClick={() => setSelectedOrder(null)}
         >
           <div
-            className="bg-black max-w-lg w-full max-h-[90vh] overflow-y-auto border border-gray-800"
+            className="bg-black max-w-lg w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto border border-gray-800 my-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="sticky top-0 bg-black border-b border-gray-800 px-4 py-3 flex justify-between items-center">
+            <div className="sticky top-0 bg-black border-b border-gray-800 px-3 sm:px-4 py-2.5 sm:py-3 flex justify-between items-center z-10">
               <h3 className="text-base font-medium text-white">
                 Sipariş #{selectedOrder.id?.slice(-8).toUpperCase()}
               </h3>
@@ -1591,7 +1591,7 @@ const AdminDashboard = () => {
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="p-4 space-y-4">
+            <div className="p-3 sm:p-4 space-y-4">
               <div className="flex items-center gap-2">
                 <span className={`px-2.5 py-1 rounded text-xs font-medium ${(ORDER_STATUS_LABELS[selectedOrder.status] || ORDER_STATUS_LABELS.pending).color}`}>
                   {(ORDER_STATUS_LABELS[selectedOrder.status] || ORDER_STATUS_LABELS.pending).label}
@@ -1634,12 +1634,12 @@ const AdminDashboard = () => {
                 <h4 className="text-xs text-gray-500 uppercase tracking-wider mb-2">Ürünler</h4>
                 <div className="space-y-2">
                   {selectedOrder.items?.map((item, idx) => (
-                    <div key={idx} className="flex justify-between items-center py-2 border-b border-gray-800 last:border-0">
-                      <div>
-                        <p className="text-sm text-white">{item.title}</p>
+                    <div key={idx} className="flex justify-between items-start sm:items-center gap-2 py-2 border-b border-gray-800 last:border-0">
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm text-white line-clamp-2">{item.title}</p>
                         <p className="text-xs text-gray-500">Adet: {item.quantity || 1}</p>
                       </div>
-                      <span className="text-olive font-medium">{formatPrice((item.price || 0) * (item.quantity || 1))}</span>
+                      <span className="text-olive font-medium shrink-0">{formatPrice((item.price || 0) * (item.quantity || 1))}</span>
                     </div>
                   ))}
                 </div>

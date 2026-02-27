@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { LEGAL_INFO } from '../config/legalInfo';
 
 const OnBilgilendirmeFormu = () => {
   useEffect(() => {
@@ -23,33 +24,68 @@ const OnBilgilendirmeFormu = () => {
 
           <div className="text-sm text-espresso leading-relaxed space-y-6">
             <section>
-              <h2 className="font-semibold text-espresso mb-2">Satıcı Bilgileri</h2>
+              <h2 className="font-semibold text-espresso mb-2">1. SATICI BİLGİLERİ</h2>
               <p>
-                Luminya Wellness Center<br />
-                Adres: Nişantaşı, Teşvikiye Cad. No:123, Şişli, İstanbul<br />
-                Telefon: +90 212 123 45 67<br />
-                E-posta: info@ruhunuzu.com
+                {LEGAL_INFO.tradeName}<br />
+                Adres: {LEGAL_INFO.address}<br />
+                Telefon: {LEGAL_INFO.phone}<br />
+                E-posta: {LEGAL_INFO.email}<br />
+                Web: {LEGAL_INFO.website}
               </p>
             </section>
 
             <section>
-              <h2 className="font-semibold text-espresso mb-2">Hizmet Özellikleri</h2>
+              <h2 className="font-semibold text-espresso mb-2">2. HİZMETİN TEMEL NİTELİKLERİ</h2>
               <p>
-                Alıcı tarafından seçilen masaj/spa hizmeti ve seçilen randevu saati.
+                Sipariş konusu hizmet, Alıcı tarafından seçilen spa, masaj veya wellness hizmetidir. Hizmetin türü, süresi, birim fiyatı, toplam bedeli (KDV dahil), randevu tarihi ve saati, hizmetin ifa edileceği şube adresi ödeme sayfasında ve sipariş özetinde açıkça gösterilir.
               </p>
             </section>
 
             <section>
-              <h2 className="font-semibold text-espresso mb-2">Geçerlilik</h2>
+              <h2 className="font-semibold text-espresso mb-2">3. ÖDEME BİLGİLERİ</h2>
               <p>
-                İşbu formda yer alan bilgiler randevu saati gerçekleşene kadar geçerlidir.
+                Toplam bedel, güvenli ödeme altyapısı aracılığıyla kredi kartı veya banka kartı ile tahsil edilir. Fiyatlar Türk Lirası (₺) cinsindendir ve KDV dahildir.
               </p>
             </section>
 
             <section>
-              <h2 className="font-semibold text-espresso mb-2">Şikayet</h2>
+              <h2 className="font-semibold text-espresso mb-2">4. HİZMETİN İFASI</h2>
               <p>
-                Alıcı, hizmete ilişkin şikayetlerini info@ruhunuzu.com adresine iletebilir.
+                Hizmet, Alıcı'nın seçtiği randevu tarihi ve saatinde, Satıcı'nın belirttiği şube adresinde ifa edilecektir.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="font-semibold text-espresso mb-2">5. İPTAL VE CAYMA HAKKI</h2>
+              <p>
+                İptal ve iade koşulları, ayrıca yayımlanan İptal ve İade Koşulları metninde detaylı olarak belirtilmiştir. Randevudan {LEGAL_INFO.fullRefundHours} saat öncesine kadar yapılan iptallerde tam iade, {LEGAL_INFO.partialRefundHoursMin}-{LEGAL_INFO.partialRefundHoursMax} saat arası iptallerde kısmi iade uygulanır.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="font-semibold text-espresso mb-2">6. GİZLİLİK VE VERİ KORUMA</h2>
+              <p>
+                Kişisel verilerin işlenmesine ilişkin ayrıntılı bilgi KVKK Aydınlatma Metni'nde yer almaktadır.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="font-semibold text-espresso mb-2">7. ŞİKAYET</h2>
+              <p>
+                Alıcı, hizmete ilişkin şikayetlerini {LEGAL_INFO.email} adresine iletebilir. Ayrıca Tüketici Şikayet Hattı (Alo 175) veya Tüketici Hakem Heyetlerine başvuru hakkı saklıdır.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="font-semibold text-espresso mb-2">8. GEÇERLİLİK</h2>
+              <p>
+                İşbu ön bilgilendirme formunda yer alan bilgiler, Mesafeli Satış Sözleşmesi'nin ayrılmaz parçasıdır ve sipariş onayı ile birlikte sözleşme kurulana kadar geçerlidir.
+              </p>
+            </section>
+
+            <section className="pt-4 border-t border-stone-dark/20">
+              <p className="text-xs text-text-muted">
+                6502 sayılı Tüketicinin Korunması Hakkında Kanun ve Mesafeli Sözleşmeler Yönetmeliği uyarınca hazırlanmıştır.
               </p>
             </section>
           </div>
