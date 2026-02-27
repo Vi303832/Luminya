@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Lock, Mail, User, Phone, AlertCircle } from 'lucide-react';
+import { Lock, Mail, User, Phone, AlertCircle, CheckCircle } from 'lucide-react';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +14,7 @@ const Register = () => {
   const [kvkkAccepted, setKvkkAccepted] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
   const { register } = useAuth();
 
@@ -58,6 +59,9 @@ const Register = () => {
         email,
         password
       });
+      setSuccess(true);
+      // Kısa bekleme: Firebase/Firestore işlemlerinin tamamlanması için
+      await new Promise((resolve) => setTimeout(resolve, 1500));
       navigate('/login');
     } catch (err) {
       if (err.code === 'auth/email-already-in-use') {
@@ -87,7 +91,13 @@ const Register = () => {
 
         <div className="bg-white rounded-2xl p-6 shadow-soft border border-stone-dark/10">
           <form onSubmit={handleSubmit} className="space-y-4">
-            {error && (
+            {success && (
+              <div className="bg-olive/10 border border-olive/30 rounded-lg p-3 flex items-start gap-2">
+                <CheckCircle className="w-4 h-4 text-olive-dark shrink-0 mt-0.5" />
+                <p className="text-sm text-espresso">Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz...</p>
+              </div>
+            )}
+            {error && !success && (
               <div className="bg-olive/10 border border-olive/30 rounded-lg p-3 flex items-start gap-2">
                 <AlertCircle className="w-4 h-4 text-olive-dark shrink-0 mt-0.5" />
                 <p className="text-sm text-espresso">{error}</p>
@@ -212,7 +222,7 @@ const Register = () => {
               disabled={loading}
               className="w-full bg-olive text-white py-3 px-4 rounded-lg text-sm font-medium hover:bg-olive-dark focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              {loading ? 'Kayıt yapılıyor...' : 'Kayıt Ol'}
+              {success ? 'Yönlendiriliyor...' : loading ? 'Kayıt yapılıyor...' : 'Kayıt Ol'}
             </button>
           </form>
         </div>
