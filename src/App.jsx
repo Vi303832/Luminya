@@ -29,6 +29,7 @@ const PaymentSuccess = lazy(() => import('./pages/PaymentSuccess'))
 const PaymentFailed = lazy(() => import('./pages/PaymentFailed'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 import ProtectedRoute from './components/ProtectedRoute'
+import AdminProtectedRoute from './components/AdminProtectedRoute'
 
 // Loading fallback component
 const PageLoader = () => (
@@ -121,9 +122,9 @@ function App() {
             path="/admin/dashboard"
             element={
               <Suspense fallback={<PageLoader />}>
-                <ProtectedRoute>
+                <AdminProtectedRoute>
                   <AdminDashboard />
-                </ProtectedRoute>
+                </AdminProtectedRoute>
               </Suspense>
             }
           />

@@ -21,7 +21,7 @@ const Navbar = ({ onOpenBottomSheet }) => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
+  const { currentUser, isAdmin } = useAuth();
   const { itemCount } = useCart();
 
   useEffect(() => {
@@ -163,13 +163,23 @@ const Navbar = ({ onOpenBottomSheet }) => {
             </Link>
           )}
           {currentUser ? (
-            <Link
-              to="/profile"
-              className="flex items-center gap-2 px-3 py-2 text-white/90 hover:text-olive transition-colors text-sm"
-            >
-              <User className="w-4 h-4" />
-              <span>Profilim</span>
-            </Link>
+            <>
+              <Link
+                to="/profile"
+                className="flex items-center gap-2 px-3 py-2 text-white/90 hover:text-olive transition-colors text-sm"
+              >
+                <User className="w-4 h-4" />
+                <span>Profilim</span>
+              </Link>
+              {isAdmin && (
+                <Link
+                  to="/admin/dashboard"
+                  className="flex items-center gap-2 px-3 py-2 text-white/90 hover:text-olive transition-colors text-sm"
+                >
+                  <span>Admin</span>
+                </Link>
+              )}
+            </>
           ) : (
             <Link
               to="/login"
@@ -277,14 +287,25 @@ const Navbar = ({ onOpenBottomSheet }) => {
                 </Link>
               )}
               {currentUser ? (
-                <Link
-                  to="/profile"
-                  onClick={() => setIsOpen(false)}
-                  className="mt-2 sm:mt-4 flex items-center justify-center gap-2 px-5 py-2.5 sm:py-3 text-white/90 hover:text-olive font-medium text-sm sm:text-base"
-                >
-                  <User className="w-4 h-4" />
-                  <span>Profilim</span>
-                </Link>
+                <>
+                  <Link
+                    to="/profile"
+                    onClick={() => setIsOpen(false)}
+                    className="mt-2 sm:mt-4 flex items-center justify-center gap-2 px-5 py-2.5 sm:py-3 text-white/90 hover:text-olive font-medium text-sm sm:text-base"
+                  >
+                    <User className="w-4 h-4" />
+                    <span>Profilim</span>
+                  </Link>
+                  {isAdmin && (
+                    <Link
+                      to="/admin/dashboard"
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center justify-center gap-2 px-5 py-2.5 sm:py-3 text-white/90 hover:text-olive font-medium text-sm sm:text-base"
+                    >
+                      <span>Admin Panel</span>
+                    </Link>
+                  )}
+                </>
               ) : (
                 <Link
                   to="/login"

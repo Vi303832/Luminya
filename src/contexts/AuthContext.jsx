@@ -49,6 +49,7 @@ export const AuthProvider = ({ children }) => {
             }
 
             setCurrentUser(user);
+            setLoading(true);
 
             const loadUserProfile = async () => {
               try {
@@ -128,6 +129,7 @@ export const AuthProvider = ({ children }) => {
         lastName,
         phone,
         email: user.email,
+        role: 'user',
         createdAt: serverTimestamp()
       };
 
@@ -162,9 +164,12 @@ export const AuthProvider = ({ children }) => {
     await updatePassword(currentUser, newPassword);
   };
 
+  const isAdmin = userProfile?.role === 'admin';
+
   const value = {
     currentUser,
     userProfile,
+    isAdmin,
     login,
     register,
     logout,

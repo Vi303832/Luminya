@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Lock, Mail, AlertCircle } from 'lucide-react';
 
@@ -9,7 +9,26 @@ const AdminLogin = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const location = useLocation();
+  const { login, currentUser, userProfile, loading: authLoading } = useAuth();
+
+  // Redirect state'ten gelen hata mesajı (AdminProtectedRoute'tan yönlendirme)
+  useEffect(() => {
+    if (location.state?.error) {
+      setError(location.state.error);
+      window.history.replaceState({}, document.title, location.pathname);
+    }
+  }, [location.state?.error, location.pathname]);
+
+  // Zaten giriş yapmış kullanıcı: admin ise dashboard'a, değilse hata göster
+  useEffect(() => {
+    if (authLoading || !currentUser) return;
+    if (userProfile?.role === 'admin') {
+      navigate('/admin/dashboard', { replace: true });
+    } else {
+      setError('Bu panele erişim yetkiniz yok. Sadece admin kullanıcılar giriş yapabilir.');
+    }
+  }, [currentUser, userProfile, authLoading, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,11 +42,11 @@ const AdminLogin = () => {
       setError('');
       setLoading(true);
       await login(email, password);
-      navigate('/admin/dashboard');
-    } catch (error) {
-      if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found') {
+      // Navigate useEffect'te yapılacak (profil yüklendikten sonra role kontrolü)
+    } catch (err) {
+      if (err.code === 'auth/invalid-credential' || err.code === 'auth/user-not-found') {
         setError('Email veya şifre hatalı');
-      } else if (error.code === 'auth/too-many-requests') {
+      } else if (err.code === 'auth/too-many-requests') {
         setError('Çok fazla başarısız deneme. Lütfen daha sonra tekrar deneyin.');
       } else {
         setError('Giriş yapılırken bir hata oluştu');

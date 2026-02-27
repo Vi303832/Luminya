@@ -6,7 +6,7 @@
 
 import { getFirebaseAdmin } from './lib/firebase.js';
 
-async function verifyAuth(req) {
+async function verifyAdminAuth(req) {
   const authHeader = req.headers.authorization;
   if (!authHeader?.startsWith('Bearer ')) {
     return { error: 'Unauthorized', status: 401 };
@@ -14,7 +14,13 @@ async function verifyAuth(req) {
   const token = authHeader.slice(7);
   try {
     const admin = getFirebaseAdmin();
-    await admin.auth().verifyIdToken(token);
+    const decoded = await admin.auth().verifyIdToken(token);
+    const db = admin.firestore();
+    const userDoc = await db.collection('users').doc(decoded.uid).get();
+    const role = userDoc.exists ? userDoc.data()?.role : null;
+    if (role !== 'admin') {
+      return { error: 'Bu işlem için admin yetkisi gerekli', status: 403 };
+    }
     return { ok: true };
   } catch (err) {
     return { error: 'Geçersiz veya süresi dolmuş oturum', status: 401 };
@@ -26,7 +32,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const auth = await verifyAuth(req);
+  const auth = await verifyAdminAuth(req);
   if (auth.error) {
     return res.status(auth.status || 401).json({ error: auth.error });
   }

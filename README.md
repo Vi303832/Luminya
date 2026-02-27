@@ -32,10 +32,19 @@ Kullanıcı tarafında mobil uyumlu, hızlı ve animasyonlu bir deneyim sunarken
 
 ### ✅ Yönetim (Admin Panel)
 - Firebase Auth ile güvenli giriş sistemi
+- **Rol tabanlı erişim**: Sadece `admin` rolüne sahip kullanıcılar admin paneline erişebilir
+- Yeni kayıt olan kullanıcılar varsayılan olarak `user` rolü alır
 - Şube ekleme, içerik düzenleme
 - Şube seçip kampanya oluşturma
 - Verilerin Firestore üzerinden dinamik olarak güncellenmesi
 - Basit ve özel tasarlanmış admin panel arayüzü
+
+## Kullanıcı Rolleri
+
+- **user**: Normal müşteri (profil, sipariş vb.)
+- **admin**: Admin paneline erişim (şubeler, kampanyalar, ürünler, siparişler)
+
+**İlk admin kullanıcıyı oluşturmak için:** Firebase Console → Firestore → `users` koleksiyonu → ilgili kullanıcı dokümanına `role: "admin"` alanı ekleyin.
 
 ## Kurulum ve Çalıştırma
 

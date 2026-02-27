@@ -13,22 +13,29 @@ service cloud.firestore {
       allow update, delete: if false; // Sadece backend (callback) günceller
     }
 
-    // Şubeler: Herkes okuyabilir. Yazma: giriş yapmış kullanıcılar (admin paneli).
+    // Admin kontrolü: users koleksiyonundaki role alanı
+    function isAdmin() {
+      return request.auth != null &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // Şubeler: Herkes okuyabilir. Yazma: sadece admin.
     match /branches/{branchId} {
       allow read: if true;
-      allow write: if request.auth != null;
+      allow write: if isAdmin();
     }
 
     // Kampanyalar: Aynı kural
     match /campaigns/{campaignId} {
       allow read: if true;
-      allow write: if request.auth != null;
+      allow write: if isAdmin();
     }
 
-    // Mağaza ürünleri: Herkes okuyabilir, yazma admin paneli için
+    // Mağaza ürünleri: Herkes okuyabilir, yazma sadece admin
     match /products/{productId} {
       allow read: if true;
-      allow write: if request.auth != null;
+      allow write: if isAdmin();
     }
 
     // API tarafından kullanılan koleksiyonlar - client erişimi yok
