@@ -1,17 +1,10 @@
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const navigate = useNavigate();
-
-  const socialLinks = [
-    { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
-    { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-    { icon: Youtube, href: "https://youtube.com", label: "Youtube" },
-  ];
 
   const quickLinks = [
     { name: "Ana Sayfa", href: "/", type: "link" },
@@ -119,26 +112,6 @@ const Footer = () => {
               Huzurun ve rahatlığın adresi. Profesyonel ekibimizle sizlere
               en iyi wellness deneyimini sunmak için buradayız.
             </p>
-            <div className="flex gap-2 sm:gap-3 flex-wrap">
-              {socialLinks.map((social, index) => (
-                <motion.a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
-                  className="p-2 sm:p-3 bg-white/10 rounded-full hover:bg-olive hover:text-white transition-colors duration-300 text-white"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
-                  initial={{ opacity: 0, scale: 0 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <social.icon className="w-4 h-4 sm:w-5 sm:h-5" />
-                </motion.a>
-              ))}
-            </div>
           </motion.div>
 
           {/* Quick Links */}

@@ -56,14 +56,9 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Sadece bekleyen siparişler iptal edilebilir' });
     }
 
-    await orderRef.update({
-      status: 'cancelled',
-      cancelledAt: admin.firestore.FieldValue.serverTimestamp(),
-      cancelReason: 'timeout',
-      updatedAt: admin.firestore.FieldValue.serverTimestamp()
-    });
+    await orderRef.delete();
 
-    return res.status(200).json({ ok: true, message: 'Sipariş iptal edildi' });
+    return res.status(200).json({ ok: true, message: 'Sipariş silindi' });
   } catch (err) {
     console.error('Cancel order error:', err);
     return res.status(500).json({ error: 'İptal işlemi başarısız' });
