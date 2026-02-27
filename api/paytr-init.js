@@ -190,7 +190,7 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (data.status === 'success') {
-      const responseBody = { token: data.token };
+      const responseBody = { token: data.token, orderId };
       if (idemKey) {
         await saveResponse(idemKey, responseBody, 200);
       }

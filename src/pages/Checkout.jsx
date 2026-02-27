@@ -6,10 +6,13 @@ import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
 import { formatPrice } from '../data/massageServices';
 
+const PAYMENT_TIMEOUT_MS = 15 * 60 * 1000; // 15 dakika
+
 const Checkout = () => {
   const { items, total, updateQuantity } = useCart();
   const { currentUser, userProfile } = useAuth();
   const [paytrToken, setPaytrToken] = useState(null);
+  const [orderId, setOrderId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const idempotencyKeyRef = useRef(null);
@@ -21,6 +24,37 @@ const Checkout = () => {
   useEffect(() => {
     idempotencyKeyRef.current = null;
   }, [items, total]);
+
+  // Ödeme ekranında beklerken süre dolunca siparişi iptal et
+  useEffect(() => {
+    if (!paytrToken || !orderId || !currentUser) return;
+
+    const timeoutId = setTimeout(async () => {
+      try {
+        const idToken = await currentUser.getIdToken();
+        const baseUrl = import.meta.env.VITE_SITE_URL || window.location.origin;
+        const res = await fetch(`${baseUrl}/api/cancel-order`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${idToken}`
+          },
+          body: JSON.stringify({ orderId })
+        });
+        if (res.ok) {
+          setPaytrToken(null);
+          setOrderId(null);
+          idempotencyKeyRef.current = null;
+          setError('Ödeme süresi doldu. Sipariş iptal edildi. Yeniden denemek için aşağıdaki butona tıklayın.');
+        }
+      } catch (err) {
+        console.error('Sipariş iptal hatası:', err);
+        setError('Sipariş iptal edilirken bir hata oluştu. Lütfen tekrar deneyin.');
+      }
+    }, PAYMENT_TIMEOUT_MS);
+
+    return () => clearTimeout(timeoutId);
+  }, [paytrToken, orderId, currentUser]);
 
   useEffect(() => {
     if (paytrToken && typeof window !== 'undefined') {
@@ -73,6 +107,7 @@ const Checkout = () => {
       const data = await res.json();
       if (data.token) {
         setPaytrToken(data.token);
+        setOrderId(data.orderId || null);
       } else {
         setError(data.error || 'Ödeme başlatılamadı');
       }

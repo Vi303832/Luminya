@@ -52,7 +52,7 @@ const Register = () => {
         email,
         password
       });
-      navigate('/profile');
+      navigate('/login');
     } catch (err) {
       if (err.code === 'auth/email-already-in-use') {
         setError('Bu e-posta adresi zaten kayıtlı');
