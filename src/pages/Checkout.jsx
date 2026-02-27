@@ -15,6 +15,7 @@ const Checkout = () => {
   const [orderId, setOrderId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [legalAccepted, setLegalAccepted] = useState(false);
   const idempotencyKeyRef = useRef(null);
 
   useEffect(() => {
@@ -280,6 +281,23 @@ const Checkout = () => {
               </div>
             </div>
 
+            {/* Yasal Onay Checkbox */}
+            <div className="pt-4 border-t border-stone-dark/10">
+              <label className="flex items-start gap-3 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  checked={legalAccepted}
+                  onChange={(e) => setLegalAccepted(e.target.checked)}
+                  className="mt-1 w-4 h-4 rounded border-stone-dark/30 text-olive focus:ring-olive/30"
+                />
+                <span className="text-sm text-text-secondary group-hover:text-espresso transition-colors">
+                  <Link to="/on-bilgilendirme-formu" className="text-olive hover:underline" target="_blank" rel="noopener noreferrer">Ön Bilgilendirme Formu</Link>,{' '}
+                  <Link to="/mesafeli-satis-sozlesmesi" className="text-olive hover:underline" target="_blank" rel="noopener noreferrer">Mesafeli Satış Sözleşmesi</Link> ve{' '}
+                  <Link to="/iptal-ve-iade-kosullari" className="text-olive hover:underline" target="_blank" rel="noopener noreferrer">İptal/İade Koşullarını</Link> okudum, onaylıyorum.
+                </span>
+              </label>
+            </div>
+
             {/* Ödeme Butonu / PayTR Iframe */}
             <div className="pt-4">
               {error && (
@@ -302,7 +320,7 @@ const Checkout = () => {
               ) : currentUser ? (
                 <motion.button
                   onClick={handleStartPayment}
-                  disabled={loading}
+                  disabled={loading || !legalAccepted}
                   whileHover={{ scale: loading ? 1 : 1.01 }}
                   whileTap={{ scale: loading ? 1 : 0.99 }}
                   className="w-full py-4 bg-gradient-primary text-white rounded-xl font-medium hover:shadow-olive transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-soft"
@@ -311,6 +329,11 @@ const Checkout = () => {
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
                       Hazırlanıyor...
+                    </>
+                  ) : !legalAccepted ? (
+                    <>
+                      <Lock className="w-4 h-4" />
+                      Yasal metinleri onaylayın
                     </>
                   ) : (
                     <>

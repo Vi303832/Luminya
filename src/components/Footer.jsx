@@ -16,11 +16,43 @@ const Footer = () => {
   const quickLinks = [
     { name: "Ana Sayfa", href: "/", type: "link" },
     { name: "Hizmetler", href: "/services", type: "link" },
-    { name: "Hakkımızda", href: "/about", type: "link" },
     { name: "Blog", href: "/blog", type: "link" },
     { name: "Şubelerimiz", href: "/#locations", type: "scroll" },
-    { name: "İletişim", href: "/#reservation", type: "scroll" },
   ];
+
+  const corporateLinks = [
+    { name: "Hakkımızda", href: "/about", type: "link" },
+    { name: "İletişim", href: "/#reservation", type: "scroll" },
+    { name: "Mesafeli Satış Sözleşmesi", href: "/mesafeli-satis-sozlesmesi", type: "link" },
+    { name: "Ön Bilgilendirme Formu", href: "/on-bilgilendirme-formu", type: "link" },
+    { name: "İptal ve İade Koşulları", href: "/iptal-ve-iade-kosullari", type: "link" },
+    { name: "KVKK Aydınlatma Metni", href: "/kvkk-aydinlatma-metni", type: "link" },
+    { name: "Üyelik Sözleşmesi", href: "/uyelik-sozlesmesi", type: "link" },
+  ];
+
+  const handleCorporateLinkClick = (e, link) => {
+    e.preventDefault();
+    if (link.type === "link") {
+      navigate(link.href);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (link.type === "scroll") {
+      const hash = link.href.split('#')[1];
+      if (window.location.pathname === "/") {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        navigate("/");
+        setTimeout(() => {
+          const element = document.getElementById(hash);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 500);
+      }
+    }
+  };
 
   const handleQuickLinkClick = (e, link) => {
     e.preventDefault();
@@ -71,7 +103,7 @@ const Footer = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12 mb-10 sm:mb-12 md:mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 md:gap-12 mb-10 sm:mb-12 md:mb-16">
           {/* Brand */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -133,6 +165,44 @@ const Footer = () => {
                   >
                     {link.name}
                   </a>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Kurumsal */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+          >
+            <h4 className="font-heading text-base sm:text-lg font-semibold mb-4 sm:mb-6 text-white">Kurumsal</h4>
+            <ul className="space-y-2 sm:space-y-3">
+              {corporateLinks.map((link, index) => (
+                <motion.li
+                  key={link.name}
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05 + 0.25 }}
+                >
+                  {link.type === "scroll" ? (
+                    <a
+                      href={link.href}
+                      onClick={(e) => handleCorporateLinkClick(e, link)}
+                      className="text-sm sm:text-base text-gray-300 hover:text-olive transition-colors duration-300 inline-block cursor-pointer"
+                    >
+                      {link.name}
+                    </a>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      className="text-sm sm:text-base text-gray-300 hover:text-olive transition-colors duration-300 inline-block cursor-pointer"
+                    >
+                      {link.name}
+                    </Link>
+                  )}
                 </motion.li>
               ))}
             </ul>

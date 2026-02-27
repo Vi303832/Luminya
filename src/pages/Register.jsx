@@ -11,6 +11,7 @@ const Register = () => {
     email: '',
     password: ''
   });
+  const [kvkkAccepted, setKvkkAccepted] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -32,6 +33,11 @@ const Register = () => {
 
     if (password.length < 6) {
       setError('Şifre en az 6 karakter olmalıdır');
+      return;
+    }
+
+    if (!kvkkAccepted) {
+      setError('KVKK Aydınlatma Metni\'ni okuduğunuzu ve kabul ettiğinizi onaylamanız gerekmektedir');
       return;
     }
 
@@ -163,6 +169,23 @@ const Register = () => {
                   disabled={loading}
                 />
               </div>
+            </div>
+
+            <div>
+              <label className="flex items-start gap-3 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  checked={kvkkAccepted}
+                  onChange={(e) => setKvkkAccepted(e.target.checked)}
+                  className="mt-1 w-4 h-4 rounded border-stone-dark/30 text-olive focus:ring-olive/30"
+                />
+                <span className="text-sm text-text-secondary group-hover:text-espresso transition-colors">
+                  <Link to="/kvkk-aydinlatma-metni" target="_blank" rel="noopener noreferrer" className="text-olive hover:underline">
+                    KVKK Aydınlatma Metni
+                  </Link>
+                  'ni okudum, kabul ediyorum.
+                </span>
+              </label>
             </div>
 
             <div>

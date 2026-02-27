@@ -27,6 +27,11 @@ const Store = lazy(() => import('./pages/Store'))
 const Checkout = lazy(() => import('./pages/Checkout'))
 const PaymentSuccess = lazy(() => import('./pages/PaymentSuccess'))
 const PaymentFailed = lazy(() => import('./pages/PaymentFailed'))
+const MesafeliSatisSozlesmesi = lazy(() => import('./pages/MesafeliSatisSozlesmesi'))
+const OnBilgilendirmeFormu = lazy(() => import('./pages/OnBilgilendirmeFormu'))
+const IptalVeIadeKosullari = lazy(() => import('./pages/IptalVeIadeKosullari'))
+const KvkkAydinlatmaMetni = lazy(() => import('./pages/KvkkAydinlatmaMetni'))
+const UyelikSozlesmesi = lazy(() => import('./pages/UyelikSozlesmesi'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 import ProtectedRoute from './components/ProtectedRoute'
 import AdminProtectedRoute from './components/AdminProtectedRoute'
@@ -162,6 +167,11 @@ function App() {
                     <Route path="/payment/success" element={<PaymentSuccess />} />
                     <Route path="/payment/failed" element={<PaymentFailed />} />
                     <Route path="/blog" element={<BlogPage />} />
+                    <Route path="/mesafeli-satis-sozlesmesi" element={<MesafeliSatisSozlesmesi />} />
+                    <Route path="/on-bilgilendirme-formu" element={<OnBilgilendirmeFormu />} />
+                    <Route path="/iptal-ve-iade-kosullari" element={<IptalVeIadeKosullari />} />
+                    <Route path="/kvkk-aydinlatma-metni" element={<KvkkAydinlatmaMetni />} />
+                    <Route path="/uyelik-sozlesmesi" element={<UyelikSozlesmesi />} />
                     <Route
                       path="/profile"
                       element={
