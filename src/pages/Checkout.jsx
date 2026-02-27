@@ -6,7 +6,7 @@ import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
 import { formatPrice } from '../data/massageServices';
 
-const PAYMENT_TIMEOUT_MS = 15 * 60 * 1000; // 15 dakika
+const PAYMENT_TIMEOUT_MS = 5 * 60 * 1000; // 5 dakika
 
 const Checkout = () => {
   const { items, total, updateQuantity } = useCart();

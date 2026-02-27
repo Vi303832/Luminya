@@ -52,10 +52,10 @@ export default async function handler(req, res) {
       };
     });
 
-    // Sırala: en yeni önce
+    // Sırala: en yeni önce (tarihe göre)
     orders.sort((a, b) => {
-      const ta = a.createdAt?.toMillis?.() ?? a.createdAt?.seconds ?? 0;
-      const tb = b.createdAt?.toMillis?.() ?? b.createdAt?.seconds ?? 0;
+      const ta = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+      const tb = b.createdAt ? new Date(b.createdAt).getTime() : 0;
       return tb - ta;
     });
 
